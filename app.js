@@ -3,12 +3,22 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+const mongoose = require("mongoose");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 const inventoryRouter = require("./routes/inventory");
 
 var app = express();
+
+mongoose.set("strictQuery", false);
+const mongoDB =
+  "mongodb+srv://gabrielsro:pitalito88@cluster0.rytee9c.mongodb.net/car_app?retryWrites=true&w=majority";
+
+main().catch((err) => console.log(err));
+async function main() {
+  await mongoose.connect(mongoDB);
+}
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));

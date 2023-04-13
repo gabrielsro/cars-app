@@ -4,7 +4,7 @@ const router = express.Router();
 const carController = require("../controllers/car-controller");
 const makeController = require("../controllers/make-controller");
 const modelController = require("../controllers/model-controller");
-const unitController = require("../controllers/unit-controller");
+const versionController = require("../controllers/version-controller");
 
 //Car Routes
 router.get("/", carController.index);
@@ -19,9 +19,9 @@ router.post("/add-make");
 router.get("/makes", makeController.makeList);
 
 //Unit Routes
-router.get("/add-unit", unitController.addUnitGet);
-router.post("/add-unit");
-router.get("/units", unitController.unitList);
+router.get("/add-version", versionController.addVersionGet);
+router.post("/add-version");
+router.get("/versions", versionController.versionList);
 
 //Model Routes
 router.get("/add-model", modelController.addModelGet);
