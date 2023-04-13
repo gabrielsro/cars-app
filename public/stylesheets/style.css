@@ -1,0 +1,93 @@
+* {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+}
+
+nav {
+  background-color: #eee;
+  font-size: 2em;
+}
+
+a {
+  color: #00b7ff;
+  text-decoration: none;
+}
+
+.content-wrapper {
+  padding-left: 10px;
+  display: grid;
+  grid-template-columns: 0.8fr 9fr;
+}
+
+.side-bar {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.side-bar a {
+  font-size: 1.5em;
+}
+
+.group1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 50%;
+  padding-top: 30px;
+  padding-bottom: 60px;
+}
+
+.group2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding-top: 57px;
+  padding-bottom: 100px;
+  height: 50%;
+  border-top: 1px solid rgb(177, 172, 172);
+}
+
+.index-content {
+  height: 100%;
+  padding-top: 40px;
+  padding-left: 40px;
+}
+
+.years-content {
+  padding-top: 30px;
+}
+
+.years-content h1 {
+  margin-left: 40px;
+  margin-bottom: 2px;
+}
+
+.years-grid-content {
+  height: auto;
+  display: grid;
+  padding-top: 30px;
+  padding-left: 170px;
+  padding-right: 170px;
+  gap: 40px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+.years-grid-content div {
+  justify-self: center;
+  align-self: center;
+  height: auto;
+  width: auto;
+}
+
+.years-grid-content p {
+  font-size: 1.6rem;
+}
+
+.years-grid-content img {
+  height: 30vh;
+  width: 30vw;
+}

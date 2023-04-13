@@ -1,0 +1,23 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    nav 
+      a(href='/') CarFast.com
+    .content-wrapper
+      .side-bar
+        .group1 
+          a(href='/inventory/cars') Cars  
+          a(href='/inventory/makes') Makes
+          a(href='/inventory/year') Year
+          a(href='/inventory/models') Models
+          a(href='/inventory/units') Units
+        .group2 
+          a(href='/inventory/add-make') Add Make
+          a(href='/inventory/add-model') Add Model
+          a(href='/inventory/add-car') Add Car
+          a(href='/inventory/add-unit') Add Unit
+      .main-view
+        block content
