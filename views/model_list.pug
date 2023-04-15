@@ -1,0 +1,7 @@
+extends layout 
+block content 
+    h1 Models
+    for make in modelsArray
+     h2 #{make.make}
+        for model in make.models 
+            h3 #{model.name}

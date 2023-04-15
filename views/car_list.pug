@@ -1,0 +1,45 @@
+extends layout 
+block content 
+    .search
+        .search-bar 
+            input(type='text' placeholder='Search for a vehicle')
+            button(type='submit') Search
+        .search-controls
+            label(for='make') Filter by Make 
+                select(id='make')
+                    option(value='All', selected='true') All Makes
+                    for make in  makes
+                        option(value=make.makeId) #{make.makeName}
+            label(for='energy') Filter by Energy 
+                select(id='energy')
+                    option(value='All', selected='true') All types 
+                    option(value='Gas') Gas 
+                    option(value='Diesel') Diesel
+                    option(value='Hybrid') Hybrid 
+                    option(value='Electric') Electric
+            label(for='price') Sort by price 
+                select(id='price')
+                    option(value='', disabled='true', selected='true' hidden='true') Sort by price
+                    option(value=1) Lowest to highest         
+                    option(value=-1) Highest to lowest
+            label(for='name') Sort by name 
+                select(id='name')
+                    option(value='', disabled='true', selected='true' hidden='true') Sort by model
+                    option(value=1) A to Z 
+                    option(value=-1) Z to A
+            label(for='year') Sort by year
+                select(id='year')
+                    option(value='', disabled='true', selected='true' hidden='true') Sort by year
+                    option(value=1) Oldest to newest 
+                    option(value=-1) Newest to oldest
+    .list 
+    for car in result 
+        .list-card 
+            .title 
+                p #{car.make.name} #{car.model.name}
+            .subtitle 
+                p #{car.version.year}
+                p $#{car.price}
+            .footer
+                p #{car.version.energy}
+                p #{car.status}

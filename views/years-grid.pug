@@ -1,7 +1,14 @@
 extends layout 
 block content
+    h1 Years
     .years-content
-        h1 Select a period
+        .years-options
+            label(for='year-select') Select a specific year
+            select(id='year-select')
+                option(value='', selected='true', hidden='true') show years
+                for year in list 
+                    option(value=year._id) #{year.year}
+            p or select a period:
         .years-grid-content
             .year-card
                 a(href='')

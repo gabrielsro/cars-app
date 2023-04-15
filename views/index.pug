@@ -3,4 +3,60 @@ extends layout
 block content
   .index-content
     h1 Welcome to CarFast.com admin page
+    span Inventory
+    .inventory-overview
+      h2 Cars: !{cars.length} 
+      p (Available: !{cars.filter(c=>c.status=='Available').length}, Sold: !{cars.filter(c=>c.status=='Sold').length})
+    .inventory-categories
+      .inventory-type 
+        h3 By Type:
+        ul 
+          li 
+            h4 Automobiles: !{cars.filter(c=>c.version.type == 'Automobile').length} 
+            p (Available: !{cars.filter(c=>c.version.type == 'Automobile' && c.status == 'Available').length}  Sold: !{cars.filter(c=>c.version.type == 'Automobile' && c.status == 'Sold').length})
+          li 
+            h4 Motorcycles: !{cars.filter(c=>c.version.type == 'Motorcycle').length} 
+            p (Available: !{cars.filter(c=>c.version.type == 'Motorcycle' && c.status == 'Available').length}  Sold: !{cars.filter(c=>c.version.type == 'Motorcycle' && c.status == 'Sold').length})
+          li 
+            h4 SUVs: !{cars.filter(c=>c.version.type == 'SUV').length} 
+            p (Available: !{cars.filter(c=>c.version.type == 'SUV' && c.status == 'Available').length}  Sold: !{cars.filter(c=>c.version.type == 'SUV' && c.status == 'Sold').length})
+          li 
+            h4 Trucks: !{cars.filter(c=>c.version.type == 'Truck').length} 
+            p (Available: !{cars.filter(c=>c.version.type == 'Truck' && c.status == 'Available').length}  Sold: !{cars.filter(c=>c.version.type == 'Truck' && c.status == 'Sold').length})
+          li 
+            h4 Vans: !{cars.filter(c=>c.version.type == 'Van').length} 
+            p (Available: !{cars.filter(c=>c.version.type == 'Van' && c.status == 'Available').length}  Sold: !{cars.filter(c=>c.version.type == 'Van' && c.status == 'Sold').length})
+      .inventory-make
+        h3 By Make: 
+        ul 
+          for make in makes 
+            li 
+              h4 !{make}: !{cars.filter(c=>c.make.name==make).length} 
+              p (Available: !{cars.filter(c=>c.make.name==make && c.status == 'Available').length}, Sold: !{cars.filter(c=>c.make.name==make && c.status == 'Sold').length})
+      .inventory-price 
+        h3 By Price Range:
+        ul 
+          li 
+            h4 Less than 5.000: !{cars.filter(c=>c.price<5000).length}
+            p (Available: !{cars.filter(c=>c.price<5000 && c.status=='Available').length}, Sold: !{cars.filter(c=>c.price<5000 && c.status=='Sold').length})
+          li 
+            h4 Between 5.000 and 10.000: !{cars.filter(c=>c.price>=5000 && c.price<10000).length}
+            p (Available: !{cars.filter(c=>c.price<5000 && c.status=='Available').length}, Sold: !{cars.filter(c=>c.price<5000 && c.status=='Available').length})
+          li 
+            h4 Between 10.000 and 20.000: !{cars.filter(c=>c.price>=10000 && c.price<20000).length}
+            p (Available: !{cars.filter(c=>c.price<5000 && c.status=='Available').length}, Sold: !{cars.filter(c=>c.price<5000 && c.status=='Available').length})
+          li 
+            h4 Between 20.000 and 40.000: !{cars.filter(c=>c.price>=20000 && c.price<40000).length}
+            p (Available: !{cars.filter(c=>c.price<5000 && c.status=='Available').length}, Sold: !{cars.filter(c=>c.price<5000 && c.status=='Available').length})
+          li 
+            h4 Between 40.000 and 60.000: !{cars.filter(c=>c.price>=40000 && c.price<60000).length}
+            p (Available: !{cars.filter(c=>c.price<5000 && c.status=='Available').length}, Sold: !{cars.filter(c=>c.price<5000 && c.status=='Available').length})
+          li 
+            h4 Between 60.000 and 100.000: !{cars.filter(c=>c.price>=60000 && c.price<100000).length}
+            p (Available: !{cars.filter(c=>c.price>=60000 && c.price<100000 && c.status=='Available').length}, Sold: !{cars.filter(c=>c.price>=60000 && c.price<100000 && c.status=='Sold').length})
+          li 
+            h4 Greater than 100.000: !{cars.filter(c=>c.price>100000).length}
+            p (Available: !{cars.filter(c=>c.price>100000 && c.status=='Available').length}, Sold: !{cars.filter(c=>c.price>100000 && c.status=='Available').length})
+
+    
 
