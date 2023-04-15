@@ -10,7 +10,6 @@ const versionController = require("../controllers/version-controller");
 router.get("/", carController.index);
 router.get("/add-car", carController.add_car_get);
 router.post("/add-car", carController.add_car_post);
-router.get("/year", carController.year);
 router.get("/cars", carController.car_list);
 
 //Make Routes
@@ -18,9 +17,10 @@ router.get("/add-make", makeController.addMakeGet);
 router.post("/add-make");
 router.get("/makes", makeController.makeList);
 
-//Unit Routes
+//Version Routes
 router.get("/add-version", versionController.addVersionGet);
 router.post("/add-version");
+router.get("/year", versionController.year);
 router.get("/versions", versionController.versionList);
 
 //Model Routes

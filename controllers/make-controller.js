@@ -1,7 +1,14 @@
+const Make = require("../models/make");
+
 exports.makeList = (req, res, next) => {
-  res.send("Pending make list");
+  Make.find()
+    .sort({ name: 1 })
+    .then((list) => {
+      res.render("make_list", { list });
+    })
+    .catch((err) => next(err));
 };
 
 exports.addMakeGet = (req, res, next) => {
-  res.send("Pending add make get");
+  res.render("make_form", { title: "Add a new Make" });
 };

@@ -3,6 +3,16 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const CarSchema = new Schema({
+  make: {
+    type: Schema.Types.ObjectId,
+    required: true,
+    ref: "Make",
+  },
+  model: {
+    type: Schema.Types.ObjectId,
+    required: true,
+    ref: "Model",
+  },
   price: { type: Number, required: true },
   mileage: { type: Number, required: true },
   status: {

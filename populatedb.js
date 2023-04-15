@@ -61,8 +61,19 @@ async function modelCreate(name, make, version) {
   console.log(`Added model ${model.make} ${model.name}`);
 }
 
-async function carCreate(price, mileage, status, color, description, version) {
+async function carCreate(
+  make,
+  model,
+  price,
+  mileage,
+  status,
+  color,
+  description,
+  version
+) {
   const car = new Car({
+    make: make,
+    model: model,
     price: price,
     mileage: mileage,
     status: status,
@@ -78,44 +89,40 @@ async function carCreate(price, mileage, status, color, description, version) {
 //Functions that start the creation of dummy content
 async function createMakes() {
   console.log("Adding Makes");
-  await Promise.all([
-    makeCreate("BMW", "Germany"),
-    makeCreate("Dodge", "USA"),
-    makeCreate("Hyundai", "South Korea"),
-    makeCreate("Nissan", "Japan"),
-  ]);
+  await makeCreate("BMW", "Germany");
+  await makeCreate("Dodge", "USA");
+  await makeCreate("Hyundai", "South Korea");
+  await makeCreate("Nissan", "Japan");
 }
 
 async function createVersions() {
   console.log("Adding Versions");
-  await Promise.all([
-    versionCreate(2006, "Automobile", "Gas"),
-    versionCreate(2020, "SUV", "Gas"),
-    versionCreate(2023, "Truck", "Gas"),
-    versionCreate(2014, "Automobile", "Gas"),
-    versionCreate(2019, "Automobile", "Gas"),
-    versionCreate(2013, "SUV", "Gas"),
-    versionCreate(1998, "Automobile", "Gas"),
-  ]);
+  await versionCreate(2006, "Automobile", "Gas");
+  await versionCreate(2020, "SUV", "Gas");
+  await versionCreate(2023, "Truck", "Gas");
+  await versionCreate(2014, "Automobile", "Gas");
+  await versionCreate(2019, "Automobile", "Gas");
+  await versionCreate(2013, "SUV", "Gas");
+  await versionCreate(1998, "Automobile", "Gas");
 }
 
 async function createModels() {
   console.log("Adding Models");
-  await Promise.all([
-    modelCreate("M3 E46", makes[0], versions[0]),
-    modelCreate("X6", makes[0], versions[1]),
-    modelCreate("RAM TRX", makes[1], versions[2]),
-    modelCreate("Elantra GT", makes[2], versions[3]),
-    modelCreate("Sonata SE", makes[2], versions[4]),
-    modelCreate("Patrol Y62", makes[3], versions[5]),
-    modelCreate("Skyline R33", makes[3], versions[6]),
-  ]);
+  await modelCreate("M3 E46", makes[0], versions[0]);
+  await modelCreate("X6", makes[0], versions[1]);
+  await modelCreate("RAM TRX", makes[1], versions[2]);
+  await modelCreate("Elantra GT", makes[2], versions[3]);
+  await modelCreate("Sonata SE", makes[2], versions[4]);
+  await modelCreate("Patrol Y62", makes[3], versions[5]);
+  await modelCreate("Skyline R33", makes[3], versions[6]);
 }
 
 async function createCars() {
   console.log("Adding Cars");
   await Promise.all([
     carCreate(
+      makes[0],
+      models[0],
       42000,
       65000,
       "Available",
@@ -124,6 +131,8 @@ async function createCars() {
       versions[0]
     ),
     carCreate(
+      makes[0],
+      models[1],
       60000,
       80000,
       "Available",
@@ -132,6 +141,8 @@ async function createCars() {
       versions[1]
     ),
     carCreate(
+      makes[1],
+      models[2],
       88000,
       710,
       "Available",
@@ -140,6 +151,8 @@ async function createCars() {
       versions[2]
     ),
     carCreate(
+      makes[2],
+      models[3],
       8500,
       170000,
       "Available",
@@ -148,6 +161,8 @@ async function createCars() {
       versions[3]
     ),
     carCreate(
+      makes[2],
+      models[4],
       11000,
       110000,
       "Available",
@@ -156,6 +171,8 @@ async function createCars() {
       versions[4]
     ),
     carCreate(
+      makes[3],
+      models[5],
       20000,
       51000,
       "Available",
@@ -164,6 +181,8 @@ async function createCars() {
       versions[5]
     ),
     carCreate(
+      makes[3],
+      models[6],
       73000,
       98000,
       "Available",
