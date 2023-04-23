@@ -1,0 +1,37 @@
+extends layoutCarForm 
+block content 
+    h1= title
+    form(method='POST', action='', class='form-add-car')
+        .form-content
+            label(for='carMake') Make:
+            select(id='carMake', name='make', required='true')
+                option(value='', hidden='true', selected='true') Select Make
+                for make in makesList 
+                    option(value=`${make.name},${make.makeId},${make.makeCountry},${make.makeDemonym}`) #{make.name}
+            label(for='carYear') Year:
+            input(id='carYear', type='number', placeholder='Enter year...', name='year', required='true')
+            label(for='carMileage') Mileage:
+            input(id='carMileage', type='number', placeholder='Enter mileage...' name='mileage')
+            label(for='carColor') Color:
+            select(id='carColor', name='color')
+                option(value='', hidden='true', selected='true') Select Color
+                option(value='Black') Black
+                option(value='Blue') Blue
+                option(value='Brown') Brown
+                option(value='Grey') Grey
+                option(value='Green') Green
+                option(value='Red') Red
+                option(value='Silver') Silver
+                option(value='White') White
+                option(value='Yellow') Yellow
+                option(value='Other') Other
+            label(for='carPrice') Price:
+            input(id='carPrice',type='number', name='price', placeholder='Enter price in USD')
+            label(for='carStatus') Status:
+            select(id='carStatus', name='status')
+                option(value='Sold') Sold
+                option(value='Available', selected='true') Available
+            label(for='carDescription') Description:
+            input(id='carDescription',type='text', name='description', placeholder='Tell us more about this car...', value=(undefined===description ? '' : description))
+        .form-button-container
+            button(type='submit' hidden='true') Next

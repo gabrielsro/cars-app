@@ -1,0 +1,23 @@
+extends layout 
+block content 
+    h1= title
+    form(method='POST', action='', class='form-add-make')
+        .form-content
+            label(for='makeName') Make: 
+            select(id='makeName', name='make')
+                option(value='', hidden='true', disabled='true', selected='true') -- Select -- 
+                for make in makesList 
+                    option(value=`${make.name},${make.makeId},${make.makeCountry},${make.makeDemonym}`) #{make.name}
+        .form-button-container
+            button(type='submit') Add Make
+    if errors 
+        ul 
+            for error in errors 
+                li #{error.msg}
+    if err 
+        ul 
+            li API Error: #{errMsg}. Input: #{reqBodyArray[2]}
+    if found 
+        h2= found
+
+

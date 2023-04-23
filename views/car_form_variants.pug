@@ -1,0 +1,62 @@
+extends layoutCarFormModels
+block content 
+    h1= title
+    form(method='POST', action='/inventory/add-car/form-submission', class='form-add-car')
+        .form-content
+            label(for='carMake') Make:
+            select(id='carMake', name='make', required='true')
+                for make in makesList 
+                    option(value=`${make.name},${make.makeId},${make.makeCountry}` selected=(make.makeId === makeSelection ? 'selected' : false )) #{make.name}
+            label(for='carYear') Year:
+            input(id='carYear', type='number', placeholder='Enter year...', name='year', value=year, required='true')
+            label(for='carModel') Model:
+            select(id='carModel', name='model', required='true')
+                option(value='', hidden='true', selected='true') Select Model
+                for m in models 
+                    option(value=m.model_name selected=(m.model_name == model ? 'selected' : false)) #{m.model_name}
+            if variantsList.length > 1
+                label(for='carVariants') Variant: 
+                select(id='carVariants' name='variant', required='true')
+                    option(value='', hidden='true', selected='true') Select Variant
+                    for variant in variantsList 
+                        if variant.model_trim !== ''
+                            option(value=`${(variant.model_name ? variant.model_name : 'Default')},${(variant.model_trim ? variant.model_trim : 'Default')},${(variant.model_id ? variant.model_id : '')}`) #{variant.model_trim}
+                    if variantsList[0].model_trim == ''
+                        option(value=`${(variantsList[0].model_name ? variantsList[0].model_name : '')},${(variantsList[0].model_trim ? variantsList[0].model_trim : 'Default')},${(variantsList[0].model_id ? variantsList[0].model_id : '')}`) Default
+            if variantsList.length == 1
+                label(for='carVariants') Variant: 
+                select(id='carVariants' name='variant', required='true')
+                    if variantsList[0].model_trim == ''
+                            option(value=`${(variantsList[0].model_name ? variantsList[0].model_name : '')},${(variantsList[0].model_trim ? variantsList[0].model_trim : '')},${(variantsList[0].model_id ? variantsList[0].model_id : '')}`, selected='true') Default
+                    else
+                        option(value='', hidden='true', selected='true') Select Variant 
+                                option(value=`${(variantsList[0].model_name ? variantsList[0].model_name : '')},${(variantsList[0].model_trim ? variantsList[0].model_trim : '')},${(variantsList[0].model_id ? variantsList[0].model_id : '')}`) Default
+                                option(value=`${(variantsList[0].model_name ? variantsList[0].model_name : '')},${(variantsList[0].model_trim ? variantsList[0].model_trim : '')},${(variantsList[0].model_id ? variantsList[0].model_id : '')}`) #{variantsList[0].model_trim}
+                        
+            label(for='carMileage') Mileage:
+            input(id='carMileage', type='number', placeholder='Enter mileage...', value=(undefined===mileage ? '' : mileage), name='mileage',required='true')
+            label(for='carColor') Color:
+            select(id='carColor', name='color', required='true')
+                option(value='', hidden='true', selected='true') Select Color
+                option(value='Black', selected=(color == "Black" ? 'selected' : false)) Black
+                option(value='Blue', selected=(color == "Blue" ? 'selected' : false)) Blue
+                option(value='Brown', selected=(color == "Brown" ? 'selected' : false)) Brown
+                option(value='Grey', selected=(color == "Grey" ? 'selected' : false)) Grey
+                option(value='Green', selected=(color == "Green" ? 'selected' : false)) Green
+                option(value='Red', selected=(color == "Red" ? 'selected' : false)) Red
+                option(value='Silver', selected=(color == "Silver" ? 'selected' : false)) Silver
+                option(value='White', selected=(color == "White" ? 'selected' : false)) White
+                option(value='Yellow', selected=(color == "Yellow" ? 'selected' : false)) Yellow
+                option(value='Other', selected=(color == "Other" ? 'selected' : false)) Other
+            label(for='carPrice') Price:
+            input(id='carPrice',type='number', name='price', placeholder='Enter price in USD', value=price, required='true')
+            label(for='carStatus') Status:
+            select(id='carStatus', name='status' value=status, required='true')
+                option(value='Sold') Sold
+                option(value='Available', selected='true') Available
+            label(for='carDescription') Description:
+            input(id='carDescription',type='text', name='description', placeholder='Tell us more about this car...', value=(undefined===description ? '' : description))
+        .form-button-container
+            button(type='submit') Add car
+
+    

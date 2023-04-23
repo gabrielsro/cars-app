@@ -1,7 +1,12 @@
 extends layout 
 block content 
     h1 Models
-    for make in modelsArray
-     h2 #{make.make}
-        for model in make.models 
-            h3 #{model.name}
+    if groupedModels 
+        for group in groupedModels 
+            h2 #{group.makeName}
+                for model in group.makeModels 
+                    h3
+                        a(href=`/inventory/model/model-page/${model.makeId}/${model.formattedName}`) #{model.modelName} 
+    
+    
+    

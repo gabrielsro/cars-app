@@ -1,0 +1,18 @@
+extends layout
+block content 
+    if year
+        h1 Showing cars of year #{year}
+        .cars-controls 
+        .cars-container
+            for car in carResult 
+                .car-card 
+                    .car-card-title
+                        p #{car.makeName} #{car.modelName}
+                    .car.card-image 
+                    .car-card-subtitle
+                        p $#{car.price.toLocaleString()}
+
+    else 
+        ul 
+            for error in errors 
+                li= error.msg

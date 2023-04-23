@@ -1,0 +1,43 @@
+extends layoutCarFormModels
+block content 
+    h1= title
+    form(method='POST', action='', class='form-add-car')
+        .form-content
+            label(for='carMake') Make:
+            select(id='carMake', name='make', required='true')
+                for make in makesList 
+                    option(value=`${make.name},${make.makeId},${make.makeCountry},${make.makeDemonym}` selected=(make.makeId === makeSelection ? 'selected' : false )) #{make.name}
+            label(for='carYear') Year:
+            input(id='carYear', type='number', placeholder='Enter year...', name='year', value=year, required='true')
+            label(for='carModel') Model:
+            select(id='carModel', name='model', required='true')
+                option(value='', hidden='true', selected='true') Select Model
+                for m in models 
+                    option(value=m.model_name) #{m.model_name}
+            label(for='carMileage') Mileage:
+            input(id='carMileage', type='number', placeholder='Enter mileage...', value=mileage)
+            label(for='carColor') Color:
+            select(id='carColor', name='color')
+                option(value='', hidden='true', selected='true') Select Color
+                option(value='Black', selected=(color == "Black" ? 'selected' : false)) Black
+                option(value='Blue', selected=(color == "Blue" ? 'selected' : false)) Blue
+                option(value='Brown', selected=(color == "Brown" ? 'selected' : false)) Brown
+                option(value='Grey', selected=(color == "Grey" ? 'selected' : false)) Grey
+                option(value='Green', selected=(color == "Green" ? 'selected' : false)) Green
+                option(value='Red', selected=(color == "Red" ? 'selected' : false)) Red
+                option(value='Silver', selected=(color == "Silver" ? 'selected' : false)) Silver
+                option(value='White', selected=(color == "White" ? 'selected' : false)) White
+                option(value='Yellow', selected=(color == "Yellow" ? 'selected' : false)) Yellow
+                option(value='Other', selected=(color == "Other" ? 'selected' : false)) Other
+            label(for='carPrice') Price:
+            input(id='carPrice',type='number', name='price', placeholder='Enter price in USD', value=price)
+            label(for='carStatus') Status:
+            select(id='carStatus', name='status' value=status)
+                option(value='Sold') Sold
+                option(value='Available', selected='true') Available
+            label(for='carDescription') Description:
+            input(id='carDescription',type='text', name='description', placeholder='Tell us more about this car...', value=(undefined===description ? '' : description))
+        .form-button-container
+            button(type='submit', hidden='true') Next
+
+

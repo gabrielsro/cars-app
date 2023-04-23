@@ -1,0 +1,19 @@
+extends layout 
+block content 
+    .make-info
+        h1= make.name
+        .make-sub-info
+            h2= make.country
+    .make-options 
+        a(href=make.url+'/update') Update Make 
+        a(href=make.url+'/delete') Delete Make
+    img(src=make.logoSrc, atl=`${make.name} logo`)
+
+    if list && list.length > 0
+        for model in list 
+            h3 
+                a(href=`/inventory/model/model-page/${makeId}/${model.formattedName}`) #{model.modelName}
+                    
+    
+    
+

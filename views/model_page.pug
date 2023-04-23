@@ -1,0 +1,12 @@
+extends layout 
+block content 
+    h1 #{models[0].make.name} #{models[0].name}
+    if modelList 
+        for model in modelList 
+            h2 #{model.year}
+                for version in model.versions 
+                    h3 #{version.versionName} #{(version.carNumber)}
+                
+        
+    
+    

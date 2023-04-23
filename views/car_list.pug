@@ -34,12 +34,13 @@ block content
                     option(value=-1) Newest to oldest
     .list 
     for car in result 
-        .list-card 
-            .title 
-                p #{car.make.name} #{car.model.name}
-            .subtitle 
-                p #{car.version.year}
-                p $#{car.price}
-            .footer
-                p #{car.version.energy}
-                p #{car.status}
+        .list-card
+            a(href=car.url) 
+                .title 
+                    p #{car.make.name} #{car.model.name}
+                .subtitle 
+                    p #{car.version.year}
+                    p $#{car.price}
+                .footer
+                    p #{car.version.energy}
+                    p #{car.status}

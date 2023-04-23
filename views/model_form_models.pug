@@ -1,0 +1,22 @@
+extends layoutCarForm
+block content 
+    h1= title
+    form(method='POST', action='', class='form-add-model')
+        .form-content
+            label(for='carMake') Make:
+            select(id='carMake', name='make')
+                option(value='', selected='true', hidden='true') Select Make 
+                for make in makesList 
+                    option(value=`${make.name},${make.makeId},${make.makeCountry},${make.makeDemonym}`, selected=(make.name===makePrevious ? 'selected' : false)) #{make.name}
+            label(for='carYear') Year: 
+            input(type='number', id='carYear', name='year', placeholder="Enter model's year", value=(undefined===yearPrevious ? '' : yearPrevious) )
+            label(for='modelSelector') Model: 
+            select(id='modelSelector', name='model')
+                option(value='', hidden='true', selected='true') Select Model
+                for model in models 
+                    option(value=model.model_name, selected=(model.model_name == model ? 'selected' : false)) #{model.model_name}
+        .form-button-container
+    if errors 
+        ul 
+            for error in errors 
+                li= error.msg
