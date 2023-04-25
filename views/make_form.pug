@@ -7,7 +7,7 @@ block content
             select(id='makeName', name='make')
                 option(value='', hidden='true', disabled='true', selected='true') -- Select -- 
                 for make in makesList 
-                    option(value=`${make.name},${make.makeId},${make.makeCountry},${make.makeDemonym}`) #{make.name}
+                    option(value=`${make.name},${make.makeId},${make.makeCountry}`) #{make.name}
         .form-button-container
             button(type='submit') Add Make
     if errors 

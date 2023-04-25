@@ -20,17 +20,17 @@ block content
                     option(value='', hidden='true', selected='true') Select Variant
                     for variant in variantsList 
                         if variant.model_trim !== ''
-                            option(value=`${(variant.model_name ? variant.model_name : 'Default')},${(variant.model_trim ? variant.model_trim : 'Default')},${(variant.model_id ? variant.model_id : '')}`) #{variant.model_trim}
+                            option(value=`${(variant.model_name ? variant.model_name : 'Default')},${variant.model_trim},${(variant.model_id ? variant.model_id : '')}`) #{variant.model_trim}
                     if variantsList[0].model_trim == ''
-                        option(value=`${(variantsList[0].model_name ? variantsList[0].model_name : '')},${(variantsList[0].model_trim ? variantsList[0].model_trim : 'Default')},${(variantsList[0].model_id ? variantsList[0].model_id : '')}`) Default
+                        option(value=`${(variantsList[0].model_name ? variantsList[0].model_name : 'Default')},${(variantsList[0].model_trim ? variantsList[0].model_trim : 'Default version')},${(variantsList[0].model_id ? variantsList[0].model_id : '')}`) Default
             if variantsList.length == 1
                 label(for='carVariants') Variant: 
                 select(id='carVariants' name='variant', required='true')
                     if variantsList[0].model_trim == ''
-                            option(value=`${(variantsList[0].model_name ? variantsList[0].model_name : '')},${(variantsList[0].model_trim ? variantsList[0].model_trim : '')},${(variantsList[0].model_id ? variantsList[0].model_id : '')}`, selected='true') Default
+                            option(value=`${(variantsList[0].model_name ? variantsList[0].model_name : 'Default')},${(variantsList[0].model_trim ? variantsList[0].model_trim : 'Default version')},${(variantsList[0].model_id ? variantsList[0].model_id : '')}`, selected='true') Default
                     else
                         option(value='', hidden='true', selected='true') Select Variant 
-                                option(value=`${(variantsList[0].model_name ? variantsList[0].model_name : '')},${(variantsList[0].model_trim ? variantsList[0].model_trim : '')},${(variantsList[0].model_id ? variantsList[0].model_id : '')}`) Default
+                                option(value=`${(variantsList[0].model_name ? variantsList[0].model_name : '')},${(variantsList[0].model_trim ? variantsList[0].model_trim : 'Default')},${(variantsList[0].model_id ? variantsList[0].model_id : '')}`) Default
                                 option(value=`${(variantsList[0].model_name ? variantsList[0].model_name : '')},${(variantsList[0].model_trim ? variantsList[0].model_trim : '')},${(variantsList[0].model_id ? variantsList[0].model_id : '')}`) #{variantsList[0].model_trim}
                         
             label(for='carMileage') Mileage:

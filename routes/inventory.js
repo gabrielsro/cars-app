@@ -27,6 +27,11 @@ router.get("/makes", makeController.makeList);
 
 //Version Routes
 router.get("/versions", versionController.versionList);
+router.get("/version/:versionId/", versionController.versionDetail);
+router.get(
+  "/version/:versionId/:modelId/:modelName/:makeId/delete",
+  versionController.versionDelete
+);
 
 //Model Routes
 router.get("/year", modelController.yearFormGet);

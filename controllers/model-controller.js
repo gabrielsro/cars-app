@@ -6,7 +6,6 @@ const {
   makesGetter,
   modelsGetter,
 } = require("../public/javascripts/carInfoAPI");
-const { model } = require("mongoose");
 
 exports.modelList = (req, res, next) => {
   let makes = [];
@@ -219,15 +218,6 @@ exports.yearFormPost = [
         res.render("yearCars", { year: req.body.year, carResult });
       })
       .catch((err) => next(err));
-    /*
-    Model.find({ year: req.body.year })
-      .populate("make")
-      .populate("cars")
-      .then((models) => {
-        res.render("yearCars", { year: req.body.year, models });
-      })
-      .catch((err) => next(err));
-      */
   },
 ];
 
@@ -256,6 +246,7 @@ exports.modelPage = (req, res, next) => {
             let versionDetails = {
               versionName: v.name,
               versionCarNumber: v.cars.length,
+              versionId: v._id,
             };
             yearDetails.versions.push(versionDetails);
           });

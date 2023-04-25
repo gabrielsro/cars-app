@@ -5,8 +5,11 @@ const Schema = mongoose.Schema;
 const VerisonSchema = new Schema({
   name: { type: String, required: true },
   model: { type: Schema.Types.ObjectId, ref: "Model" },
+  make: { type: Schema.Types.ObjectId, ref: "Make" },
+  year: { type: Number },
   versionNumber: { type: Number },
-  versionBody: { type: String },
+  versionBodyType: { type: String },
+  versionBodySubType: { type: String },
   enginePosition: { type: String },
   engineCC: { type: Number },
   engineCyl: { type: Number },
@@ -17,10 +20,16 @@ const VerisonSchema = new Schema({
   drive: { type: String },
   transmission: { type: String },
   weight: { type: Number },
-  fuel: { type: String },
+  fuel: {
+    type: String,
+    enum: ["Diesel", "Electric", "Gasoline", "Hybrid", "Natural Gas"],
+  },
+  fuelSpecifics: { type: String },
   fuelEfficiencyHgw: { type: Number },
   fuelEfficiencyMixed: { type: Number },
   fuelEfficiencyCity: { type: Number },
+  maxSpeed: { type: Number },
+  accel0To100: { type: Number },
   cars: [{ type: Schema.Types.ObjectId, ref: "Car" }],
 });
 

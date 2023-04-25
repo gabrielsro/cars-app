@@ -1,0 +1,144 @@
+extends layoutDocumentControls.pug 
+block content
+    .version-header
+        .version-title 
+            .version-title-logo 
+                img(src=version.make.logoSrc, alt=`${version.make.name} logo`)
+            .version-title-text
+                h1 #{version.year} #{version.make.name} #{version.model.name} 
+                h2 #{version.name}
+        .version-control    
+            a(href='') Update version    
+            a(id='delete-option') Delete version
+    .delete-warning(class='invisible') 
+        .delete-warning-msg
+            img(src='/images/icons/warningIcons/warning1.svg', alt='warningIcon')
+            p #{`This version and all its associated vehicles will be permanently deleted. Do you wish to proceed?`}
+        .delete-warning-controls
+            a(id='btn-delete-no', href='') No, return
+            a(id='btn-delete-yes', href=`/inventory/version/${version._id}/${version.model._id}/${modelName}/${version.make._id}/delete`) Yes, delete
+    .version-info 
+    .version-specs 
+        .car-technical
+        .card-technical
+            .card-technical-title
+                    img(src='/images/icons/carIcons/car3.svg' alt='Car Icon')
+                    h4 Basics
+            .card-technical-rows
+                if version.transmission
+                    .card-technical-row
+                        img(src='/images/icons/transmissionIcons/transmission2.svg' alt='Transmission Icon')
+                        if /transmission/i.test(version.transmission) == false
+                            h5 #{version.transmission} Transmission
+                        else
+                            h5 #{version.transmission}
+                if version.drive
+                    .card-technical-row
+                        if /rear/i.test(version.drive)
+                            img(src='/images/icons/RWDIcons/rear1.svg' alt='Rear-wheel-drive Icon')
+                            if /w/i.test(version.drive) == false
+                                h5 #{version.drive} wheel drive
+                            else 
+                                h5 #{version.drive} 
+                        if /front/i.test(version.drive)
+                            img(src='/images/icons/FWDIcons/front1.svg' alt='Front-wheel-drive Icon')
+                            if /w/i.test(version.drive) == false
+                                h5 #{version.drive} wheel drive
+                            else 
+                                h5 #{version.drive} 
+                        if /all/i.test(version.drive)
+                            img(src='/images/icons/AWDIcons/all1.svg' alt='All-wheel-drive Icon')
+                            if /w/i.test(version.drive) == false
+                                h5 #{version.drive} wheels
+                            else 
+                                h5 #{version.drive} 
+                        if /AWD/i.test(version.drive)
+                            img(src='/images/icons/AWDIcons/all1.svg' alt='All-wheel-drive Icon')
+                            h5 #{version.drive}
+                        if /4/.test(version.drive)
+                            img(src='/images/icons/AWDIcons/all1.svg' alt='All-wheel-drive Icon')
+                            if /w/i.test(version.drive) == false
+                                h5 #{version.drive} wheel drive
+                            else 
+                                h5 #{version.drive}
+                if version.weight
+                    .card-technical-row 
+                        img(src='/images/icons/weightIcons/weight3.svg' alt='Weight Icon' id='weightIcon')
+                        h5 #{version.weight.toLocaleString()} kg
+                if version.fuel 
+                    .card-technical-row 
+                        img(src='/images/icons/energyIcons/energy1.svg' alt='Energy Icon' id='energyIcon')
+                        h5 #{version.fuel}
+                else 
+                    .card-technical-row 
+                        img(src='/images/icons/energyIcons/energy1.svg' alt='Energy Icon' id='energyIcon')
+                        h5 Gasoline
+        if version.enginePower || version.engineTorqueNm || version.enginePosition || version.engineCC || version.engineCyl || !version.engineCompression || /Not/.test(version.engineCompression) == false            
+            .card-technical
+                .card-technical-title
+                    img(src='/images/icons/engineIcons/engine2.svg' alt='Engine Icon')
+                    h4 Engine 
+                .card-technical-rows
+                    if version.enginePosition
+                        .card-technical-row
+                            if /front/i.test(version.enginePosition)
+                                img(src='/images/icons/engineFrontIcons/front1.svg' alt='Front Engine Icon')
+                            if /middle/i.test(version.enginePosition)
+                                img(src='/images/icons/engineCenterIcons/center1.svg' alt='Middle Engine Icon')
+                            if /back/i.test(version.enginePosition)
+                                img(src='/images/icons/engineBackIcons/back1.svg' alt='Back Engine Icon')
+                            if /rear/i.test(version.enginePosition)
+                                img(src='/images/icons/engineBackIcons/back1.svg' alt='Back Engine Icon')
+                            h5 Position: #{version.enginePosition}
+                    if version.engineType
+                        .card-technical-row
+                            img(src='/images/icons/engineIcons/engine1.svg' alt='Engine Type Icon')
+                            h5 Type: #{version.engineType}
+                    if version.engineCC
+                        .card-technical-row
+                            img(src='/images/icons/displacementIcons/displacement1.svg' alt='Displacement Icon')
+                            h5 Displacement: #{version.engineCC.toLocaleString()} cc
+                    if version.engineCyl
+                        .card-technical-row
+                            img(src='/images/icons/cylinderIcons/cylinders2.svg' alt='Cylinders Icon')
+                            h5 Cylinders: #{version.engineCyl}
+                    if /\d/.test(version.engineCompression)
+                        .card-technical-row
+                            img(src='/images/icons/compressionIcons/compression3.svg' alt='Compression Icon')
+                            h5 Compression: #{version.engineCompression}
+                    if version.engineTorqueNm
+                        .card-technical-row
+                            img(src='/images/icons/torqueIcons/torque3.svg' alt='Torque Icon')
+                            h5 Torque: #{version.engineTorqueNm} Nm
+                    if version.enginePower
+                        .card-technical-row
+                            img(src='/images/icons/powerIcons/power3.svg' alt='Power Icon' id='powerIcon')
+                            h5 Power: #{version.enginePower} hp
+        if version.fuelEfficiencyHhw || version.fuelEfficiencyCity || version.fuelEfficiencyMixed
+            .card-technical
+                .card-technical-title
+                    img(src='/images/icons/efficiencyIcons/efficiency2.svg' alt='Efficiency Icon')
+                    h4 Efficiency   
+                .card-technical-rows
+                    if version.fuelEfficiencyHgw
+                        .card-technical-row
+                            img(src='/images/icons/highwayIcons/highway2.svg' alt='Highway Icon')
+                            h5 Highway: #{version.fuelEfficiencyHgw} mpg
+                    if version.fuelEfficiencyCity
+                        .card-technical-row
+                            img(src='/images/icons/cityIcons/city1.svg' alt='City Icon')
+                            h5 City: #{version.fuelEfficiencyCity} mpg
+                    if version.fuelEfficiencyMixed
+                        .card-technical-row
+                            img(src='/images/icons/mixedIcons/mixed1.svg' alt='Mixed Icon')
+                            h5 Mixed: #{version.fuelEfficiencyMixed} mpg 
+    .version-cars
+        h2 Vehicles
+        if version.cars.length == 0
+            p #{`We don't have any ${version.year} ${version.make.name} ${version.model.name} ${version.name} at the moment.`}
+        else 
+            .version-cars-container 
+                for car in version.cars 
+                    .car-card 
+                        a(href=`${car.url}`)
+                            p #{`$${car.price.toLocaleString()}`}

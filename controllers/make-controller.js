@@ -1,7 +1,7 @@
 const Make = require("../models/make");
 const Model = require("../models/model");
 const { makesGetter } = require("../public/javascripts/carInfoAPI");
-const { demonymGetter } = require("../public/javascripts/demonymGetter");
+const { createMake } = require("../public/javascripts/createMake");
 
 const { body, validationResult } = require("express-validator");
 
@@ -56,12 +56,7 @@ exports.addMakePost = [
   body("make").trim().isLength({ min: 1 }).escape(),
   async (req, res, next) => {
     const errors = validationResult(req);
-    const make = new Make({
-      name: req.body.make.split(",")[0],
-      makeId: req.body.make.split(",")[1],
-      country: req.body.make.split(",")[2],
-      makeDemonym: demonymGetter(req.body.make.split(",")[2]),
-    });
+    const make = createMake(req.body.make);
     if (!errors.isEmpty()) {
       makesGetter()
         .then((makesList) => {

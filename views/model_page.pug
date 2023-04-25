@@ -5,7 +5,19 @@ block content
         for model in modelList 
             h2 #{model.year}
                 for version in model.versions 
-                    h3 #{version.versionName} #{(version.carNumber)}
+                    .version-row
+                        .version-row-title
+                            h3 
+                                a(href=`/inventory/version/${version.versionId}`) #{version.versionName} 
+                        .version-row-numbers 
+                            h4 Vehicles: 
+                            a(href='') #{version.versionCarNumber}
+                            .version-row-numbers-links
+                                p #{' ('}
+                                a(href='') x  
+                                p #{' available, '}
+                                a(href='') y 
+                                p #{'sold)'} 
                 
         
     

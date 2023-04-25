@@ -1,8 +1,14 @@
 extends layout 
 block content 
     .car-title
-        h1 #{car.model.year} #{car.make.name}  #{car.model.name}
-        h2 #[em #{car.version.name}]
+        .car-title-info
+            h1 #{car.model.year} #{car.make.name}  #{car.model.name}
+            h2 #[em #{car.version.name}]
+        .car-title-controls
+            p 
+                a(href=`/inventory/car/${car._id}/update`) Update
+            p2
+                a(href=`/inventory/car/${car._id}/delete`) Delete
     .car-basic-info
         .car-logo 
             img(src=car.make.logoSrc, alt=`${car.make.name} logo`)
@@ -139,8 +145,8 @@ block content
     .car-interests 
         h4 You might be interested in... 
         .car-links
-            if car.version.versionBody !== null 
-                - body = /s$/.test(car.version.versionBody) ? car.version.versionBody : `${car.version.versionBody}s`
+            if car.version.versionBodyType !== null 
+                - body = /s$/.test(car.version.versionBodyType) ? car.version.versionBodyType : `${car.version.versionBodyType}s`
                 h4 
                     a(href='') #{body}
                 h4 
