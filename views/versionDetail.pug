@@ -1,4 +1,6 @@
-extends layoutDocumentControls.pug 
+extends layout
+block scripts 
+    script(src='/javascripts/documentControlScript.js', defer='true')
 block content
     .version-header
         .version-title 
@@ -65,14 +67,10 @@ block content
                     .card-technical-row 
                         img(src='/images/icons/weightIcons/weight3.svg' alt='Weight Icon' id='weightIcon')
                         h5 #{version.weight.toLocaleString()} kg
-                if version.fuel 
+                if version.fuelSpecifics 
                     .card-technical-row 
                         img(src='/images/icons/energyIcons/energy1.svg' alt='Energy Icon' id='energyIcon')
-                        h5 #{version.fuel}
-                else 
-                    .card-technical-row 
-                        img(src='/images/icons/energyIcons/energy1.svg' alt='Energy Icon' id='energyIcon')
-                        h5 Gasoline
+                        h5 #{version.fuelSpecifics} 
         if version.enginePower || version.engineTorqueNm || version.enginePosition || version.engineCC || version.engineCyl || !version.engineCompression || /Not/.test(version.engineCompression) == false            
             .card-technical
                 .card-technical-title

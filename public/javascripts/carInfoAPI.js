@@ -2,7 +2,7 @@ const { demonymGetter } = require("../javascripts/demonymGetter");
 
 exports.makesGetter = async () => {
   const makesRequest = await fetch(
-    "https://www.carqueryapi.com/api/0.3/?callback=?&cmd=getMakes"
+    "https://www.carqueryapi.com/api/0.3/?callback=?&cmd=getMakes&year=2010"
   );
   let makes = await makesRequest.text();
   let makesArray = makes.split("");

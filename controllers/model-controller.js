@@ -1,6 +1,7 @@
 const Model = require("../models/model");
 const Make = require("../models/make");
 const Car = require("../models/car");
+const Version = require("../models/version");
 const { body, validationResult } = require("express-validator");
 const {
   makesGetter,
@@ -240,7 +241,7 @@ exports.modelPage = (req, res, next) => {
     .then((models) => {
       let modelList = [];
       models.forEach((m) => {
-        let yearDetails = { year: m.year, versions: [] };
+        let yearDetails = { year: m.year, versions: [], id: m._id };
         if (m.versions.length > 0) {
           m.versions.forEach((v) => {
             let versionDetails = {
@@ -259,4 +260,18 @@ exports.modelPage = (req, res, next) => {
       });
     })
     .catch((err) => next(err));
+};
+
+exports.modelDelete = (req, res, next) => {
+  Promise.all([
+    Model.findByIdAndRemove({ _id: req.params.id }),
+    Car.deleteMany({ model: req.params.id }),
+    Version.deleteMany({ model: req.params.id }),
+  ])
+    .then(() => res.redirect("back"))
+    .catch((err) => next(err));
+};
+
+exports.modelDeleteAll = (req, res, next) => {
+  res.send(`pendind delete function for delete all`);
 };

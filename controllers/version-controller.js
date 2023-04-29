@@ -26,12 +26,13 @@ exports.versionDetail = (req, res, next) => {
 exports.versionDelete = (req, res, next) => {
   Promise.all([
     Version.findByIdAndRemove(req.params.versionId),
-    Car.find({ model: req.params.modelId }, "_id"),
+    Car.find({ version: req.params.versionId }, "_id"),
   ])
     .then((results) => {
       Promise.all([
         Model.findByIdAndUpdate(req.params.modelId, {
           $pullAll: { cars: results[1] },
+          $pull: { versions: req.params.versionId },
         }),
         Car.deleteMany({ _id: { $in: results[1] } }),
       ])

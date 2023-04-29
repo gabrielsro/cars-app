@@ -1,24 +1,58 @@
-extends layout 
+extends layout
+block scripts
+    script(src='/javascripts/modelListPageControls.js', defer='true')
 block content 
-    h1 #{models[0].make.name} #{models[0].name}
-    if modelList 
-        for model in modelList 
-            h2 #{model.year}
-                for version in model.versions 
-                    .version-row
-                        .version-row-title
-                            h3 
-                                a(href=`/inventory/version/${version.versionId}`) #{version.versionName} 
-                        .version-row-numbers 
-                            h4 Vehicles: 
-                            a(href='') #{version.versionCarNumber}
-                            .version-row-numbers-links
-                                p #{' ('}
-                                a(href='') x  
-                                p #{' available, '}
-                                a(href='') y 
-                                p #{'sold)'} 
+    if undefined===models[0]
+        h1 All models recently deleted 
+    else 
+
+        .model-list-header
+            .models-list-info
+                .models-list-title
+                    h1 #{models[0].make.name} #{models[0].name}
+                .models-control 
+                    a(id='models-delete-all') Delete All
+            .delete-warning(class='invisible', id='models-delete-all-warning') 
+                .delete-warning-msg
+                    img(src='/images/icons/warningIcons/warning1.svg', alt='warningIcon')
+                    p #{`This model will be permanently deleted for every year. Every model's associated versions and vehicles will be permanently deleted as well. Do you wish to proceed?`}
+                .delete-warning-controls
+                    a(id='btn-delete-all-no') No, return
+                    a(id='btn-delete-all-yes' href=`/inventory/model/${models[0].name.split(' ').join('_')}/${models[0].make._id}/deleteAll`) Yes, delete
+        if modelList 
+            - count = 0
+            for model in modelList
+                .model-row
+                    .model-title 
+                        h2 #{model.year}
+                        a(class='model-delete', id=`model-delete-${count}`) Delete model
+                    .delete-warning(class='invisible', class='model-delete-warning', id=`model-delete-warning-${count}`) 
+                        .delete-warning-msg
+                            img(src='/images/icons/warningIcons/warning1.svg', alt='warningIcon')
+                            p #{`This model and all its associated versions and vehicles will be permanently deleted. Do you wish to proceed?`}
+                        .delete-warning-controls
+                            a(class='btn-delete-no', id=`btn-delete-no-${count}`) No, return
+                            a(id='btn-delete-yes' href=`/inventory/model/${model.id}/delete`) Yes, delete
+                    .model-content
+                    - count ++
+                        if model.versions.length == 0
+                            h3 We don't have versions for this year at the moment.
+                        else
+                            for version in model.versions 
+                                .version-row
+                                    .version-row-title
+                                        h3 
+                                            a(href=`/inventory/version/${version.versionId}`) #{version.versionName} 
+                                    .version-row-numbers 
+                                        h4 Vehicles: 
+                                        a(href='') #{version.versionCarNumber}
+                                        .version-row-numbers-links
+                                            p #{' ('}
+                                            a(href='') x  
+                                            p #{' available, '}
+                                            a(href='') y 
+                                            p #{'sold)'} 
+                        
                 
         
-    
-    
+        

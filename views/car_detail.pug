@@ -21,10 +21,7 @@ block content
                     a(href=car.make.url) #{car.make.name}
                 if car.version.fuel 
                     h3 Energy:
-                        if /premium/i.test(car.version.fuel) || /regular/i.test(car.version.fuel)
-                            a(href='')  Gasoline 
-                        else 
-                            a(href='')  #{car.version.fuel}
+                        a(href='')  #{car.version.fuel}
                 h3 Mileage: #{car.mileage.toLocaleString()} miles
                 h3 Color: #{car.color}
     .car-technical
@@ -73,10 +70,10 @@ block content
                     .card-technical-row 
                         img(src='/images/icons/weightIcons/weight3.svg' alt='Weight Icon' id='weightIcon')
                         h5 #{car.version.weight.toLocaleString()} kg
-                if car.version.fuel 
+                if car.version.fuelSpecifics 
                     .card-technical-row 
                         img(src='/images/icons/energyIcons/energy1.svg' alt='Energy Icon' id='energyIcon')
-                        h5 #{car.version.fuel}
+                        h5 #{car.version.fuelSpecifics}
                 else 
                     .card-technical-row 
                         img(src='/images/icons/energyIcons/energy1.svg' alt='Energy Icon' id='energyIcon')

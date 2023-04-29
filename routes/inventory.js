@@ -44,6 +44,11 @@ router.get(
   modelController.modelPage
 );
 router.get("/model/:id", modelController.modelDetail);
+router.get("/model/:id/delete", modelController.modelDelete);
+router.get(
+  "/model/:modelNameFormatted/:makeId/deleteAll",
+  modelController.modelDeleteAll
+);
 router.get("/models", modelController.modelList);
 
 module.exports = router;

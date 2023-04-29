@@ -1,5 +1,7 @@
 const Make = require("../models/make");
 const Model = require("../models/model");
+const Version = require("../models/version");
+const Car = require("../models/car");
 const { makesGetter } = require("../public/javascripts/carInfoAPI");
 const { createMake } = require("../public/javascripts/createMake");
 
@@ -92,5 +94,12 @@ exports.makeUpdate = (req, res, next) => {
 };
 
 exports.makeDelete = (req, res, next) => {
-  res.send(`Pending delete for ${req.params.id}`);
+  Promise.all([
+    Make.findByIdAndDelete(req.params.id),
+    Model.deleteMany({ make: req.params.id }),
+    Version.deleteMany({ make: req.params.id }),
+    Car.deleteMany({ make: req.params.id }),
+  ])
+    .then(res.redirect("/inventory/"))
+    .catch((err) => next(err));
 };

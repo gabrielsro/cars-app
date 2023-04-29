@@ -43,6 +43,12 @@ const CarSchema = new Schema({
   },
   description: { type: String },
   version: { type: Schema.Types.ObjectId, required: true, ref: "Version" },
+  pictures: [
+    {
+      type: Buffer,
+      ref: "Pic",
+    },
+  ],
 });
 
 CarSchema.virtual("url").get(function () {

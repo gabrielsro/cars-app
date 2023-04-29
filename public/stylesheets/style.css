@@ -166,19 +166,49 @@ textarea {
   border: 1px solid black;
 }
 
-.form-content {
+form {
+  margin-left: 20%;
+}
+
+.form-content-text {
   display: grid;
   row-gap: 17px;
   column-gap: 10px;
-  grid-template-columns: auto auto;
+  grid-template-columns: 0.1fr auto;
 }
 
-.form-content label {
+.form-content-text label {
   justify-self: end;
 }
 
-.form-content input {
+.form-content-text input {
   width: 100%;
+}
+
+.form-content-pictures {
+  margin-top: 20px;
+}
+
+.form-content-pictures fieldset {
+  border: 0px;
+}
+
+.form-content-pictures legend {
+  margin-bottom: 10px;
+}
+
+.form-picture-row {
+  margin-bottom: 20px;
+  padding-left: 95px;
+}
+
+.form-picture-row label {
+  margin-bottom: 7px;
+}
+
+.form-content-pictures label,
+.form-content-pictures input {
+  display: block;
 }
 
 .form-button-container {
@@ -201,7 +231,7 @@ textarea {
 }
 
 .form-add-car {
-  width: 400px;
+  width: 610px;
 }
 
 .car-basic-info {
@@ -388,6 +418,48 @@ textarea {
 .version-cars-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(100px, 200px));
+  gap: 10px;
+}
+
+.model-title,
+.models-list-info {
+  display: flex;
+  align-items: first baseline;
+}
+
+#models-delete-all-warning {
+  margin-left: 10%;
+  margin-right: 20%;
+}
+
+.model-delete-warning {
+  margin-left: 5%;
+  margin-right: 52%;
+}
+
+.model-title a,
+.model-list-header a {
+  margin-left: 5px;
+}
+
+.model-row {
+  margin-bottom: 25px;
+}
+
+.make-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.make-options {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-weight: bold;
+}
+
+.list {
+  display: grid;
   gap: 10px;
 }
 

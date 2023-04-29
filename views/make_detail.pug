@@ -1,18 +1,31 @@
 extends layout 
+block scripts 
+    script(src='/javascripts/makeDetailScript.js', defer='true')
 block content 
-    .make-info
-        h1= make.name
-        .make-sub-info
-            h2= make.country
-    .make-options 
-        a(href=make.url+'/update') Update Make 
-        a(href=make.url+'/delete') Delete Make
+    .make-header
+        .make-info
+            h1= make.name
+            .make-sub-info
+                h2= make.country
+        .make-options 
+            a(href=make.url+'/update') Update Make 
+            a(id='delete-option') Delete Make
+    .delete-warning(class='invisible') 
+        .delete-warning-msg
+            img(src='/images/icons/warningIcons/warning1.svg', alt='warningIcon')
+            p #{`This make and all its associated models, versions and cars will be permanently deleted. Do you wish to proceed?`}
+        .delete-warning-controls
+            a(id='btn-delete-no') No, return
+            a(id='btn-delete-yes', href=make.url+'/delete') Yes, delete
     img(src=make.logoSrc, atl=`${make.name} logo`)
 
     if list && list.length > 0
+        h2 Models
         for model in list 
             h3 
                 a(href=`/inventory/model/model-page/${makeId}/${model.formattedName}`) #{model.modelName}
+    else 
+        h3 #{`We don't have ${make.name} models at the moment.`}
                     
     
     
