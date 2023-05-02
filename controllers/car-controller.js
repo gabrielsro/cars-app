@@ -14,6 +14,7 @@ const {
 } = require("../public/javascripts/carInfoAPI");
 const { body, validationResult } = require("express-validator");
 const multer = require("multer");
+const { reject } = require("async");
 const upload = multer({ storage: multer.memoryStorage() });
 
 exports.index = (req, res, next) => {
@@ -110,11 +111,7 @@ exports.add_car_get_variants_post = async (req, res, next) => {
 };
 
 exports.add_car_variants_submit = [
-  upload.single("picture1"),
-  upload.single("picture2"),
-  upload.single("picture3"),
-  upload.single("picture4"),
-  upload.single("picture5"),
+  upload.array("picture", 5),
   body("make", "make cannot be empty").trim().isLength({ min: 1 }).escape(),
   body("year").trim().escape(),
   body("model").trim().isLength({ min: 1 }).escape(),
@@ -165,13 +162,23 @@ exports.add_car_variants_submit = [
                         .then((savedCar) => {
                           savedVersion.cars.push(savedCar._id);
                           let pics = [];
-                          let pic1;
-                          if (req.file) {
-                            pic1 = new Pic({
-                              car: savedCar._id,
-                              position: 1,
-                              image: req.file.buffer,
-                              description: "image upload test",
+                          if (req.files.length > 0) {
+                            req.files.forEach((f, i) => {
+                              let picN = new Pic({
+                                car: savedCar._id,
+                                position: (i += 1),
+                                image: f.buffer,
+                                description: "image upload test",
+                              });
+                              let picPromise = new Promise(
+                                (resolve, reject) => {
+                                  picN
+                                    .save()
+                                    .then(resolve)
+                                    .catch((err) => reject(err));
+                                }
+                              );
+                              pics.push(picPromise);
                             });
                           }
                           Promise.all([
@@ -180,7 +187,7 @@ exports.add_car_variants_submit = [
                               savedModel.versions.push(finalVersion);
                               savedModel.save();
                             }),
-                            pic1.save(),
+                            ...pics,
                           ])
                             .then(res.redirect(savedCar.url))
                             .catch((err) => next(err));
