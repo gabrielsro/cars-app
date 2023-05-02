@@ -463,6 +463,28 @@ form {
   gap: 10px;
 }
 
+.car-media {
+  display: flex;
+  width: 70%;
+  margin: auto;
+}
+
+.car-media img {
+  width: 100%;
+  height: auto;
+  border-radius: 7px;
+}
+
+.car-media .main-img {
+  margin-right: 5px;
+}
+.car-media .side-imgs {
+  width: 50%;
+  display: grid;
+  gap: 5px;
+  grid-template-rows: repeat(5 1fr);
+}
+
 .invisible {
   display: none;
 }

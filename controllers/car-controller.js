@@ -2,6 +2,7 @@ const Car = require("../models/car");
 const Version = require("../models/version");
 const Make = require("../models/make");
 const Model = require("../models/model");
+const Pic = require("../models/pic");
 const { createMake } = require("../public/javascripts/createMake");
 const { createModel } = require("../public/javascripts/createModel");
 const { createVersion } = require("../public/javascripts/createVersion");
@@ -12,6 +13,8 @@ const {
   variantsGetter,
 } = require("../public/javascripts/carInfoAPI");
 const { body, validationResult } = require("express-validator");
+const multer = require("multer");
+const upload = multer({ storage: multer.memoryStorage() });
 
 exports.index = (req, res, next) => {
   Car.find({}, "make version status price")
@@ -107,6 +110,11 @@ exports.add_car_get_variants_post = async (req, res, next) => {
 };
 
 exports.add_car_variants_submit = [
+  upload.single("picture1"),
+  upload.single("picture2"),
+  upload.single("picture3"),
+  upload.single("picture4"),
+  upload.single("picture5"),
   body("make", "make cannot be empty").trim().isLength({ min: 1 }).escape(),
   body("year").trim().escape(),
   body("model").trim().isLength({ min: 1 }).escape(),
@@ -156,11 +164,26 @@ exports.add_car_variants_submit = [
                         .save()
                         .then((savedCar) => {
                           savedVersion.cars.push(savedCar._id);
-                          savedVersion.save().then((finalVersion) => {
-                            savedModel.cars.push(savedCar._id);
-                            savedModel.versions.push(finalVersion);
-                            savedModel.save().then(res.redirect(savedCar.url));
-                          });
+                          let pics = [];
+                          let pic1;
+                          if (req.file) {
+                            pic1 = new Pic({
+                              car: savedCar._id,
+                              position: 1,
+                              image: req.file.buffer,
+                              description: "image upload test",
+                            });
+                          }
+                          Promise.all([
+                            savedVersion.save().then((finalVersion) => {
+                              savedModel.cars.push(savedCar._id);
+                              savedModel.versions.push(finalVersion);
+                              savedModel.save();
+                            }),
+                            pic1.save(),
+                          ])
+                            .then(res.redirect(savedCar.url))
+                            .catch((err) => next(err));
                         })
                         .catch((err) => next(err));
                     })
@@ -297,12 +320,18 @@ exports.add_car_variants_submit = [
 ];
 
 exports.carDetail = (req, res, next) => {
-  Car.findById(req.params.id)
-    .populate("make")
-    .populate("model")
-    .populate("version")
-    .then((car) => {
-      res.render("car_detail", { car });
+  Promise.all([
+    Car.findById(req.params.id)
+      .populate("make")
+      .populate("model")
+      .populate("version"),
+    Pic.find({ car: req.params.id }),
+  ])
+    .then((results) => {
+      let picsSorted = results[1].sort((a, b) => {
+        return a.position - b.position;
+      });
+      res.render("car_detail", { car: results[0], pics: picsSorted });
     })
     .catch((err) => next(err));
 };

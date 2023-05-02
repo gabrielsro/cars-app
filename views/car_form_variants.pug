@@ -1,7 +1,7 @@
 extends layoutCarFormModels
 block content 
     h1= title
-    form(method='POST', action='/inventory/add-car/form-submission', class='form-add-car')
+    form(method='POST', action='/inventory/add-car/form-submission', class='form-add-car', enctype='multipart/form-data')
         .form-content
             .form-content-text
                 label(for='carMake') Make:
@@ -59,19 +59,19 @@ block content
                     legend Upload pictures of this car (max 5 pics, less than 15MB each):
                     .form-picture-row
                         label(for='pic1') Picture 1 (First picture of this vehicle to be displayed. Thumbnail picture)
-                        input(id='pic1' type='file' name='picture1' accept='image/png, image/jpeg, image/avif, image/gif')
+                        input(id='pic1' type='file' name='picture1' accept='image/png, image/jpeg, image/avif, image/gif, image/webp')
                     .form-picture-row
-                        label(for='pic2') Picture 2 (Second picture of this vehicle to be displayed)
-                        input(id='pic2' type='file' name='picture2' accept='image/png, image/jpeg, image/avif, image/gif')
+                        label(for='pic1') Picture 2 
+                        input(id='pic1' type='file' name='picture2' accept='image/png, image/jpeg, image/avif, image/gif')
                     .form-picture-row
-                        label(for='pic3') Picture 3 (Third picture of this vehicle to be displayed)
-                        input(id='pic3' type='file' name='picture3' accept='image/png, image/jpeg, image/avif, image/gif')
+                        label(for='pic1') Picture 3 
+                        input(id='pic1' type='file' name='picture3' accept='image/png, image/jpeg, image/avif, image/gif')
                     .form-picture-row
-                        label(for='pic4') Picture 4 (Fourth picture of this vehicle to be displayed)
-                        input(id='pic4' type='file' name='picture4' accept='image/png, image/jpeg, image/avif, image/gif')
+                        label(for='pic1') Picture 4 
+                        input(id='pic1' type='file' name='picture4' accept='image/png, image/jpeg, image/avif, image/gif')
                     .form-picture-row
-                        label(for='pic5') Picture 5 (Last picture of this vehicle to be displayed)
-                        input(id='pic5' type='file' name='picture5' accept='image/png, image/jpeg, image/avif, image/gif')
+                        label(for='pic1') Picture 5 
+                        input(id='pic1' type='file' name='picture5' accept='image/png, image/jpeg, image/avif, image/gif')
         .form-button-container
             button(type='submit') Add car
 

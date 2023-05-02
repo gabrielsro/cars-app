@@ -9,6 +9,13 @@ block content
                 a(href=`/inventory/car/${car._id}/update`) Update
             p2
                 a(href=`/inventory/car/${car._id}/delete`) Delete
+    if pics.length > 0
+        .car-media
+            .main-img
+                img(src=`data:${pics[0].image.contentType};base64,${pics[0].image.toString('base64')}` alt='Car image')
+            .side-imgs
+                for pic in pics 
+                    img(src=`data:${pic.image.contentType};base64,${pic.image.toString('base64')}` alt='Car image')
     .car-basic-info
         .car-logo 
             img(src=car.make.logoSrc, alt=`${car.make.name} logo`)

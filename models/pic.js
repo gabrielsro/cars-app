@@ -15,6 +15,9 @@ const PicSchema = new Schema({
     type: Buffer,
     required: true,
   },
+  description: {
+    type: String,
+  },
 });
 
 module.exports = mongoose.model("Pic", PicSchema);
