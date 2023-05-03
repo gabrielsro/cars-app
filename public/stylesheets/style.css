@@ -574,7 +574,8 @@ form {
   cursor: pointer;
 }
 
-.selected-thumbnail {
+.selected-thumbnail,
+.selected {
   border: 3px solid #7fff00;
 }
 
