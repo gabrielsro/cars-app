@@ -33,14 +33,27 @@ block content
                     option(value=1) Oldest to newest 
                     option(value=-1) Newest to oldest
     .list 
-        for car in result 
-            .list-card
-                a(href=car.url) 
-                    .title 
-                        p #{car.make.name} #{car.model.name}
-                    .subtitle 
-                        p #{car.version.year}
-                        p $#{car.price}
-                    .footer
-                        p #{car.version.energy}
-                        p #{car.status}
+        for car in cars
+                .list-card
+                    a(href=car.car.url) 
+                        .card-thumbnail
+                            if undefined===car.pic.image 
+                                img(src=`/images/dummyImages/dummy4.avif` alt=`Unavailable car pic placeholder image`)
+                            else 
+                                h3 #{car.pic}
+                                //img(src=`data:${car.pic.image};base64,${car.pic.image.toString('base64')}` alt=`Vehicle image`)
+                            
+                        .card-info
+                            .card-logo
+                                img(src=car.car.make.logoSrc alt=`${car.car.make.name} logo`)
+                            .card-text
+                                .title 
+                                    p #{car.car.version.year} #{car.car.make.name} #{car.car.model.name}
+                                .subtitle 
+                                    p #{car.car.modelVariant}
+                                .footer
+                                    p $#{car.car.price.toLocaleString()} • #{car.car.status}
+    h3 #{resultPics[4].image}
+        
+
+    

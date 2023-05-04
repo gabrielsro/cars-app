@@ -162,8 +162,43 @@ textarea {
   grid-template-columns: 1fr 1fr 1fr;
 }
 
-.list-card {
-  border: 1px solid black;
+.card-thumbnail img {
+  width: 100%;
+  aspect-ratio: 1.78;
+  border-radius: 8px;
+}
+
+.card-info {
+  display: flex;
+}
+
+.card-logo {
+  display: grid;
+  place-items: center;
+  margin-right: 8px;
+}
+
+.card-logo img {
+  height: 40px;
+  width: auto;
+}
+
+.card-text {
+  overflow: hidden;
+}
+
+.card-text p {
+  white-space: nowrap;
+}
+
+.card-text .title > p:first-child {
+  font-weight: bold;
+  color: black;
+  font-size: 1.22rem;
+}
+
+.card-text .footer p {
+  color: black;
 }
 
 form {
@@ -466,8 +501,10 @@ form {
 
 .list {
   display: grid;
-  gap: 10px;
+  row-gap: 30px;
+  column-gap: 13px;
   grid-template-columns: repeat(auto-fill, minmax(100px, 342.98px));
+  place-content: center;
 }
 
 .search {

@@ -35,18 +35,36 @@ exports.index = (req, res, next) => {
 };
 
 exports.car_list = (req, res, next) => {
-  Car.find({}, "make model status price version")
+  Car.find({}, "make model status price version modelVariant")
     .populate("make", "name")
     .populate("model", "name")
     .populate("version", "energy year")
-    .then((result) => {
+    .then((resultCars) => {
       let makes = [];
-      result.forEach((c) => {
-        if (makes.every((m) => m.makeName != c.make.name)) {
-          makes.push({ makeName: c.make.name, makeId: c.make._id });
+      let cars = [];
+      let promises = [];
+      for (let i = 0; i < resultCars.length; i++) {
+        if (makes.every((m) => m.makeName != resultCars[i].make.name)) {
+          makes.push({
+            makeName: resultCars[i].make.name,
+            makeId: resultCars[i].make._id,
+          });
         }
-      });
-      res.render("car_list", { result, makes });
+        let picPromise = new Promise((resolve, reject) => {
+          Pic.find({ car: resultCars[i]._id, position: 1 }, "image")
+            .then(resolve)
+            .catch((err) => reject(err));
+        });
+        promises.push(picPromise);
+      }
+      Promise.all(promises)
+        .then((resultPics) => {
+          for (let i = 0; i < resultPics.length; i++) {
+            cars.push({ car: resultCars[i], pic: resultPics[i] });
+          }
+          res.render("car_list", { cars, makes, resultPics });
+        })
+        .catch((err) => next(err));
     })
     .catch((err) => next(err));
 };

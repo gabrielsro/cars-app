@@ -24,6 +24,12 @@ block content
                 .side-imgs
                     for pic in pics 
                         img(src=`data:${pic.image.contentType};base64,${pic.image.toString('base64')}` alt='Car image')
+            if pics.length < 1
+                .main-img 
+                    .previous-control 
+                    .main-img-container 
+                        img(src='/images/dummyImages/dummy4.avif' alt='Unavailable vehicle picture placeholder image')
+                    .next-control 
         .car-technical
             .card-technical
                 .card-technical-title
