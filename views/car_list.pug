@@ -37,11 +37,10 @@ block content
                 .list-card
                     a(href=car.car.url) 
                         .card-thumbnail
-                            if undefined===car.pic.image 
+                            if undefined===car.pic
                                 img(src=`/images/dummyImages/dummy4.avif` alt=`Unavailable car pic placeholder image`)
                             else 
-                                h3 #{car.pic}
-                                //img(src=`data:${car.pic.image};base64,${car.pic.image.toString('base64')}` alt=`Vehicle image`)
+                                img(src=`data:${car.pic.image.contentType};base64,${car.pic.image.toString('base64')}` alt=`Vehicle image`)
                             
                         .card-info
                             .card-logo
@@ -53,7 +52,6 @@ block content
                                     p #{car.car.modelVariant}
                                 .footer
                                     p $#{car.car.price.toLocaleString()} • #{car.car.status}
-    h3 #{resultPics[4].image}
         
 
     

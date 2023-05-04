@@ -60,9 +60,9 @@ exports.car_list = (req, res, next) => {
       Promise.all(promises)
         .then((resultPics) => {
           for (let i = 0; i < resultPics.length; i++) {
-            cars.push({ car: resultCars[i], pic: resultPics[i] });
+            cars.push({ car: resultCars[i], pic: resultPics[i][0] });
           }
-          res.render("car_list", { cars, makes, resultPics });
+          res.render("car_list", { cars, makes });
         })
         .catch((err) => next(err));
     })
