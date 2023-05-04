@@ -302,7 +302,7 @@ form {
   padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 10px;
-  width: 100%;
+  width: auto;
   background-color: #eee;
   border-radius: 5px;
 }
@@ -330,14 +330,15 @@ form {
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
+  padding-left: 20px;
+  padding-top: 5px;
 }
 
 .card-technical-row {
   display: inline-flex;
   align-items: center;
-  margin-left: 30px;
-  margin-top: 0px;
   width: auto;
+  margin-right: 5px;
 }
 
 .card-technical-row h5 {
@@ -557,9 +558,9 @@ form {
 
 .car-info-container {
   display: grid;
-  gap: 5px;
+  column-gap: 10px;
   grid-template-columns: 60% 40%;
-  place-items: center;
+  place-content: center;
 }
 
 .car-technical {
@@ -647,6 +648,10 @@ form {
   display: none;
 }
 
+#cardTechnicalRowsEngine {
+  width: 100px;
+}
+
 #carAvailable {
   color: #73e600;
   font-size: 1.2rem;
@@ -666,4 +671,8 @@ form {
 
 #engineIcon {
   width: 35px;
+}
+
+#accelerationIcon {
+  width: 25px;
 }

@@ -36,6 +36,14 @@ block content
                         img(src='/images/icons/carIcons/car3.svg' alt='Car Icon')
                         h4 Basics
                 .card-technical-rows
+                    if car.version.fuelSpecifics 
+                        .card-technical-row 
+                            img(src='/images/icons/energyIcons/energy1.svg' alt='Energy Icon' id='energyIcon')
+                            h5 #{car.version.fuelSpecifics}
+                    else 
+                        .card-technical-row 
+                            img(src='/images/icons/energyIcons/energy1.svg' alt='Energy Icon' id='energyIcon')
+                            h5 Gasoline
                     if car.version.transmission
                         .card-technical-row
                             img(src='/images/icons/transmissionIcons/transmission2.svg' alt='Transmission Icon')
@@ -44,7 +52,7 @@ block content
                             else
                                 h5 #{car.version.transmission}
                     if car.version.drive
-                        .card-technical-row
+                        .card-technical-row(id='technicalRowDrive')
                             if /rear/i.test(car.version.drive)
                                 img(src='/images/icons/RWDIcons/rear1.svg' alt='Rear-wheel-drive Icon')
                                 if /w/i.test(car.version.drive) == false
@@ -76,20 +84,12 @@ block content
                         .card-technical-row 
                             img(src='/images/icons/weightIcons/weight3.svg' alt='Weight Icon' id='weightIcon')
                             h5 #{car.version.weight.toLocaleString()} kg
-                    if car.version.fuelSpecifics 
-                        .card-technical-row 
-                            img(src='/images/icons/energyIcons/energy1.svg' alt='Energy Icon' id='energyIcon')
-                            h5 #{car.version.fuelSpecifics}
-                    else 
-                        .card-technical-row 
-                            img(src='/images/icons/energyIcons/energy1.svg' alt='Energy Icon' id='energyIcon')
-                            h5 Gasoline
             if car.version.enginePower || car.version.engineTorqueNm || car.version.enginePosition || car.version.engineCC || car.version.engineCyl || !car.version.engineCompression || /Not/.test(car.version.engineCompression) == false            
                 .card-technical
                     .card-technical-title
                         img(src='/images/icons/engineIcons/engine2.svg' alt='Engine Icon' id='engineIcon')
                         h4 Engine 
-                    .card-technical-rows
+                    .card-technical-rows(id='cardTechnicalRowsEngine')
                         if car.version.enginePosition
                             .card-technical-row
                                 if /front/i.test(car.version.enginePosition)
@@ -135,29 +135,28 @@ block content
                             .card-technical-row
                                 img(src='/images/icons/highwayIcons/highway2.svg' alt='Highway Icon')
                                 h5 Highway: #{car.version.fuelEfficiencyHgw} mpg
-                        if car.version.fuelEfficiencyCity
-                            .card-technical-row
-                                img(src='/images/icons/cityIcons/city1.svg' alt='City Icon')
-                                h5 City: #{car.version.fuelEfficiencyCity} mpg
                         if car.version.fuelEfficiencyMixed
-                            .card-technical-row
+                            .card-technical-row(id='technicalRowMixed')
                                 img(src='/images/icons/mixedIcons/mixed1.svg' alt='Mixed Icon')
                                 h5 Mixed: #{car.version.fuelEfficiencyMixed} mpg 
-            if car.version.fuelEfficiencyHhw || car.version.fuelEfficiencyCity || car.version.fuelEfficiencyMixed
-                .card-technical
-                    .card-technical-title
-                        img(src='/images/icons/performanceIcons/performance1.svg' alt='Performance Icon')
-                        h4 Performance   
+                        if car.version.fuelEfficiencyCity
+                            .card-technical-row(id='technicalRowCity')
+                                img(src='/images/icons/cityIcons/city1.svg' alt='City Icon')
+                                h5 City: #{car.version.fuelEfficiencyCity} mpg
+            .card-technical
+                .card-technical-title
+                    img(src='/images/icons/performanceIcons/performance1.svg' alt='Performance Icon')
+                    h4 Performance   
+                .card-technical-rows
+                    if car.version.fuelEfficiencyHgw
+                        .card-technical-row
+                            img(src='/images/icons/speedIcons/speed1.svg' alt='Speed Icon')
+                            h5 Top speed: #{car.version.fuelEfficiencyHgw} mph
                     .card-technical-rows
-                        if car.version.fuelEfficiencyHgw
-                            .card-technical-row
-                                img(src='/images/icons/speedIcons/speed1.svg' alt='Speed Icon')
-                                h5 Top speed: #{car.version.fuelEfficiencyHgw} mph / (km/h)
-                        .card-technical-rows
-                        if car.version.fuelEfficiencyHgw
-                            .card-technical-row
-                                img(src='/images/icons/accelerationIcons/acceleration1.svg' alt='Acceleration Icon')
-                                h5 Acceleration: 0 to 60 (miles): #{car.version.fuelEfficiencyHgw} / 0 to 100 (km):
+                    if car.version.fuelEfficiencyHgw
+                        .card-technical-row(id='technicalRowAcceleration')
+                            img(src='/images/icons/accelerationIcons/acceleration1.svg' alt='Acceleration Icon' id='accelerationIcon')
+                            h5 Acceleration (0 to 60): #{car.version.fuelEfficiencyHgw} 
     .car-basic-info
         .car-logo 
             img(src=car.make.logoSrc, alt=`${car.make.name} logo`)
