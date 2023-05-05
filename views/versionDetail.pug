@@ -10,8 +10,8 @@ block content
                 h1 #{version.year} #{version.make.name} #{version.model.name} 
                 h2 #{version.name}
         .version-control    
-            a(href='') Update version    
-            a(id='delete-option') Delete version
+            a(href='') Update    
+            a(id='delete-option') Delete
     .delete-warning(class='invisible') 
         .delete-warning-msg
             img(src='/images/icons/warningIcons/warning1.svg', alt='warningIcon')
@@ -21,7 +21,6 @@ block content
             a(id='btn-delete-yes', href=`/inventory/version/${version._id}/${version.model._id}/${modelName}/${version.make._id}/delete`) Yes, delete
     .version-info 
     .version-specs 
-        .car-technical
         .card-technical
             .card-technical-title
                     img(src='/images/icons/carIcons/car3.svg' alt='Car Icon')
@@ -130,13 +129,42 @@ block content
                         .card-technical-row
                             img(src='/images/icons/mixedIcons/mixed1.svg' alt='Mixed Icon')
                             h5 Mixed: #{version.fuelEfficiencyMixed} mpg 
+        .card-technical
+                .card-technical-title
+                    img(src='/images/icons/performanceIcons/performance1.svg' alt='Performance Icon')
+                    h4 Performance   
+                .card-technical-rows
+                    if version.fuelEfficiencyHgw
+                        .card-technical-row
+                            img(src='/images/icons/speedIcons/speed1.svg' alt='Speed Icon')
+                            h5 Top speed: #{version.fuelEfficiencyHgw} mph
+                    .card-technical-rows
+                    if version.fuelEfficiencyHgw
+                        .card-technical-row(id='technicalRowAcceleration')
+                            img(src='/images/icons/accelerationIcons/acceleration1.svg' alt='Acceleration Icon' id='accelerationIcon')
+                            h5 Acceleration (0 to 60): #{version.fuelEfficiencyHgw} 
     .version-cars
         h2 Vehicles
         if version.cars.length == 0
             p #{`We don't have any ${version.year} ${version.make.name} ${version.model.name} ${version.name} at the moment.`}
         else 
             .version-cars-container 
-                for car in version.cars 
+                for car in carList 
                     .car-card 
-                        a(href=`${car.url}`)
-                            p #{`$${car.price.toLocaleString()}`}
+                        a(href=car.car.url) 
+                            .card-thumbnail
+                                if undefined===car.pic
+                                    img(src=`/images/dummyImages/dummy4.avif` alt=`Unavailable car pic placeholder image`)
+                                else 
+                                    img(src=`data:${car.pic.image.contentType};base64,${car.pic.image.toString('base64')}` alt=`Vehicle image`)
+                                
+                            .card-info
+                                .card-logo
+                                    img(src=version.make.logoSrc alt=`${car.car.make.name} logo`)
+                                .card-text
+                                    .title 
+                                        p #{version.year} #{version.make.name} #{modelName}
+                                    .subtitle 
+                                        p #{car.car.modelVariant}
+                                    .footer
+                                        p $#{car.car.price.toLocaleString()} • #{car.car.status}

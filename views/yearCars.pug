@@ -1,16 +1,50 @@
 extends layout
 block content 
     if year
-        h1 Showing cars of year #{year}
-        .cars-controls 
+        h1(class='yearCarsTitle') Showing cars of year #{year}
+        .search
+            .search-controls
+                label(for='make') Filter by Make 
+                    select(id='make')
+                        option(value='All', selected='true') All Makes
+                        for make in  makes
+                            option(value=make.makeId) #{make}
+                label(for='energy') Filter by Energy 
+                    select(id='energy')
+                        option(value='All', selected='true') All types 
+                        option(value='Gas') Gas 
+                        option(value='Diesel') Diesel
+                        option(value='Hybrid') Hybrid 
+                        option(value='Electric') Electric
+                label(for='price') Sort by price 
+                    select(id='price')
+                        option(value='', disabled='true', selected='true' hidden='true') Sort by price
+                        option(value=1) Lowest to highest         
+                        option(value=-1) Highest to lowest
+                label(for='name') Sort by name 
+                    select(id='name')
+                        option(value='', disabled='true', selected='true' hidden='true') Sort by model
+                        option(value=1) A to Z 
+                        option(value=-1) Z to A
         .cars-container
-            for car in carResult 
-                .car-card 
-                    .car-card-title
-                        p #{car.makeName} #{car.modelName}
-                    .car.card-image 
-                    .car-card-subtitle
-                        p $#{car.price.toLocaleString()}
+            for car in carList 
+                a(href=car.car.url) 
+                        .card-thumbnail
+                            if undefined===car.pic
+                                img(src=`/images/dummyImages/dummy4.avif` alt=`Unavailable car pic placeholder image`)
+                            else 
+                                img(src=`data:${car.pic.image.contentType};base64,${car.pic.image.toString('base64')}` alt=`Vehicle image`)
+                            
+                        .card-info
+                            .card-logo
+                                img(src=car.car.make.logoSrc alt=`${car.car.make.name} logo`)
+                            .card-text
+                                .title 
+                                    p #{car.car.year} #{car.car.make.name} #{car.car.modelName}
+                                .subtitle 
+                                    p #{car.car.modelVariant}
+                                .footer
+                                    p $#{car.car.price.toLocaleString()} • #{car.car.status}
 
     else 
         ul 

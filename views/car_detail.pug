@@ -158,22 +158,37 @@ block content
                             img(src='/images/icons/accelerationIcons/acceleration1.svg' alt='Acceleration Icon' id='accelerationIcon')
                             h5 Acceleration (0 to 60): #{car.version.fuelEfficiencyHgw} 
     .car-basic-info
-        .car-logo 
-            img(src=car.make.logoSrc, alt=`${car.make.name} logo`)
-        .car-basic-details
-            .car-technical 
-                h3 Make: 
-                    a(href=car.make.url) #{car.make.name}
-                if car.version.fuel 
+        .car-basic-info-section1
+            .car-logo 
+                img(src=car.make.logoSrc, alt=`${car.make.name} logo`)
+            .car-basic-details
+                .car-technical 
+                    h3 Make: 
+                        a(href=car.make.url) #{car.make.name}
+                    if car.version.fuel 
+                        h3 Energy:
+                            a(href='')  #{car.version.fuel}
+                    h3 Mileage: #{car.mileage.toLocaleString()} miles
+                    h3 Color: #{car.color}
                     h3 Energy:
-                        a(href='')  #{car.version.fuel}
-                h3 Mileage: #{car.mileage.toLocaleString()} miles
-                h3 Color: #{car.color}
-                h3 Energy:
-        .car-info 
-                h2 $#{car.price.toLocaleString()}
-                - status = car.status==='Available' ? 'carAvailable' : 'carSold'
-                h2(id=status) #{car.status}
+        .car-basic-info-section2
+            .car-info 
+                    h2 $#{car.price.toLocaleString()}
+                    - status = car.status==='Available' ? 'carAvailable' : 'carSold'
+                    h2(id=status) #{car.status}
+        .car-basic-info-section3 
+            .car-location
+                div
+                    img(src='/images/icons/locationIcons/location1.svg' alt='Car location icon')
+                    p Car Location: 
+            .car-contact
+                div
+                    img(src='/images/icons/contactIcons/contact1.svg' alt='Car contact icon')
+                    a Contact Seller
+                div(class='invisible')
+                    form 
+                        input(type='text' resize='none' id='msgToSeller' placeholder='Type your message...' required='true')
+                        button(type='submit') Send
             
     
     .car-description 

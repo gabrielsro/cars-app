@@ -1,6 +1,6 @@
 const Version = require("../models/version");
 const Model = require("../models/model");
-const Make = require("../models/make");
+const Pic = require("../models/pic");
 const Car = require("../models/car");
 
 exports.versionList = (req, res, next) => {
@@ -17,8 +17,25 @@ exports.versionDetail = (req, res, next) => {
     .populate("cars")
     .populate("make")
     .then((version) => {
-      let modelName = version.model.name.split(" ").join("_");
-      res.render("versionDetail", { version, modelName });
+      let picPromises = [];
+      version.cars.forEach((c) => {
+        let picPromise = new Promise((resolve, reject) => {
+          Pic.find({ car: c._id, position: 1 }, "image")
+            .then(resolve)
+            .catch((err) => reject(err));
+        });
+        picPromises.push(picPromise);
+      });
+      Promise.all(picPromises)
+        .then((picResults) => {
+          let carList = [];
+          for (let i = 0; i < picResults.length; i++) {
+            carList.push({ car: version.cars[i], pic: picResults[i][0] });
+          }
+          let modelName = version.model.name.split(" ").join("_");
+          res.render("versionDetail", { version, modelName, carList });
+        })
+        .catch((err) => next(err));
     })
     .catch((err) => next(err));
 };

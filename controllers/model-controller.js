@@ -2,6 +2,7 @@ const Model = require("../models/model");
 const Make = require("../models/make");
 const Car = require("../models/car");
 const Version = require("../models/version");
+const Pic = require("../models/pic");
 const { body, validationResult } = require("express-validator");
 const {
   makesGetter,
@@ -215,8 +216,38 @@ exports.yearFormPost = [
       return;
     }
     Car.find({ year: req.body.year })
+      .populate("make")
       .then((carResult) => {
-        res.render("yearCars", { year: req.body.year, carResult });
+        let picPromises = [];
+        let carList = [];
+        carResult.forEach((c) => {
+          let picPromise = new Promise((resolve, reject) => {
+            Pic.find({ car: c._id, position: 1 }, "image")
+              .then(resolve)
+              .catch((err) => reject(err));
+          });
+          picPromises.push(picPromise);
+          carList.push({ car: c });
+        });
+        Promise.all(picPromises)
+          .then((picResults) => {
+            picResults.forEach((p, index) => {
+              carList[index].pic = p[0];
+            });
+            let makes = [];
+            carList.forEach((c) => {
+              if (!makes.some((m) => m == c.car.makeName)) {
+                makes.push(c.car.makeName);
+              }
+            });
+            res.render("yearCars", {
+              year: req.body.year,
+              carResult,
+              carList,
+              makes,
+            });
+          })
+          .catch((err) => next(err));
       })
       .catch((err) => next(err));
   },
