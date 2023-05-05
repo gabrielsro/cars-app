@@ -79,8 +79,13 @@ textarea {
   font-weight: bold;
 }
 
+.years-options form {
+  margin-left: 0px;
+}
+
 .years-options > div:first-child select {
   margin-left: 5px;
+  width: auto;
 }
 
 .years-options > div:nth-child(2) {
@@ -93,9 +98,10 @@ textarea {
   padding-top: 30px;
   padding-left: 20px;
   padding-right: 20px;
-  column-gap: 10px;
-  row-gap: 10px;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  column-gap: 15px;
+  row-gap: 25px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 370px));
+  place-content: center;
 }
 
 .years-grid-content div {
@@ -107,6 +113,7 @@ textarea {
 
 .years-grid-content p {
   font-size: 1.6rem;
+  font-weight: bold;
 }
 
 .years-grid-content img {
@@ -272,8 +279,8 @@ form {
 .car-basic-info {
   margin-top: 10px;
   margin-bottom: 25px;
-  display: flex;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   border: 1px solid black;
   padding-top: 5px;
   padding-bottom: 5px;
@@ -283,9 +290,90 @@ form {
   width: 100%;
 }
 
+.car-basic-info-section1 {
+  display: flex;
+}
+
+.car-basic-info-section2 {
+  display: grid;
+  place-content: center;
+}
+
+.car-basic-info-section2 .car-info {
+  margin-left: 0px;
+}
+
+.car-basic-info-section2 .car-info h2 {
+  font-size: 1.7rem;
+}
+
+.car-basic-info-section3 {
+  display: grid;
+  place-content: center;
+  font-weight: bold;
+}
+
+.car-location {
+  margin-bottom: 10px;
+}
+
+.car-location div:first-child,
+.car-contact div:first-child {
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+}
+
+.car-location img {
+  width: 25px;
+  margin-right: 3px;
+}
+
+.car-contact img {
+  width: 25px;
+  margin-right: 3px;
+}
+
+.car-contact div:first-child > a:hover,
+.car-contact div:first-child > img:hover {
+  cursor: pointer;
+}
+
+.car-contact div:nth-child(2) {
+  border: 1px solid black;
+  position: absolute;
+  background-color: #eee;
+  margin-top: 5px;
+  margin-left: 10px;
+  border-radius: 5px;
+  width: 18.7vw;
+  height: auto;
+  padding-top: 5px;
+  padding-bottom: 4px;
+}
+
+.car-contact div:nth-child(2) form {
+  margin-left: 0px;
+  width: 100%;
+  padding-left: 6px;
+  padding-right: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.car-contact div:nth-child(2) input {
+  width: 100%;
+}
+
+.car-contact div:nth-child(2) button {
+  align-self: end;
+}
+
 .car-logo img {
   height: auto;
   max-width: 170px;
+  max-height: 100px;
   margin-right: 14px;
 }
 
@@ -355,14 +443,10 @@ form {
   font-size: 1rem;
 }
 
-.cars-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(270px, 0.2fr));
-  gap: 10px;
-}
-
-.car-card {
-  border: 1px solid black;
+.version-specs {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 .version-row-title {
@@ -390,6 +474,12 @@ form {
 .version-header {
   display: flex;
   justify-content: space-between;
+  background-color: #eee;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 5px;
 }
 
 .version-title {
@@ -410,6 +500,14 @@ form {
   justify-content: space-between;
   font-weight: bold;
   margin-bottom: 10px;
+}
+
+.version-cars {
+  padding-top: 15px;
+}
+
+.version-cars h2 {
+  margin-bottom: 15px;
 }
 
 .delete-warning {
@@ -457,12 +555,6 @@ form {
   margin-right: 25px;
 }
 
-.version-cars-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 200px));
-  gap: 10px;
-}
-
 .model-title,
 .models-list-info {
   display: flex;
@@ -500,7 +592,9 @@ form {
   font-weight: bold;
 }
 
-.list {
+.list,
+.version-cars-container,
+.cars-container {
   display: grid;
   row-gap: 30px;
   column-gap: 13px;
@@ -637,6 +731,10 @@ form {
 
 .car-media .side-imgs img:hover {
   cursor: pointer;
+}
+
+.yearCarsTitle {
+  margin-bottom: 20px;
 }
 
 .selected-thumbnail,
