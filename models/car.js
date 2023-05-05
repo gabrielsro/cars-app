@@ -41,7 +41,6 @@ const CarSchema = new Schema({
       "Other",
     ],
   },
-  description: { type: String },
   version: { type: Schema.Types.ObjectId, required: true, ref: "Version" },
   pictures: [
     {
@@ -49,6 +48,11 @@ const CarSchema = new Schema({
       ref: "Pic",
     },
   ],
+  description: { type: String },
+  country: { type: String },
+  state: { type: String },
+  city: { type: String },
+  email: { type: String },
 });
 
 CarSchema.virtual("url").get(function () {
