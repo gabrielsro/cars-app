@@ -375,6 +375,7 @@ exports.carDelete = (req, res, next) => {
         Model.findByIdAndUpdate(deletedCar.mode, {
           $pull: { cars: deletedCar._id },
         }),
+        Pic.deleteMany({ car: req.params.id }),
       ])
         .then(res.redirect(`/inventory/version/${deletedCar.version}`))
         .catch((err) => next(err));

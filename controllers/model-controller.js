@@ -294,13 +294,18 @@ exports.modelPage = (req, res, next) => {
 };
 
 exports.modelDelete = (req, res, next) => {
-  Promise.all([
-    Model.findByIdAndRemove({ _id: req.params.id }),
-    Car.deleteMany({ model: req.params.id }),
-    Version.deleteMany({ model: req.params.id }),
-  ])
-    .then(() => res.redirect("back"))
-    .catch((err) => next(err));
+  Model.find({ _id: req.params.id }).then((foundModel) => {
+    Pic.deleteMany({ car: { $in: foundModel[0].cars } })
+      .then(() =>
+        Promise.all([
+          Model.findByIdAndRemove({ _id: req.params.id }),
+          Car.deleteMany({ model: req.params.id }),
+          Version.deleteMany({ model: req.params.id }),
+        ])
+      )
+      .then(() => res.redirect("back"))
+      .catch((err) => next(err));
+  });
 };
 
 exports.modelDeleteAll = (req, res, next) => {

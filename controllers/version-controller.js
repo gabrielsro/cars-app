@@ -52,6 +52,7 @@ exports.versionDelete = (req, res, next) => {
           $pull: { versions: req.params.versionId },
         }),
         Car.deleteMany({ _id: { $in: results[1] } }),
+        Pic.deleteMany({ car: { $in: results[1] } }),
       ])
         .then(
           res.redirect(
