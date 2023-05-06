@@ -12,9 +12,9 @@ const {
   modelsGetter,
   variantsGetter,
 } = require("../public/javascripts/carInfoAPI");
+const { createPics } = require("../public/javascripts/createPics");
 const { body, validationResult } = require("express-validator");
 const multer = require("multer");
-const { reject } = require("async");
 const upload = multer({ storage: multer.memoryStorage() });
 
 exports.index = (req, res, next) => {
@@ -179,33 +179,13 @@ exports.add_car_variants_submit = [
                         .save()
                         .then((savedCar) => {
                           savedVersion.cars.push(savedCar._id);
-                          let pics = [];
-                          if (req.files.length > 0) {
-                            req.files.forEach((f, i) => {
-                              let picN = new Pic({
-                                car: savedCar._id,
-                                position: (i += 1),
-                                image: f.buffer,
-                                description: "image upload test",
-                              });
-                              let picPromise = new Promise(
-                                (resolve, reject) => {
-                                  picN
-                                    .save()
-                                    .then(resolve)
-                                    .catch((err) => reject(err));
-                                }
-                              );
-                              pics.push(picPromise);
-                            });
-                          }
                           Promise.all([
                             savedVersion.save().then((finalVersion) => {
                               savedModel.cars.push(savedCar._id);
                               savedModel.versions.push(finalVersion);
                               savedModel.save();
                             }),
-                            ...pics,
+                            ...createPics(savedCar._id, req.files),
                           ])
                             .then(res.redirect(savedCar.url))
                             .catch((err) => next(err));
@@ -252,13 +232,14 @@ exports.add_car_variants_submit = [
                           .save()
                           .then((savedCar) => {
                             savedVersion.cars.push(savedCar._id);
-                            savedVersion
-                              .save()
-                              .then((finalversion) => {
+                            Promise.all([
+                              savedVersion.save().then((finalversion) => {
                                 savedModel.versions.push(finalversion._id);
                                 savedModel.cars.push(savedCar._id);
                                 savedModel.save();
-                              })
+                              }),
+                              ...createPics(savedCar._id, req.files),
+                            ])
                               .then(res.redirect(savedCar.url))
                               .catch((err) => next(err));
                           })
@@ -293,20 +274,19 @@ exports.add_car_variants_submit = [
                             savedVersion,
                             req.body
                           );
-                          car
-                            .save()
-                            .then((savedCar) => {
-                              savedVersion.cars.push(savedCar._id);
+                          car.save().then((savedCar) => {
+                            savedVersion.cars.push(savedCar._id);
+                            Promise.all([
                               savedVersion.save().then((finalVersion) => {
                                 modelResult[0].versions.push(finalVersion._id);
                                 modelResult[0].cars.push(savedCar._id);
-                                modelResult[0]
-                                  .save()
-                                  .then(res.redirect(savedCar.url))
-                                  .catch((err) => next(err));
-                              });
-                            })
-                            .catch((err) => next(err));
+                                modelResult[0].save();
+                              }),
+                              ...createPics(savedCar._id, req.files),
+                            ])
+                              .then(res.redirect(savedCar.url))
+                              .catch((err) => next(err));
+                          });
                         })
                         .catch((err) => next(err));
                       return;
@@ -327,6 +307,7 @@ exports.add_car_variants_submit = [
                           Promise.all([
                             versionResult[0].save(),
                             modelResult[0].save(),
+                            ...createPics(savedCar._id, req.files),
                           ])
                             .then(res.redirect(savedCar.url))
                             .catch((err) => next(err));
