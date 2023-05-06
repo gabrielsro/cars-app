@@ -30,6 +30,9 @@ const VerisonSchema = new Schema({
   fuelEfficiencyCity: { type: Number },
   maxSpeed: { type: Number },
   accel0To100: { type: Number },
+  length: { type: Number },
+  width: { type: Number },
+  height: { type: Number },
   cars: [{ type: Schema.Types.ObjectId, ref: "Car" }],
 });
 

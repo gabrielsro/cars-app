@@ -38,6 +38,11 @@ exports.createVersion = async (makeId, modelId, modelYear, reqBodyVariant) => {
     fuelEfficiencyHgw: variantInfo.model_mpg_hwy,
     fuelEfficiencyMixed: variantInfo.model_mpg_mixed,
     fuelEfficiencyCity: variantInfo.model_mpg_city,
+    accel0To100: variantInfo.model_0_to_100_kph,
+    maxSpeed: variantInfo.model_top_speed_kph,
+    length: variantInfo.model_length_mm,
+    width: variantInfo.model_width_mm,
+    height: variantInfo.model_height_mm,
     cars: [],
   });
 };

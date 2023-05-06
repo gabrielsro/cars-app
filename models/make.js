@@ -7,6 +7,7 @@ const makeSchema = new Schema({
   makeId: { type: String, required: true },
   country: { type: String, required: true },
   demonym: { type: String },
+  description: { type: String },
 });
 
 makeSchema.virtual("url").get(function () {

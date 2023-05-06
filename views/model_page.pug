@@ -9,7 +9,7 @@ block content
         .model-list-header
             .models-list-info
                 .models-list-title
-                    h1 #{models[0].make.name} #{models[0].name}
+                    h1(class='pageTitle') #{models[0].make.name} #{models[0].name}
                 .models-control 
                     a(id='models-delete-all') Delete All
             .delete-warning(class='invisible', id='models-delete-all-warning') 

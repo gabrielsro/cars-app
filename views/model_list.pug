@@ -1,6 +1,6 @@
 extends layout 
 block content 
-    h1 Models
+    h1(class='pageTitle') Models
     if groupedModels 
         for group in groupedModels 
             h2 #{group.makeName}

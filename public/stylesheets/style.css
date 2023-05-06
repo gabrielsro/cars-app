@@ -370,6 +370,11 @@ form {
   align-self: end;
 }
 
+.car-logo {
+  display: grid;
+  place-content: center;
+}
+
 .car-logo img {
   height: auto;
   max-width: 170px;
@@ -404,9 +409,28 @@ form {
   align-items: center;
 }
 
+.card-technical-title-group {
+  display: flex;
+  align-items: center;
+}
+
 .card-technical-title img {
   height: auto;
   width: 40px;
+}
+
+.measurementSystem {
+  height: 100%;
+  display: flex;
+  align-self: baseline;
+  padding-right: 7px;
+  font-weight: bold;
+  gap: 2px;
+  font-size: 0.8rem;
+}
+
+.measurementSystem p:hover {
+  cursor: pointer;
 }
 
 .card-technical h4 {
@@ -580,9 +604,19 @@ form {
   margin-bottom: 25px;
 }
 
+.model-row h2 {
+  font-size: 1.8rem;
+}
+
 .make-header {
   display: flex;
   justify-content: space-between;
+  background-color: #eee;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  padding-left: 5px;
+  padding-right: 15px;
 }
 
 .make-options {
@@ -590,6 +624,8 @@ form {
   flex-direction: column;
   justify-content: space-between;
   font-weight: bold;
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .list,
@@ -742,8 +778,26 @@ form {
   border: 3px solid #7fff00;
 }
 
+.selectedText {
+  color: #ff8c00;
+}
+
+.pageTitle {
+  font-size: 2.5rem;
+}
+
 .invisible {
   display: none;
+}
+
+#makeMainLogo {
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+#measurementSwitch {
+  display: flex;
+  justify-content: space-between;
 }
 
 #cardTechnicalRowsEngine {
@@ -773,4 +827,8 @@ form {
 
 #accelerationIcon {
   width: 25px;
+}
+
+#dimensionsIcon {
+  width: 24px;
 }

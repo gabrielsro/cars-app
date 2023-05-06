@@ -1,6 +1,6 @@
 extends layout 
 block content 
-    h1 Makes 
+    h1(class='pageTitle') Makes 
     for make in list
         h2 
             a(href=make.url) #{make.name}
