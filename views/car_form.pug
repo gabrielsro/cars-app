@@ -1,55 +1,46 @@
-extends layoutCarForm 
+extends layout
+block scripts 
+    script(src='/javascripts/modelLoader.js', defer='true')
 block content 
     h1= title
+    .form-progress 
+        .stage(class='selectedText' class='selectable') 
+            h2 1. Vehicle information 
+        .stage(class='unselectable') 
+            h2 2. Contact information 
+        .stage(class='unselectable') 
+            h2 3. Additional information 
     form(method='POST', action='', class='form-add-car')
-        .form-content-text
-            label(for='carMake') Make:
-            select(id='carMake', name='make', required='true')
-                option(value='', hidden='true', selected='true') Select Make
-                for make in makesList 
-                    option(value=`${make.name},${make.makeId},${make.makeCountry},${make.makeDemonym}`) #{make.name}
-            label(for='carYear') Year:
-            input(id='carYear', type='number', placeholder='Enter year...', name='year', required='true')
-            label(for='carMileage') Mileage:
-            input(id='carMileage', type='number', placeholder='Enter mileage...' name='mileage')
-            label(for='carColor') Color:
-            select(id='carColor', name='color')
-                option(value='', hidden='true', selected='true') Select Color
-                option(value='Black') Black
-                option(value='Blue') Blue
-                option(value='Brown') Brown
-                option(value='Grey') Grey
-                option(value='Green') Green
-                option(value='Red') Red
-                option(value='Silver') Silver
-                option(value='White') White
-                option(value='Yellow') Yellow
-                option(value='Other') Other
-            label(for='carPrice') Price:
-            input(id='carPrice',type='number', name='price', placeholder='Enter price in USD')
-            label(for='carStatus') Status:
-            select(id='carStatus', name='status')
-                option(value='Sold') Sold
-                option(value='Available', selected='true') Available
-            label(for='carDescription') Description:
-            input(id='carDescription',type='text', name='description', placeholder='Tell us more about this car...', value=(undefined===description ? '' : description))
-        .form-content-pictures 
-            fieldset
-                legend Upload pictures of this car (max 5 pics, less than 15MB each):
-                .form-picture-row
-                    label(for='pic1') Picture 1 (First picture of this vehicle to be displayed. Thumbnail picture)
-                    input(id='pic1' type='file' name='picture1' accept='image/png, image/jpeg, image/avif, image/gif')
-                .form-picture-row
-                    label(for='pic2') Picture 2 (Second picture of this vehicle to be displayed)
-                    input(id='pic2' type='file' name='picture2' accept='image/png, image/jpeg, image/avif, image/gif')
-                .form-picture-row
-                    label(for='pic3') Picture 3 (Third picture of this vehicle to be displayed)
-                    input(id='pic3' type='file' name='picture3' accept='image/png, image/jpeg, image/avif, image/gif')
-                .form-picture-row
-                    label(for='pic4') Picture 4 (Fourth picture of this vehicle to be displayed)
-                    input(id='pic4' type='file' name='picture4' accept='image/png, image/jpeg, image/avif, image/gif')
-                .form-picture-row
-                    label(for='pic5') Picture 5 (Last picture of this vehicle to be displayed)
-                    input(id='pic5' type='file' name='picture5' accept='image/png, image/jpeg, image/avif, image/gif')
+        fieldset 
+            legend(class='titleLegend') #{'Vehicle information (Required fields)'}
+            .form-content-text
+                label(for='carMake') Make:
+                select(id='carMake', name='make', required='true')
+                    option(value='', hidden='true', selected='true') Select Make
+                    for make in makesList 
+                        option(value=`${make.name},${make.makeId},${make.makeCountry},${make.makeDemonym}`) #{make.name}
+                label(for='carYear') Year:
+                input(id='carYear', type='number', placeholder='Enter year...', name='year', required='true')
+                label(for='carMileage') Mileage:
+                input(id='carMileage', type='number', placeholder='Enter mileage...' name='mileage')
+                label(for='carColor') Color:
+                select(id='carColor', name='color')
+                    option(value='', hidden='true', selected='true') Select Color
+                    option(value='Black') Black
+                    option(value='Blue') Blue
+                    option(value='Brown') Brown
+                    option(value='Grey') Grey
+                    option(value='Green') Green
+                    option(value='Red') Red
+                    option(value='Silver') Silver
+                    option(value='White') White
+                    option(value='Yellow') Yellow
+                    option(value='Other') Other
+                label(for='carPrice') Price:
+                input(id='carPrice',type='number', name='price', placeholder='Enter price in USD')
+                label(for='carStatus') Status:
+                select(id='carStatus', name='status')
+                    option(value='Sold') Sold
+                    option(value='Available', selected='true') Available
         .form-button-container
             button(type='submit' hidden='true') Next

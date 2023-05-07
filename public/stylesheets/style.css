@@ -212,9 +212,27 @@ form {
   margin-left: 20%;
 }
 
+.form-progress {
+  display: flex;
+  justify-content: space-around;
+  background-color: #eee;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 50px;
+  margin-top: 2vh;
+  margin-bottom: 5vh;
+}
+
 .form-content-text {
   display: grid;
   row-gap: 17px;
+  column-gap: 10px;
+  grid-template-columns: 0.1fr auto;
+}
+
+.form-content-pic {
+  display: grid;
+  row-gap: 7px;
   column-gap: 10px;
   grid-template-columns: 0.1fr auto;
 }
@@ -235,22 +253,12 @@ form {
   border: 0px;
 }
 
+fieldset {
+  margin-bottom: 2vh;
+}
+
 .form-content-pictures legend {
   margin-bottom: 10px;
-}
-
-.form-picture-row {
-  margin-bottom: 20px;
-  padding-left: 95px;
-}
-
-.form-picture-row label {
-  margin-bottom: 7px;
-}
-
-.form-content-pictures label,
-.form-content-pictures input {
-  display: block;
 }
 
 .form-button-container {
@@ -778,16 +786,61 @@ form {
   border: 3px solid #7fff00;
 }
 
+.selectable {
+  color: black;
+}
+
 .selectedText {
   color: #ffa600;
+}
+
+.selectable:hover {
+  cursor: pointer;
+}
+
+.unselectable {
+  color: rgb(199, 198, 198);
 }
 
 .pageTitle {
   font-size: 2.5rem;
 }
 
+.titleLegend {
+  margin-bottom: 3vh;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.subtitleLegend {
+  font-weight: bold;
+  margin-bottom: 2vh;
+}
+
+.mandatory-fieldset-buttons {
+  width: 100%;
+  grid-column: 2/3;
+  display: flex;
+  justify-content: end;
+}
+
+.optional-fieldset-buttons {
+  display: flex;
+  justify-content: end;
+  padding-top: 15px;
+  gap: 5px;
+}
+
 .invisible {
   display: none;
+}
+
+fieldset {
+  border: 0px;
+}
+
+#lastInputText {
+  margin-bottom: 3vh;
 }
 
 #makeMainLogo {
