@@ -227,7 +227,7 @@ form {
   display: grid;
   row-gap: 17px;
   column-gap: 10px;
-  grid-template-columns: 0.1fr auto;
+  grid-template-columns: 0.2fr auto;
 }
 
 .form-content-pic {
@@ -281,7 +281,7 @@ fieldset {
 }
 
 .form-add-car {
-  width: 610px;
+  width: 680px;
 }
 
 .car-basic-info {
@@ -824,7 +824,8 @@ fieldset {
   justify-content: end;
 }
 
-.optional-fieldset-buttons {
+.optional-fieldset-buttons,
+.car-form-button {
   display: flex;
   justify-content: end;
   padding-top: 15px;

@@ -1,6 +1,7 @@
 extends layout
 block scripts 
     script(src='/javascripts/variantLoader.js', defer='true')
+    script(src='/javascripts/otherModelHandler.js', defer='true')
 block content 
     h1= title
     .form-progress 
@@ -10,10 +11,10 @@ block content
             h2 2. Contact information 
         .stage(class='unselectable') 
             h2 3. Additional information 
-    form(method='POST', action='', class='form-add-car')
+    form(method='POST', action="/inventory/add-car/get-variants", class='form-add-car')
         fieldset
             legend(class='titleLegend') #{'Vehicle information (Required fields)'}
-            .form-content-text
+            .form-content-text(class='mandatory')
                 label(for='carMake') Make:
                 select(id='carMake', name='make', required='true')
                     for make in makesList 
@@ -25,6 +26,11 @@ block content
                     option(value='', hidden='true', selected='true') Select Model
                     for m in models 
                         option(value=m.model_name) #{m.model_name}
+                    option(value='other' ,id='otherOption') Other
+                label(for='newModel' id='newModelLabel' class='invisible') Model name:
+                input(id='newModel', type='text', name='newModel', placeholder="Enter model's name" class='invisible')
+                label(for='newVariant' id='newVariantLabel' class='invisible') Variant name:
+                input(id='newVariant', type='text', name='newvariant', placeholder="Enter variant's name" class='invisible')
                 label(for='carMileage') Mileage:
                 input(id='carMileage', type='number', placeholder='Enter mileage...', value=mileage)
                 label(for='carColor') Color:
@@ -46,5 +52,7 @@ block content
                 select(id='carStatus', name='status' value=status)
                     option(value='Sold') Sold
                     option(value='Available', selected='true') Available
+        .car-form-button 
+            button(type='submit' class='invisible') Next
 
 
