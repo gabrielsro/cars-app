@@ -160,7 +160,6 @@ exports.add_car_get_models_more = async (req, res, next) => {
 
 exports.add_car_get_variants_post_modelChange = async (req, res, next) => {
   if (req.params.model == "Other") {
-    //////WORKING ON THIS
     Promise.all([makesGetter(), modelsGetter(req.params.make, req.params.year)])
       .then((results) => {
         res.render("car_form_variants", {
@@ -207,10 +206,6 @@ exports.add_car_get_variants_post_modelChange = async (req, res, next) => {
         });
       })
       .catch((err) => next(err));
-  }
-  if (req.params.model == "Other") {
-    Promise.all([makesGetter(), modelsGetter(req.params.make, req.params.year)])
-      .then;
   }
 };
 

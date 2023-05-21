@@ -59,7 +59,7 @@ function checkFields() {
   }
 }
 
-//Check for "Onther" model input previously entered
+//Check for "Other" model input previously entered
 if (newModelInput) {
   if (newModelInput.value !== "") {
     newVariantLabel.classList.remove("invisible");
@@ -125,7 +125,18 @@ if (newModelInput) {
   });
 }
 
+//Listen for year changes on year input
 yearInput.addEventListener("input", () => {
+  handleYearOrMakeChange();
+});
+
+//Listen for make changes on variant form
+makeSelector.addEventListener("click", () => {
+  handleYearOrMakeChange();
+});
+
+//Handle year or make changes on variant form
+function handleYearOrMakeChange() {
   if (
     typeof Number(yearInput.value) == "number" &&
     Number(yearInput.value) > 1950 &&
@@ -135,7 +146,6 @@ yearInput.addEventListener("input", () => {
     carForm.setAttribute("action", "/inventory/add-car/get-models");
     carForm.submit();
   }
-  //Listen for year changes on variants form
   if (
     typeof Number(yearInput.value) == "number" &&
     Number(yearInput.value) > 1950 &&
@@ -167,22 +177,4 @@ yearInput.addEventListener("input", () => {
     }
     carForm.submit();
   }
-});
-
-makeSelector.addEventListener("change", (m) => {
-  if (yearInput.value && carFormButton) {
-    carForm.setAttribute("action", "/inventory/add-car/get-models/");
-    carForm.submit();
-  }
-  //Listen for make changes on variants form
-  if (yearInput.value && mandatoryNextButton) {
-    carForm.setAttribute(
-      "action",
-      `/inventory/add-car/get-models/${yearInput.value}/${
-        m.target.value.split(",")[1]
-      }/${carMileage.value}/${carColor.value}/${carPrice.value}
-      `
-    );
-    carForm.submit();
-  }
-});
+}
