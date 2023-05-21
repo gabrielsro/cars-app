@@ -2,6 +2,7 @@ extends layout
 block scripts 
     script(src='/javascripts/variantLoader.js', defer='true')
     script(src='/javascripts/carFormOptionals.js', defer='true')
+    script(src='/javascripts/variantFormFieldsHandler.js', defer='true')
 block content 
     h1= title
     .form-progress 
@@ -26,8 +27,12 @@ block content
                     option(value='', hidden='true', selected='true') Select Model
                     for m in models 
                         option(value=m.model_name selected=(m.model_name == model ? 'selected' : false)) #{m.model_name}
+                    option(value='Other' selected=(otherModel ? 'selected' : false)) Other
+                if otherModel
+                    label(for='newModel' id='newModelLabel') Model name:  
+                    input(id='newModel', type='text', name='newModel', placeholder="Enter model's name" value=newModel required=(otherModel?'true':'false'))
                 if variantsList.length > 1
-                    label(for='carVariants') Variant: 
+                    label(for='carVariants' class='variantLabel') Variant: 
                     select(id='carVariants' name='variant', required='true')
                         option(value='', hidden='true', selected='true') Select Variant
                         for variant in variantsList 
@@ -36,12 +41,19 @@ block content
                         if variantsList[0].model_trim == ''
                             option(value=`${(variantsList[0].model_name ? variantsList[0].model_name : 'Default')},${(variantsList[0].model_trim ? variantsList[0].model_trim : 'Default version')},${(variantsList[0].model_id ? variantsList[0].model_id : '')}`) Default version
                 if variantsList.length == 1
-                    label(for='carVariants') Variant: 
+                    label(for='carVariants' class='variantLabel') Variant: 
                     select(id='carVariants' name='variant', required='true')
                         if variantsList[0].model_trim == ''
                             option(value=`${(variantsList[0].model_name ? variantsList[0].model_name : 'Default')},${(variantsList[0].model_trim ? variantsList[0].model_trim : 'Default version')},${(variantsList[0].model_id ? variantsList[0].model_id : '')}`, selected='true') Default version
                         else
                             option(value=`${(variantsList[0].model_name ? variantsList[0].model_name : 'Default')},${(variantsList[0].model_trim ? variantsList[0].model_trim : 'Default version')},${(variantsList[0].model_id ? variantsList[0].model_id : '')}`, selected='true') #{variantsList[0].model_trim}                      
+                if variantsList.length < 1
+                    label(for='newVariant' id='newVariantLabel' class='invisible') Variant name:
+                    input(id='newVariant', type='text', name='newVariant', placeholder="Enter variant's name" value=variant class='invisible')
+                label(id='labelForNewModel' for='newModelFromVariantForm' class='invisible') Model name: 
+                input(id='newModelFromVariantForm' type="text" name='newModelFromVariantForm' placeholder="Enter model's name" class='invisible')
+                label(id='labelForNewVariant' for='newVariantFromVariantForm' class='invisible') Variant name: 
+                input(id='newVariantFromVariantForm' type="text" name='newVariantFromVariantForm' placeholder="Enter variant's name" class='invisible')
                 label(for='carMileage') Mileage:
                 input(id='carMileage', type='number', placeholder='Enter mileage...', value=(undefined===mileage ? '' : mileage), name='mileage',required='true')
                 label(for='carColor') Color:
@@ -61,8 +73,8 @@ block content
                 input(id='carPrice',type='number', name='price', placeholder='Enter price in USD', value=price, required='true')
                 label(for='carStatus') Status:
                 select(id='carStatus', name='status' value=status, required='true')
-                    option(value='Sold') Sold
-                    option(value='Available', selected='true') Available
+                    option(value='Sold', selected=(status=='Sold' ? 'selected':false)) Sold
+                    option(value='Available', selected=(status=='Available' ? 'selected':false)) Available
                 .mandatory-fieldset-buttons(class='invisible')
                     button(type='button') Next
         fieldset(id='optionalInfo' class='invisible')

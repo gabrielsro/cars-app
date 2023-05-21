@@ -1,7 +1,6 @@
 extends layout
 block scripts 
     script(src='/javascripts/variantLoader.js', defer='true')
-    script(src='/javascripts/otherModelHandler.js', defer='true')
 block content 
     h1= title
     .form-progress 
@@ -26,13 +25,13 @@ block content
                     option(value='', hidden='true', selected='true') Select Model
                     for m in models 
                         option(value=m.model_name) #{m.model_name}
-                    option(value='other' ,id='otherOption') Other
+                    option(value='Other' ,id='otherOption') Other
                 label(for='newModel' id='newModelLabel' class='invisible') Model name:
                 input(id='newModel', type='text', name='newModel', placeholder="Enter model's name" class='invisible')
                 label(for='newVariant' id='newVariantLabel' class='invisible') Variant name:
-                input(id='newVariant', type='text', name='newvariant', placeholder="Enter variant's name" class='invisible')
+                input(id='newVariant', type='text', name='newVariant', placeholder="Enter variant's name" class='invisible')
                 label(for='carMileage') Mileage:
-                input(id='carMileage', type='number', placeholder='Enter mileage...', value=mileage)
+                input(id='carMileage', type='number', placeholder='Enter mileage...', value=mileage name='mileage')
                 label(for='carColor') Color:
                 select(id='carColor', name='color')
                     option(value='', hidden='true', selected='true') Select Color
@@ -50,9 +49,10 @@ block content
                 input(id='carPrice',type='number', name='price', placeholder='Enter price in USD', value=price)
                 label(for='carStatus') Status:
                 select(id='carStatus', name='status' value=status)
-                    option(value='Sold') Sold
-                    option(value='Available', selected='true') Available
-        .car-form-button 
-            button(type='submit' class='invisible') Next
+                    option(value='Sold' selected=(status=='Sold' ? 'selected':false)) Sold
+                    option(value='Available', selected=(status=='Available' ? 'selected':false)) Available
+            .car-form-button(class='invisible') 
+                button(type='submit')
+
 
 

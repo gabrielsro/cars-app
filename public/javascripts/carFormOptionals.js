@@ -29,6 +29,16 @@ const additionalSectionTitle = document.querySelector(
   ".form-progress > .stage:last-child h2"
 );
 
+//Check if form arrived completed
+if (mandatoryFields.every((f) => f.checkValidity())) {
+  mandatoryButtons.classList.remove("invisible");
+  contactSectionTitle.classList.remove("unselectable");
+  contactSectionTitle.classList.add("selectable");
+  additionalSectionTitle.classList.remove("unselectable");
+  additionalSectionTitle.classList.add("selectable");
+}
+
+//Go to vehicle Section
 vehicleSectionTitle.addEventListener("click", () => {
   mandatory.classList.remove("invisible");
   optionalsInfo.classList.add("invisible");
@@ -43,6 +53,7 @@ vehicleSectionTitle.addEventListener("click", () => {
   }
 });
 
+//Go to Contact section
 contactSectionTitle.addEventListener("click", () => {
   if (contactSectionTitle.classList.contains("selectable")) {
     mandatory.classList.add("invisible");
@@ -54,6 +65,7 @@ contactSectionTitle.addEventListener("click", () => {
   }
 });
 
+//Go to Additional section
 additionalSectionTitle.addEventListener("click", () => {
   if (additionalSectionTitle.classList.contains("selectable")) {
     mandatory.classList.add("invisible");
@@ -83,6 +95,7 @@ mandatoryFields.forEach((f) => {
   });
 });
 
+//Next button click to take to Contact section
 mandatoryButton.addEventListener("click", () => {
   mandatoryForm.classList.add("invisible");
   mandatoryButtons.classList.add("invisible");
@@ -99,6 +112,7 @@ optionalFields.forEach((f) => {
   });
 });
 
+//Contact section's "previous" button to take to Mandatory section
 optionalButtonPrevious.addEventListener("click", () => {
   optionalsInfo.classList.add("invisible");
   mandatory.classList.remove("invisible");
@@ -111,6 +125,7 @@ optionalButtonPrevious.addEventListener("click", () => {
   }
 });
 
+//Contact section's "next" button to take to Additional section
 optionalButtonNext.addEventListener("click", () => {
   optionalsInfo.classList.add("invisible");
   optionalsMore.classList.remove("invisible");
@@ -118,6 +133,7 @@ optionalButtonNext.addEventListener("click", () => {
   additionalSectionTitle.classList.add("selectedText");
 });
 
+//Additional section's "previous" button to take to Contact section
 moreButtonPrevious.addEventListener("click", () => {
   optionalsMore.classList.add("invisible");
   optionalsInfo.classList.remove("invisible");

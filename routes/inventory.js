@@ -10,6 +10,22 @@ const versionController = require("../controllers/version-controller");
 router.get("/", carController.index);
 router.get("/add-car", carController.add_car_get);
 router.post("/add-car/get-models", carController.add_car_get_models_post);
+router.post(
+  "/add-car/get-models-model-change/:year/:make/:model/:mileage/:price/:color/:status",
+  carController.add_car_get_variants_post_modelChange
+);
+router.post(
+  "/add-car/get-models-more/:year/:make/:more",
+  carController.add_car_get_models_more
+);
+router.post(
+  "/add-car/get-models/:year/:make",
+  carController.add_car_get_models_repost
+);
+router.post(
+  "/add-car/get-models/:year/:make/:mileage/:color/:price",
+  carController.add_car_get_models_repost
+);
 router.post("/add-car/get-variants", carController.add_car_get_variants_post);
 router.post("/add-car/form-submission", carController.add_car_variants_submit);
 router.get("/car/:id", carController.carDetail);

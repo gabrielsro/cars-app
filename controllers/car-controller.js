@@ -82,19 +82,40 @@ exports.add_car_get = async (req, res, next) => {
 };
 
 exports.add_car_get_models_post = async (req, res, next) => {
-  Promise.all([
-    makesGetter(),
-    modelsGetter(req.body.make.split(",")[1], req.body.year),
-  ])
+  if (req.body.make) {
+    Promise.all([
+      makesGetter(),
+      modelsGetter(req.body.make.split(",")[1], req.body.year),
+    ])
+      .then((results) => {
+        res.render("car_form_models", {
+          title: "Add a new car",
+          makeSelection: req.body.make.split(",")[1],
+          year: req.body.year,
+          models: results[1],
+          mileage: req.body.mileage,
+          price: req.body.price,
+          color: req.body.color,
+          status: req.body.status,
+          description: req.body.description,
+          makesList: results[0],
+        });
+      })
+      .catch((err) => next(err));
+  }
+};
+
+exports.add_car_get_models_repost = async (req, res, next) => {
+  Promise.all([makesGetter(), modelsGetter(req.params.make, req.params.year)])
     .then((results) => {
       res.render("car_form_models", {
         title: "Add a new car",
-        makeSelection: req.body.make.split(",")[1],
-        year: req.body.year,
+        makeSelection: req.params.make,
+        year: req.params.year,
         models: results[1],
-        mileage: req.body.mileage,
-        price: req.body.price,
-        color: req.body.color,
+        mileage: req.params.mileage,
+        price: req.params.price,
+        color: req.params.color,
         status: req.body.status,
         description: req.body.description,
         makesList: results[0],
@@ -103,14 +124,104 @@ exports.add_car_get_models_post = async (req, res, next) => {
     .catch((err) => next(err));
 };
 
-exports.add_car_get_variants_post = async (req, res, next) => {
-  Promise.all([
-    makesGetter(),
-    modelsGetter(req.body.make.split(",")[1], req.body.year),
-    variantsGetter(req.body.model, req.body.year),
-  ])
+exports.add_car_get_models_more = async (req, res, next) => {
+  let mileageParams = "";
+  let colorParams = "";
+  let priceParams = "";
+  let statusParams = req.params.more.match(
+    /(?:status)(\D+)(?:mileage|color|price|$)/
+  )[1];
+  if (/mileage/.test(req.params.more)) {
+    mileageParams = req.params.more.match(/(?<=mileage)(\d+)(?=\D|$)/i)[0];
+  }
+  if (/color/.test(req.params.more)) {
+    colorParams = req.params.more.match(/(?:color|\A)(\D+)(?:price|$)/i)[1];
+  }
+  if (/price/.test(req.params.more)) {
+    priceParams = req.params.more.match(/(?:price|mileage|\A)(\d+)($)/i)[1];
+  }
+  Promise.all([makesGetter(), modelsGetter(req.params.make, req.params.year)])
     .then((results) => {
+      res.render("car_form_models", {
+        title: "Add a new car",
+        makeSelection: req.params.make,
+        year: req.params.year,
+        models: results[1],
+        mileage: mileageParams,
+        price: priceParams,
+        color: colorParams,
+        status: statusParams,
+        description: req.body.description,
+        makesList: results[0],
+      });
+    })
+    .catch((err) => next(err));
+};
+
+exports.add_car_get_variants_post_modelChange = async (req, res, next) => {
+  if (req.params.model == "Other") {
+    //////WORKING ON THIS
+    Promise.all([makesGetter(), modelsGetter(req.params.make, req.params.year)])
+      .then((results) => {
+        res.render("car_form_variants", {
+          otherModel: true,
+          title: "Add a new car",
+          makeSelection: req.params.make,
+          year: req.params.year,
+          models: results[1],
+          mileage: req.params.mileage,
+          price: req.params.price,
+          color: req.params.color,
+          status: req.params.status,
+          description: null,
+          makesList: results[0],
+          variantsList: [],
+          variant: null,
+          model: req.params.model,
+        });
+      })
+      .catch((err) => next(err));
+  }
+  if (req.params.model !== "Other") {
+    Promise.all([
+      makesGetter(),
+      modelsGetter(req.params.make, req.params.year),
+      variantsGetter(req.params.model, req.params.year),
+    ])
+      .then((results) => {
+        res.render("car_form_variants", {
+          otherModel: false,
+          title: "Add a new car",
+          makeSelection: req.params.make,
+          year: req.params.year,
+          models: results[1],
+          mileage: req.params.mileage,
+          price: req.params.price,
+          color: req.params.color,
+          status: req.params.status,
+          description: null,
+          makesList: results[0],
+          variantsList: results[2],
+          variant: null,
+          model: req.params.model,
+        });
+      })
+      .catch((err) => next(err));
+  }
+  if (req.params.model == "Other") {
+    Promise.all([makesGetter(), modelsGetter(req.params.make, req.params.year)])
+      .then;
+  }
+};
+
+exports.add_car_get_variants_post = async (req, res, next) => {
+  if (req.body.model == "Other" && req.body.newVariant) {
+    Promise.all([
+      makesGetter(),
+      modelsGetter(req.body.make.split(",")[1], req.body.year),
+    ]).then((results) => {
       res.render("car_form_variants", {
+        otherModel: req.body.model == "Other" ? true : false,
         title: "Add a new car",
         makeSelection: req.body.make.split(",")[1],
         year: req.body.year,
@@ -121,11 +232,38 @@ exports.add_car_get_variants_post = async (req, res, next) => {
         status: req.body.status,
         description: req.body.description,
         makesList: results[0],
-        variantsList: results[2],
+        variantsList: [],
+        variant: req.body.newVariant,
         model: req.body.model,
+        newModel: req.body.newModel,
       });
-    })
-    .catch((err) => next(err));
+    });
+  }
+  if (req.body.model !== "Other") {
+    Promise.all([
+      makesGetter(),
+      modelsGetter(req.body.make.split(",")[1], req.body.year),
+      variantsGetter(req.body.model, req.body.year),
+    ])
+      .then((results) => {
+        res.render("car_form_variants", {
+          otherModel: req.body.model == "other" ? true : false,
+          title: "Add a new car",
+          makeSelection: req.body.make.split(",")[1],
+          year: req.body.year,
+          models: results[1],
+          mileage: req.body.mileage,
+          price: req.body.price,
+          color: req.body.color,
+          status: req.body.status,
+          description: req.body.description,
+          makesList: results[0],
+          variantsList: results[2],
+          model: req.body.model,
+        });
+      })
+      .catch((err) => next(err));
+  }
 };
 
 exports.add_car_variants_submit = [
