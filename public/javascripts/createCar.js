@@ -13,6 +13,9 @@ exports.createCar = (makeRef, modelRef, verRef, reqBody) => {
     status: reqBody.status,
     color: reqBody.color,
     description: reqBody.description,
+    country: reqBody.carCountry,
+    email: reqBody.email,
+    phone: reqBody.phone,
     version: verRef._id,
     cars: [],
   });

@@ -198,11 +198,11 @@ block content
                     .card-technical-row
                         img(src='/images/icons/accelerationIcons/acceleration1.svg' alt='Acceleration Icon' id='accelerationIcon')
                         if car.version.accel0To100 
-                            h5 Acceleration (0-60): #{`${car.version.accel0To100} s`}
+                            h5 Acceleration (0-60 mph): #{`${car.version.accel0To100} s`}
                         if car.version.accel0To100 < 1
-                            h5 Acceleration (0-60): N/A
+                            h5 Acceleration (0-60 mph): N/A
                         if car.version.accel0To100 == 'null'
-                            h5 Acceleration (0-60): N/A
+                            h5 Acceleration (0-60 mph): N/A
                 .card-technical-rows(id='metricSpeed' class='invisible')
                     .card-technical-row
                         img(src='/images/icons/speedIcons/speed1.svg' alt='Speed Icon')
@@ -216,11 +216,11 @@ block content
                     .card-technical-row
                         img(src='/images/icons/accelerationIcons/acceleration1.svg' alt='Acceleration Icon' id='accelerationIcon')
                         if car.version.accel0To100 
-                            h5 Acceleration (0-100): #{`${car.version.accel0To100} s`}
+                            h5 Acceleration (0-100 km/h): #{`${car.version.accel0To100} s`}
                         if car.version.accel0To100 < 1
-                            h5 Acceleration (0-100): N/A
+                            h5 Acceleration (0-100 km/h): N/A
                         if car.version.accel0To100 == 'null'
-                            h5 Acceleration (0-100): N/A
+                            h5 Acceleration (0-100 km/h): N/A
     .car-basic-info
         .car-basic-info-section1
             .car-logo 
@@ -244,7 +244,8 @@ block content
             .car-location
                 div
                     img(src='/images/icons/locationIcons/location1.svg' alt='Car location icon')
-                    p Car Location: 
+                    - location = undefined===car.country? 'N/A' : car.country
+                    p Car Location: #{location}
             .car-contact
                 div
                     img(src='/images/icons/contactIcons/contact1.svg' alt='Car contact icon')

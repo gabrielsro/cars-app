@@ -80,6 +80,11 @@ block content
         fieldset(id='optionalInfo' class='invisible')
             legend(class='titleLegend') Contact information (Optional fields)
             .form-content-text(id='contactInfo')
+                label(for='carCountry') Country: 
+                select(id='carCountry', name='carCountry')
+                    option(value='', hidden='true', selected='true') Country vehicle is at
+                    for country in countries 
+                        option(value=`${country}`) #{country}
                 label(for='carPhone') Phone:
                 input(id='carPhone',type='text', name='phone', placeholder='Enter a valid phone number...', value=(undefined===description ? '' : description))
                 label(for='carPhone') Email:
@@ -127,5 +132,6 @@ block content
                 .optional-fieldset-buttons 
                     button(type='button' id='morePrevious') Previous
                     button(type='submit') Add car
+        
 
     

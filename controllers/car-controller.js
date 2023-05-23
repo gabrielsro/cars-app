@@ -16,6 +16,7 @@ const { createPics } = require("../public/javascripts/createPics");
 const { body, validationResult } = require("express-validator");
 const multer = require("multer");
 const upload = multer({ storage: multer.memoryStorage() });
+const { countryList } = require("..//public/javascripts/countryList");
 
 exports.index = (req, res, next) => {
   Car.find({}, "make version status price")
@@ -177,6 +178,7 @@ exports.add_car_get_variants_post_modelChange = async (req, res, next) => {
           variantsList: [],
           variant: null,
           model: req.params.model,
+          countries: countryList(),
         });
       })
       .catch((err) => next(err));
@@ -203,6 +205,7 @@ exports.add_car_get_variants_post_modelChange = async (req, res, next) => {
           variantsList: results[2],
           variant: null,
           model: req.params.model,
+          countries: countryList(),
         });
       })
       .catch((err) => next(err));
@@ -231,6 +234,7 @@ exports.add_car_get_variants_post = async (req, res, next) => {
         variant: req.body.newVariant,
         model: req.body.model,
         newModel: req.body.newModel,
+        countries: countryList(),
       });
     });
   }
@@ -255,6 +259,7 @@ exports.add_car_get_variants_post = async (req, res, next) => {
           makesList: results[0],
           variantsList: results[2],
           model: req.body.model,
+          countries: countryList(),
         });
       })
       .catch((err) => next(err));
@@ -276,6 +281,9 @@ exports.add_car_variants_submit = [
     .trim()
     .isLength({ min: 1 })
     .escape(),
+  body("carCountry").trim().escape(),
+  body("phone").trim().escape(),
+  body("email").trim().escape(),
   async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

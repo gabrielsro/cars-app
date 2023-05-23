@@ -50,9 +50,8 @@ const CarSchema = new Schema({
   ],
   description: { type: String },
   country: { type: String },
-  state: { type: String },
-  city: { type: String },
   email: { type: String },
+  phone: { type: String },
 });
 
 CarSchema.virtual("url").get(function () {
