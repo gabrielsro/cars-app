@@ -1,4 +1,4 @@
-const carForm = document.querySelector("form");
+const carForm = document.querySelector(".form-add-car");
 const modelSelector = document.getElementById("carModel");
 const yearInput = document.getElementById("carYear");
 const makeSelector = document.getElementById("carMake");

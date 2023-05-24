@@ -1,5 +1,7 @@
 extends layout
 block scripts 
+    script(src="/javascripts/layoutModes.js" defer='true')
+    script(src="/javascripts/layoutSearch.js" defer='true')
     script(src='/javascripts/modelLoader.js', defer='true')
 block content 
     h1= title

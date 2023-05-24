@@ -1,6 +1,8 @@
 extends layout
 block scripts
     script(src='/javascripts/modelListPageControls.js', defer='true')
+    script(src="/javascripts/layoutModes.js" defer='true')
+    script(src="/javascripts/layoutSearch.js" defer='true')
 block content 
     if undefined===models[0]
         h1 All models recently deleted 

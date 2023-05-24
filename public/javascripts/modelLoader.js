@@ -1,6 +1,6 @@
 const makeSelector = document.getElementById("carMake");
 const yearInput = document.getElementById("carYear");
-const form = document.querySelector("form");
+const form = document.querySelector(".form-add-car");
 let make = "";
 let year = "";
 let title = document.querySelector("h1");

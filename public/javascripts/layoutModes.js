@@ -10,6 +10,12 @@ const cardTitle = document.querySelectorAll(".card-text .title p");
 const cardFooter = document.querySelectorAll(".card-text .footer p");
 const search = document.querySelector(".search-bar input");
 const options = document.querySelectorAll(".option select");
+const carTitle = document.querySelector(".car-title");
+const carBasicInfo = document.querySelector(".car-basic-info");
+const technicalCards = document.querySelectorAll(".card-technical");
+const makeHeader = document.querySelector(".make-header");
+const versionHeader = document.querySelector(".version-header");
+const formProgress = document.querySelector(".form-progress");
 
 function setMode() {
   let mode = localStorage.getItem("mode");
@@ -21,6 +27,21 @@ function setMode() {
     search.style.background = "white";
     search.style.color = "black";
     options.forEach((o) => (o.style.background = "grey"));
+    if (carTitle) {
+      carTitle.style.background = "#eee";
+      carBasicInfo.style.background = "#eee";
+      technicalCards.forEach((t) => (t.style.background = "#eee"));
+    }
+    if (makeHeader) {
+      makeHeader.style.background = "#eee";
+    }
+    if (versionHeader) {
+      versionHeader.style.background = "#eee";
+      technicalCards.forEach((t) => (t.style.background = "#eee"));
+    }
+    if (formProgress) {
+      formProgress.style.background = "#eee";
+    }
   }
   if (mode) {
     if (mode == "dark") {
@@ -41,6 +62,21 @@ function setMode() {
         o.style.color = "white";
         o.style.border = "1px solid #1a1a1a";
       });
+      if (carTitle) {
+        carTitle.style.background = "black";
+        carBasicInfo.style.background = "black";
+        technicalCards.forEach((t) => (t.style.background = "#1a1a1a"));
+      }
+      if (makeHeader) {
+        makeHeader.style.background = "black";
+      }
+      if (versionHeader) {
+        versionHeader.style.background = "black";
+        technicalCards.forEach((t) => (t.style.background = "#1a1a1a"));
+      }
+      if (formProgress) {
+        formProgress.style.background = "#1a1a1a";
+      }
     }
     if (mode == "light") {
       all.classList.remove("dark");
@@ -60,6 +96,21 @@ function setMode() {
         o.style.border = "1px solid grey";
         o.style.color = "black";
       });
+      if (carTitle) {
+        carTitle.style.background = "#eee";
+        carBasicInfo.style.background = "#eee";
+        technicalCards.forEach((t) => (t.style.background = "#eee"));
+      }
+      if (makeHeader) {
+        makeHeader.style.background = "#eee";
+      }
+      if (versionHeader) {
+        versionHeader.style.background = "#eee";
+        technicalCards.forEach((t) => (t.style.background = "#eee"));
+      }
+      if (formProgress) {
+        formProgress.style.background = "#eee";
+      }
     }
   }
 }
