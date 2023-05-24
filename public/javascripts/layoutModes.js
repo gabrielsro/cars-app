@@ -16,6 +16,9 @@ const technicalCards = document.querySelectorAll(".card-technical");
 const makeHeader = document.querySelector(".make-header");
 const versionHeader = document.querySelector(".version-header");
 const formProgress = document.querySelector(".form-progress");
+const blackIcons = document.querySelectorAll(".black");
+const whiteIcons = document.querySelectorAll(".white");
+const sidebar = document.querySelector(".side-bar");
 
 function setMode() {
   let mode = localStorage.getItem("mode");
@@ -42,6 +45,8 @@ function setMode() {
     if (formProgress) {
       formProgress.style.background = "#eee";
     }
+    blackIcons.forEach((b) => (b.style.display = "block"));
+    whiteIcons.forEach((w) => (w.style.display = "none"));
   }
   if (mode) {
     if (mode == "dark") {
@@ -77,6 +82,8 @@ function setMode() {
       if (formProgress) {
         formProgress.style.background = "#1a1a1a";
       }
+      blackIcons.forEach((b) => (b.style.display = "none"));
+      whiteIcons.forEach((w) => (w.style.display = "block"));
     }
     if (mode == "light") {
       all.classList.remove("dark");
@@ -111,6 +118,8 @@ function setMode() {
       if (formProgress) {
         formProgress.style.background = "#eee";
       }
+      blackIcons.forEach((b) => (b.style.display = "block"));
+      whiteIcons.forEach((w) => (w.style.display = "none"));
     }
   }
 }
@@ -123,6 +132,9 @@ lowBeamBlack.addEventListener("click", () => handleModeSelection("dark"));
 lowBeamWhite.addEventListener("click", () => handleModeSelection("dark"));
 
 function handleModeSelection(modeSelection) {
+  if (sidebar.classList.contains("visibleMenu")) {
+    sidebar.classList.remove("visibleMenu");
+  }
   localStorage.setItem("mode", modeSelection);
   setMode();
 }

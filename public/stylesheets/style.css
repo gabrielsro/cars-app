@@ -16,11 +16,7 @@ nav {
   z-index: 2;
   padding-top: 5px;
   padding-bottom: 5px;
-}
-
-.logo {
-  display: grid;
-  grid-template-columns: 70% 30%;
+  padding-left: 20vw;
 }
 
 .logo a {
@@ -33,7 +29,6 @@ nav {
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   height: 8vh;
-  width: 100%;
   padding-top: 10px;
   padding-bottom: 10px;
 }
@@ -118,46 +113,83 @@ textarea {
 }
 
 .content-wrapper {
-  padding-left: 10px;
-  display: grid;
-  grid-template-columns: 10% 90%;
+  display: flex;
 }
 
 .main-view {
   padding-top: 11vh;
-  grid-column: 2/3;
+  margin-left: 15vw;
+  width: 85vw;
 }
 
 .side-bar {
   height: 100vh;
+  width: 15vw;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   position: fixed;
-  padding-left: 10px;
-  padding-top: 8vh;
+  padding-left: 15px;
+  padding-top: 10vh;
+  padding-bottom: 10vh;
 }
 
 .side-bar a {
   font-size: 1.5em;
 }
 
-.group1 {
+.top {
+  position: fixed;
+  z-index: 3;
+  width: 100vw;
   display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  height: 50%;
-  padding-bottom: 60px;
+  justify-content: space-between;
+  align-items: center;
+  height: 10vh;
+  padding-right: 2vw;
+  padding-left: 2vw;
 }
 
-.group2 {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  padding-top: 57px;
-  padding-bottom: 100px;
-  height: 50%;
-  border-top: 1px solid rgb(177, 172, 172);
+.menu {
+  display: none;
+}
+
+.menu img {
+  width: 40px;
+  transform: rotate(0deg);
+  transition: transform 200ms;
+}
+
+.menu img:hover {
+  cursor: pointer;
+}
+
+.menu img:active {
+  transform: rotate(360deg);
+}
+
+@media only screen and (max-width: 945px) {
+  .main-view {
+    overflow: auto;
+    margin-bottom: 11vh;
+    padding-top: 8vh;
+    margin-left: 0px;
+    width: 100vw;
+  }
+
+  .side-bar {
+    display: none;
+  }
+
+  nav {
+    bottom: 0;
+    padding-left: 3vw;
+  }
+
+  .menu {
+    display: grid;
+    align-content: center;
+  }
 }
 
 .index-content {
@@ -917,6 +949,11 @@ fieldset {
 
 .invisible {
   display: none;
+}
+
+.visibleMenu {
+  display: flex;
+  padding-top: 30vh;
 }
 
 .dark {

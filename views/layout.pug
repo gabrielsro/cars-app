@@ -6,19 +6,24 @@ html
     block scripts
       script(src="/javascripts/layoutSearch.js" defer='true')
       script(src="/javascripts/layoutModes.js" defer='true')
+      script(src="/javascripts/layoutMenuButton.js" defer='true')
   body
-    nav
+    div(class='top') 
       div(class='logo')
         a(href='/') CarFast
-        div(class='mode')
-          img(src="/images/icons/arrows/triangleBlack.svg", alt="Arrow icon")
-          div(class='beamsContainer')
-            img(src="/images/icons/beams/highBlack.svg",alt='High beams icon', id='highBeamBlack')
-            img(src='/images/icons/beams/highWhite.svg',alt='High beams icon' class='invisible', id='highBeamWhite')
-          img(src="/images/icons/arrows/triangle2White.svg", alt="Arrow icon")
-          div(class='beamsContainer')
-            img(src='/images/icons/beams/lowBlack.svg',alt='Low beams icon', id='lowBeamBlack')
-            img(src='/images/icons/beams/lowWhite.svg',alt='Low beams icon' class='invisible', id='lowBeamWhite')
+      div(class='mode')
+        img(src="/images/icons/arrows/triangleBlack.svg", alt="Arrow icon")
+        div(class='beamsContainer')
+          img(src="/images/icons/beams/highBlack.svg",alt='High beams icon', id='highBeamBlack')
+          img(src='/images/icons/beams/highWhite.svg',alt='High beams icon' class='invisible', id='highBeamWhite')
+        img(src="/images/icons/arrows/triangle2White.svg", alt="Arrow icon")
+        div(class='beamsContainer')
+          img(src='/images/icons/beams/lowBlack.svg',alt='Low beams icon', id='lowBeamBlack')
+          img(src='/images/icons/beams/lowWhite.svg',alt='Low beams icon' class='invisible', id='lowBeamWhite')
+    nav
+      .menu 
+        img(src='/images/icons/menuIcons/menuWhite2.svg' alt='Menu icon' class='white')
+        img(src='/images/icons/menuIcons/menuBlack.svg' alt='Menu icon' class='black')
       .search
         form(action="")
           fieldset(class='search-bar') 
@@ -47,16 +52,15 @@ html
                 option(value='' hidden='true' selected='true') All Locations
 
     .content-wrapper
+      .main-view
+        block content
       .side-bar
-        .group1 
           a(href='/inventory/cars') Cars  
           a(href='/inventory/makes') Makes
           a(href='/inventory/year') Year
           a(href='/inventory/models') Models
           a(href='/inventory/versions') Versions
-        .group2 
           a(href='/inventory/add-make') Add Make
           a(href='/inventory/add-model') Add Model
           a(href='/inventory/add-car') Add Car
-      .main-view
-        block content
+      
