@@ -1,8 +1,3 @@
-extends layout
-block scripts
-    script(src="/javascripts/carDetail.js", defer='true')
-    script(src="/javascripts/layoutSearch.js" defer='true')
-    script(src="/javascripts/layoutModes.js" defer='true')
 block content
     .car-title
         .car-title-info
@@ -256,6 +251,8 @@ block content
                     form 
                         input(type='text' resize='none' id='msgToSeller' placeholder='Type your message...' required='true')
                         button(type='submit') Send
+            
+    
     .car-description 
         p= car.description
     .car-interests 
@@ -277,5 +274,4 @@ block content
                 h4 
                     a(href='') #{car.make.demonym} cars
 
-        
 

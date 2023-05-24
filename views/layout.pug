@@ -4,9 +4,48 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
     block scripts
+      script(src="/javascripts/layoutSearch.js" defer='true')
+      script(src="/javascripts/layoutModes.js" defer='true')
   body
-    nav 
-      a(href='/') CarFast.com
+    nav
+      div(class='logo')
+        a(href='/') CarFast
+        div(class='mode')
+          img(src="/images/icons/arrows/triangleBlack.svg", alt="Arrow icon")
+          div(class='beamsContainer')
+            img(src="/images/icons/beams/highBlack.svg",alt='High beams icon', id='highBeamBlack')
+            img(src='/images/icons/beams/highWhite.svg',alt='High beams icon' class='invisible', id='highBeamWhite')
+          img(src="/images/icons/arrows/triangle2White.svg", alt="Arrow icon")
+          div(class='beamsContainer')
+            img(src='/images/icons/beams/lowBlack.svg',alt='Low beams icon', id='lowBeamBlack')
+            img(src='/images/icons/beams/lowWhite.svg',alt='Low beams icon' class='invisible', id='lowBeamWhite')
+      .search
+        form(action="")
+          fieldset(class='search-bar') 
+            input(type="text")
+            .searchIconContainer
+              img(src="/images/icons/searchIcons/searchBlack.svg" alt='Search icon' id='searchBlack')
+              img(src="/images/icons/searchIcons/searchWhite.svg" alt='Search icon' class='invisible' id='searchWhite')
+          fieldset(class='search-options')
+            div(class='option')
+              select(id='makeOption' name='makeOption')
+                option(value='' hidden='true' selected='true') All Makes
+            div(class='option')
+              select(id='yearOption' name='yearOption')
+                option(value='' hidden='true' selected='true') All Years
+            div(class='option')
+              select(id='bodyOption' name='bodyOption')
+                option(value='' hidden='true' selected='true') All Bodies
+            div(class='option')
+              select(id='energyOption' name='energyOption')
+                option(value='' hidden='true' selected='true') All Energies  
+            div(class='option')
+              select(id='priceOption' name='priceOption')
+                option(value='' hidden='true' selected='true') All Prices
+            div(class='option') 
+              select(id='locationOption' name='locationOption')
+                option(value='' hidden='true' selected='true') All Locations
+
     .content-wrapper
       .side-bar
         .group1 

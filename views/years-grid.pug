@@ -1,4 +1,8 @@
-extends layoutYears 
+extends layout
+block scripts 
+    script(src='/javascripts/yearHandler.js', defer='true')
+    script(src="/javascripts/layoutSearch.js" defer='true')
+    script(src="/javascripts/layoutModes.js" defer='true')
 block content
     h1 Years
     .years-content

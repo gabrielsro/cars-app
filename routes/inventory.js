@@ -28,10 +28,10 @@ router.post(
 );
 router.post("/add-car/get-variants", carController.add_car_get_variants_post);
 router.post("/add-car/form-submission", carController.add_car_variants_submit);
-router.get("/car/:id", carController.carDetail);
 router.get("/car/:id/update", carController.carUpdate);
 router.get("/car/:id/delete", carController.carDelete);
 router.get("/cars", carController.car_list);
+router.get("/car/:id", carController.carDetail);
 
 //Make Routes
 router.get("/make/:id", makeController.makeDetail);
