@@ -19,6 +19,7 @@ const formProgress = document.querySelector(".form-progress");
 const blackIcons = document.querySelectorAll(".black");
 const whiteIcons = document.querySelectorAll(".white");
 const sidebar = document.querySelector(".side-bar");
+const topBar = document.querySelector(".top");
 
 function setMode() {
   let mode = localStorage.getItem("mode");
@@ -47,6 +48,9 @@ function setMode() {
     }
     blackIcons.forEach((b) => (b.style.display = "block"));
     whiteIcons.forEach((w) => (w.style.display = "none"));
+    if (window.innerWidth < 945) {
+      topBar.style.background = "white";
+    }
   }
   if (mode) {
     if (mode == "dark") {
@@ -84,6 +88,9 @@ function setMode() {
       }
       blackIcons.forEach((b) => (b.style.display = "none"));
       whiteIcons.forEach((w) => (w.style.display = "block"));
+      if (window.innerWidth < 945) {
+        topBar.style.background = "black";
+      }
     }
     if (mode == "light") {
       all.classList.remove("dark");
@@ -120,6 +127,9 @@ function setMode() {
       }
       blackIcons.forEach((b) => (b.style.display = "block"));
       whiteIcons.forEach((w) => (w.style.display = "none"));
+      if (window.innerWidth < 945) {
+        topBar.style.background = "white";
+      }
     }
   }
 }
@@ -138,3 +148,21 @@ function handleModeSelection(modeSelection) {
   localStorage.setItem("mode", modeSelection);
   setMode();
 }
+
+window.addEventListener("resize", () => {
+  if (window.innerWidth > 945) {
+    sidebar.style.background = "";
+    topBar.style.background = "";
+  }
+  if (window.innerWidth > 945 && sidebar.classList.contains("visibleMenu")) {
+    sidebar.classList.remove("visibleMenu");
+  }
+  if (window.innerWidth < 945) {
+    if (localStorage.getItem("mode") == "light") {
+      topBar.style.background = "white";
+    }
+    if (localStorage.getItem("mode") == "dark") {
+      topBar.style.background = "black";
+    }
+  }
+});

@@ -21,6 +21,7 @@ nav {
 
 .logo a {
   place-self: center;
+  font-size: 2rem;
 }
 
 .mode {
