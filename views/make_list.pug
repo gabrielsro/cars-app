@@ -1,6 +1,12 @@
 extends layout 
 block content 
     h1(class='pageTitle') Makes 
-    for make in list
-        h2 
-            a(href=make.url) #{make.name}
+    .makeContainer 
+        for make in makesInfo
+            .makeCard
+                img(src=`${make.make.logoSrc}` alt=`${make.make.name} logo`)
+                .makeCardInfo
+                    h2
+                        a(href=make.make.url) #{make.make.name}
+                    p Cars: #{make.count}
+                    

@@ -83,14 +83,14 @@ block content
                     if !car.version.length && !car.version.width && !car.version.height
                         .card-technical-row(id='imperialDimensions')
                             img(src='/images/icons/dimensionsIcons/dimensions1.svg' alt='Dimensions Icon' id='dimensionsIcon')
-                            h5 Dimensions: N/A
+                            h5 LxWxH: N/A
                     if car.version.length && car.version.width && car.version.height
                         .card-technical-row(id='imperialDimensions')
                             img(src='/images/icons/dimensionsIcons/dimensions1.svg' alt='Dimensions Icon')
-                            h5 Dimensions (LxWxH): #{(Math.round(car.version.length*0.3937*10)/10).toLocaleString()} in x #{(Math.round(car.version.width*0.3937*10)/10).toLocaleString()} in x #{(Math.round(car.version.height*0.3937*10)/10).toLocaleString()} in
+                            h5 LxWxH: #{(Math.round(car.version.length*0.3937*10)/10).toLocaleString()} in x #{(Math.round(car.version.width*0.3937*10)/10).toLocaleString()} in x #{(Math.round(car.version.height*0.3937*10)/10).toLocaleString()} in
                         .card-technical-row(id='metricDimensions' class='invisible')
                             img(src='/images/icons/dimensionsIcons/dimensions1.svg' alt='Dimensions Icon')
-                            h5 Dimensions (LxWxH): #{Math.round(car.version.length/10)/100} m x #{Math.round(car.version.width/10)/100} m x #{Math.round(car.version.height/10)/100} m
+                            h5 LxWxH: #{Math.round(car.version.length/10)/100} m x #{Math.round(car.version.width/10)/100} m x #{Math.round(car.version.height/10)/100} m
             if car.version.enginePower || car.version.engineTorqueNm || car.version.enginePosition || car.version.engineCC || car.version.engineCyl || !car.version.engineCompression || /Not/.test(car.version.engineCompression) == false            
                 .card-technical
                     .card-technical-title

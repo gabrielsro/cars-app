@@ -12,7 +12,22 @@ exports.makeList = (req, res, next) => {
   Make.find()
     .sort({ name: 1 })
     .then((list) => {
-      res.render("make_list", { list });
+      let promises = [];
+      list.forEach((l) => {
+        let promise = new Promise((resolve, reject) => {
+          Car.countDocuments({ makeName: l.name }).then(resolve).catch(reject);
+        });
+        promises.push(promise);
+      });
+      Promise.all(promises)
+        .then((results) => {
+          let makesInfo = [];
+          for (let i = 0; i < results.length; i++) {
+            makesInfo.push({ make: list[i], count: results[i] });
+          }
+          res.render("make_list", { makesInfo });
+        })
+        .catch((err) => next(err));
     })
     .catch((err) => next(err));
 };
