@@ -769,7 +769,11 @@ fieldset {
 }
 
 .make-more {
+  display: flex;
+  flex-direction: column;
   margin-bottom: 30px;
+  gap: 0.3vh;
+  padding-right: 5vw;
 }
 
 .makeContainer {
@@ -1223,4 +1227,19 @@ fieldset {
 .visibleMenu {
   display: flex;
   padding-top: 30vh;
+}
+
+.makeDescriptionContainer {
+  overflow: hidden;
+}
+
+.makeDescriptionController {
+  display: inline;
+  margin-left: auto;
+  font-weight: bold;
+  color: #12b300;
+}
+
+.makeDescriptionController:hover {
+  cursor: pointer;
 }
