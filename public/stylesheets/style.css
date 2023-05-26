@@ -1078,6 +1078,10 @@ fieldset {
   white-space: nowrap;
 }
 
+#subList {
+  place-content: start;
+}
+
 @media only screen and (max-width: 945px) {
   .main-view {
     overflow: auto;

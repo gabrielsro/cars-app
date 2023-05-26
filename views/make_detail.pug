@@ -28,7 +28,7 @@ block content
             h3 
                 a(href=`/inventory/model/model-page/${makeId}/${model.formattedName}`) #{model.modelName}
         h2 Cars
-        .list 
+        .list(id='subList') 
             for car in cars
                 .list-card
                     a(href=car.car.url) 
