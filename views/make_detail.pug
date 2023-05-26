@@ -4,7 +4,6 @@ block scripts
     script(src="/javascripts/layoutSearch.js" defer='true')
     script(src="/javascripts/layoutModes.js" defer='true')
     script(src="/javascripts/layoutMenuButton.js" defer='true')
-    script(src="/javascripts/makeDetailStoryHandler.js" defer='true')
 block content 
     .make-header
         .make-info
@@ -28,6 +27,27 @@ block content
         for model in list 
             h3 
                 a(href=`/inventory/model/model-page/${makeId}/${model.formattedName}`) #{model.modelName}
+        h2 Cars
+        .list 
+            for car in cars
+                .list-card
+                    a(href=car.car.url) 
+                        .card-thumbnail
+                            if undefined===car.pic
+                                img(src=`/images/dummyImages/dummy4.avif` alt=`Unavailable car pic placeholder image`)
+                            else 
+                                img(src=`data:${car.pic.image.contentType};base64,${car.pic.image.toString('base64')}` alt=`Vehicle image`)
+                            
+                        .card-info
+                            .card-logo
+                                img(src=car.car.make.logoSrc alt=`${car.car.make.name} logo`)
+                            .card-text
+                                .title 
+                                    p #{car.car.version.year} #{car.car.make.name} #{car.car.model.name}
+                                .subtitle 
+                                    p #{car.car.modelVariant}
+                                .footer
+                                    p $#{car.car.price.toLocaleString()} • #{car.car.status}
     else 
         h3 #{`We don't have ${make.name} models at the moment.`}
                     

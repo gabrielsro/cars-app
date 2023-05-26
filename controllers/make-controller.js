@@ -87,6 +87,13 @@ exports.makeDetail = (req, res, next) => {
   Promise.all([
     Make.findById(req.params.id),
     Model.find({ make: req.params.id }).populate("cars").populate("versions"),
+    Car.find(
+      { make: req.params.id },
+      "make model status price version modelVariant"
+    )
+      .populate("make", "name")
+      .populate("model", "name")
+      .populate("version", "energy year"),
   ])
     .then((results) => {
       let modelsList = results[1];
@@ -107,11 +114,30 @@ exports.makeDetail = (req, res, next) => {
           });
         });
       }
-      res.render("make_detail", {
-        make: results[0],
-        list: modelsListComplete,
-        makeId: req.params.id,
+      let cars = results[2];
+      let picPromises = [];
+      cars.forEach((c) => {
+        let promise = new Promise((resolve, reject) => {
+          Pic.find({ car: c._id, position: 1 }, "image")
+            .then(resolve)
+            .catch(reject);
+        });
+        picPromises.push(promise);
       });
+      Promise.all(picPromises)
+        .then((pics) => {
+          let carList = [];
+          for (let i = 0; i < pics.length; i++) {
+            carList.push({ car: cars[i], pic: pics[i][0] });
+          }
+          res.render("make_detail", {
+            make: results[0],
+            list: modelsListComplete,
+            makeId: req.params.id,
+            cars: carList,
+          });
+        })
+        .catch((err) => next(err));
     })
     .catch((err) => next(err));
 };
