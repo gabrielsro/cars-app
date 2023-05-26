@@ -795,12 +795,16 @@ fieldset {
 .makeCard img {
   height: auto;
   width: auto;
-  max-width: 200px;
+  max-width: 150px;
   max-height: 100px;
 }
 
 .makeCard p {
   font-weight: bold;
+}
+
+.makeCarInfoRow p {
+  display: inline;
 }
 
 .list,

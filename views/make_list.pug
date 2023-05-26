@@ -9,6 +9,18 @@ block content
                     h2
                         a(href=make.make.url) #{make.make.name}
                     p Cars: #{make.count}
-                    if make.count > 0
-                        p Last added:
+                    if make.count == 1 
+                        .makeCarInfoRow
+                            p First added: 
+                            p 
+                                a(href=make.oldestUrl) #{make.oldest}
+                    if make.count >=2
+                        .makeCarInfoRow
+                            p First added: 
+                            p 
+                                a(href=make.oldestUrl) #{make.oldest}
+                        .makeCarInfoRow
+                            p Last added: 
+                            p 
+                                a(href=make.newestUrl) #{make.newest}
                     

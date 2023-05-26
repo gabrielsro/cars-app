@@ -15,7 +15,46 @@ exports.makeList = (req, res, next) => {
       let promises = [];
       list.forEach((l) => {
         let promise = new Promise((resolve, reject) => {
-          Car.countDocuments({ makeName: l.name }).then(resolve).catch(reject);
+          Car.countDocuments({ makeName: l.name })
+            .then((result) => {
+              if (result < 1) {
+                //No cars found. Resolves to the count (0)
+                resolve({ count: result, oldest: null, newest: null });
+              }
+              if (result == 1) {
+                //Found 1 car. Resolves to the count and the creation date of that one car
+                Car.find({ makeName: l.name })
+                  .sort({ _id: -1 })
+                  .limit(1)
+                  .then((date) => {
+                    resolve({
+                      count: result,
+                      oldest: date[0].createdAt.toLocaleDateString(),
+                      oldestUrl: date[0].url,
+                      newest: null,
+                    });
+                  })
+                  .catch(reject);
+              }
+              //Found 2 or more cars. Resolves to the count and the creation date of oldest and newest one
+              if (result >= 2) {
+                Promise.all([
+                  Car.find({ makeName: l.name }).sort({ _id: -1 }).limit(1),
+                  Car.find({ makeName: l.name }).sort({ _id: 1 }).limit(1),
+                ])
+                  .then((dates) => {
+                    resolve({
+                      count: result,
+                      oldest: dates[1][0].createdAt.toLocaleDateString(),
+                      oldestUrl: dates[1][0].url,
+                      newest: dates[0][0].createdAt.toLocaleDateString(),
+                      newestUrl: dates[0][0].url,
+                    });
+                  })
+                  .catch(reject);
+              }
+            })
+            .catch(reject);
         });
         promises.push(promise);
       });
@@ -23,7 +62,14 @@ exports.makeList = (req, res, next) => {
         .then((results) => {
           let makesInfo = [];
           for (let i = 0; i < results.length; i++) {
-            makesInfo.push({ make: list[i], count: results[i] });
+            makesInfo.push({
+              make: list[i],
+              count: results[i].count,
+              oldest: results[i].oldest,
+              oldestUrl: results[i].oldestUrl ? results[i].oldestUrl : null,
+              newest: results[i].newest,
+              newestUrl: results[i].newestUrl ? results[i].newestUrl : null,
+            });
           }
           res.render("make_list", { makesInfo });
         })
