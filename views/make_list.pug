@@ -9,4 +9,6 @@ block content
                     h2
                         a(href=make.make.url) #{make.make.name}
                     p Cars: #{make.count}
+                    if make.count > 0
+                        p Last added:
                     
