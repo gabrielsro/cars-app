@@ -983,11 +983,6 @@ fieldset {
   display: none;
 }
 
-.visibleMenu {
-  display: flex;
-  padding-top: 30vh;
-}
-
 .dark {
   background-color: black;
   color: white;
@@ -1223,4 +1218,9 @@ fieldset {
   .search form input {
     padding-left: 12px;
   }
+}
+
+.visibleMenu {
+  display: flex;
+  padding-top: 30vh;
 }

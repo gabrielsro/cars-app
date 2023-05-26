@@ -10,5 +10,6 @@ menuIcon.forEach((m) =>
       sideBar.style.background = "rgba(0,0,0,0.5)";
     }
     sideBar.classList.toggle("visibleMenu");
+    console.log(sideBar);
   })
 );
