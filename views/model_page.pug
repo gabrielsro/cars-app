@@ -6,7 +6,7 @@ block scripts
     script(src="/javascripts/layoutMenuButton.js" defer='true')
     script(src="/javascripts/modelDetailScript.js" defer='true')
 block content 
-    if undefined===models[0]
+    if modelsOverview.modelName == null
         h1 All models recently deleted 
     else 
 
@@ -15,7 +15,7 @@ block content
                 img(src=`${makeLogo}` alt='Make logo')
             .models-list-info
                 .models-list-title
-                    h1(class='pageTitle') #{models[0].make.name} #{models[0].name}
+                    h1(class='pageTitle') #{modelsOverview.makeName} #{modelsOverview.modelName}
                 .models-control 
                     a(id='models-delete-all') Delete All
             .delete-warning(class='invisible', id='models-delete-all-warning') 
@@ -24,13 +24,13 @@ block content
                     p #{`This model will be permanently deleted for every year. Every model's associated versions and vehicles will be permanently deleted as well. Do you wish to proceed?`}
                 .delete-warning-controls
                     a(id='btn-delete-all-no') No, return
-                    a(id='btn-delete-all-yes' href=`/inventory/model/${models[0].name.split(' ').join('_')}/${models[0].make._id}/deleteAll`) Yes, delete
+                    a(id='btn-delete-all-yes' href=`/inventory/model/${modelsOverview.modelName.split(' ').join('_')}/${modelsOverview.makeId}/deleteAll`) Yes, delete
         .modelMore
         if modelList 
             - count = 0
             for model in modelList
                 .model-row
-                    .model-title 
+                    .model-title-modelPage
                         h2 #{model.year}
                         a(class='model-delete', id=`model-delete-${count}`) Delete model
                     .delete-warning(class='invisible', class='model-delete-warning', id=`model-delete-warning-${count}`) 
@@ -51,10 +51,30 @@ block content
                                         h3 
                                             a(href=`/inventory/version/${version.versionId}`) #{version.versionName} 
                                     .version-row-numbers 
-                                        h4 Vehicles: 
-                                        a(href='') #{version.versionCarNumber}
-                                        
-                        
+                                        h4 Vehicles:
+                                    .listFlex
+                                        for car in version.cars 
+                                            .list-card 
+                                                a(href=car.car.url)
+                                                    .card-thumbnail
+                                                        if undefined===car.pic
+                                                            img(src=`/images/dummyImages/dummy4.avif` alt=`Unavailable car pic placeholder image`)
+                                                        else 
+                                                            img(src=`data:${car.pic.image.contentType};base64,${car.pic.image.toString('base64')}` alt=`Vehicle image`)
+                                                    .card-info
+                                                        .card-logo
+                                                            img(src=car.car.make.logoSrc alt=`${car.car.make.name} logo`)
+                                                        .card-text
+                                                            .title 
+                                                                p $#{car.car.price.toLocaleString()} • #{car.car.status}
+                                                            .subtitleModelPage 
+                                                                p #{car.car.mileage.toLocaleString()} miles
+                                                            .footer
+                                                                p #{car.car.country ? car.car.country : 'Unknown location'}
+                    
+    
+    
+                                    
                 
         
         

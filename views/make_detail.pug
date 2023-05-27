@@ -38,7 +38,6 @@ block content
                                 img(src=`/images/dummyImages/dummy4.avif` alt=`Unavailable car pic placeholder image`)
                             else 
                                 img(src=`data:${car.pic.image.contentType};base64,${car.pic.image.toString('base64')}` alt=`Vehicle image`)
-                            
                         .card-info
                             .card-logo
                                 img(src=car.car.make.logoSrc alt=`${car.car.make.name} logo`)
