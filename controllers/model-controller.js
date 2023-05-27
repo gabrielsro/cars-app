@@ -288,6 +288,7 @@ exports.modelPage = (req, res, next) => {
       res.render("model_page", {
         models,
         modelList,
+        makeLogo: models.length > 0 ? models[0].make.logoSrc : null,
       });
     })
     .catch((err) => next(err));

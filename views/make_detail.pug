@@ -23,11 +23,12 @@ block content
     img(src=make.logoSrc, atl=`${make.name} logo` id='makeMainLogo')
     .make-more
     if list && list.length > 0
-        h2 Models
-        for model in list 
-            h3 
-                a(href=`/inventory/model/model-page/${makeId}/${model.formattedName}`) #{model.modelName}
-        h2 Cars
+        h2(class='subtitle') Models
+        .modelsContainer
+            for model in list 
+                h3 
+                    a(href=`/inventory/model/model-page/${makeId}/${model.formattedName}`) #{model.modelName}
+        h2(class='subtitle') Cars
         .list(id='subList') 
             for car in cars
                 .list-card

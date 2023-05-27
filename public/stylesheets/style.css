@@ -614,7 +614,7 @@ fieldset {
 }
 
 .version-row-title {
-  font-size: 1.3rem;
+  font-size: 1.1rem;
 }
 
 .version-row-numbers-links {
@@ -622,7 +622,6 @@ fieldset {
 }
 
 .version-row-numbers {
-  padding-left: 10px;
   font-size: 1.1rem;
 }
 
@@ -768,10 +767,11 @@ fieldset {
   padding-bottom: 6px;
 }
 
-.make-more {
+.make-more,
+.modelMore {
   display: flex;
   flex-direction: column;
-  margin-bottom: 30px;
+  margin-bottom: 5px;
   gap: 0.3vh;
   padding-right: 5vw;
 }
@@ -1082,6 +1082,17 @@ fieldset {
   place-content: start;
 }
 
+.subtitle {
+  margin-bottom: 5px;
+}
+
+.modelsContainer {
+  display: flex;
+  gap: 5px 30px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
 @media only screen and (max-width: 945px) {
   .main-view {
     overflow: auto;
@@ -1233,8 +1244,10 @@ fieldset {
   padding-top: 30vh;
 }
 
-.makeDescriptionContainer {
+.makeDescriptionContainer,
+.modelDescriptionContainer {
   overflow: hidden;
+  text-justify: auto;
 }
 
 .makeDescriptionController {

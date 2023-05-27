@@ -4,12 +4,15 @@ block scripts
     script(src="/javascripts/layoutSearch.js" defer='true')
     script(src="/javascripts/layoutModes.js" defer='true')
     script(src="/javascripts/layoutMenuButton.js" defer='true')
+    script(src="/javascripts/modelDetailScript.js" defer='true')
 block content 
     if undefined===models[0]
         h1 All models recently deleted 
     else 
 
         .model-list-header
+            .modelMakeLogo 
+                img(src=`${makeLogo}` alt='Make logo')
             .models-list-info
                 .models-list-title
                     h1(class='pageTitle') #{models[0].make.name} #{models[0].name}
@@ -22,6 +25,7 @@ block content
                 .delete-warning-controls
                     a(id='btn-delete-all-no') No, return
                     a(id='btn-delete-all-yes' href=`/inventory/model/${models[0].name.split(' ').join('_')}/${models[0].make._id}/deleteAll`) Yes, delete
+        .modelMore
         if modelList 
             - count = 0
             for model in modelList
@@ -49,12 +53,7 @@ block content
                                     .version-row-numbers 
                                         h4 Vehicles: 
                                         a(href='') #{version.versionCarNumber}
-                                        .version-row-numbers-links
-                                            p #{' ('}
-                                            a(href='') x  
-                                            p #{' available, '}
-                                            a(href='') y 
-                                            p #{'sold)'} 
+                                        
                         
                 
         

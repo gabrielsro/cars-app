@@ -1,25 +1,6 @@
-const deleteOption = document.getElementById("delete-option");
-const btnNo = document.getElementById("btn-delete-no");
-const btnYes = document.getElementById("btn-delete-yes");
-const warning = document.querySelector(".delete-warning");
-const makeMore = document.querySelector(".make-more");
-let make = document.querySelector("h1").innerText;
-if (/^ford/i.test(make)) {
-  make = "Ford Motor Company";
-}
-if (/^jaguar/i.test(make)) {
-  make = "Jaguar Cars";
-}
-if (/^seat/i.test(make)) {
-  make = "SEAT";
-}
-if (/^tesla/i.test(make)) {
-  make = "Tesla, Inc.";
-}
-make = /-/.test(make) ? "Rolls-Royce_Motor_Cars" : make.split("-").join("_");
-let showingWarning = false;
-
-let url = `https://en.wikipedia.org/w/api.php?origin=*&action=query&prop=extracts&exsentences=10&titles=${make}&format=json`;
+const model = document.querySelector("h1").innerText.split(" ").join("_");
+const modelMore = document.querySelector(".modelMore");
+const url = `https://en.wikipedia.org/w/api.php?origin=*&action=query&prop=extracts&exsentences=20&titles=${model}&format=json`;
 
 async function wikipedia(url) {
   const fetched = await fetch(url);
@@ -29,11 +10,13 @@ async function wikipedia(url) {
 
 wikipedia(url)
   .then((data) => {
-    let description = document.createElement("div");
-    description.classList.add("makeDescriptionContainer");
-    let intro = data.split("<h2>")[0];
-    description.innerHTML = intro;
-    makeMore.appendChild(description);
+    if (data) {
+      let description = document.createElement("div");
+      description.classList.add("modelDescriptionContainer");
+      let intro = data.split("<h2>")[0];
+      description.innerHTML = intro;
+      modelMore.appendChild(description);
+    }
   })
   .then(descriptionSize)
   .catch((err) => console.log(err));
@@ -42,9 +25,9 @@ wikipedia(url)
 window.addEventListener("resize", descriptionSize);
 
 function descriptionSize() {
-  const descriptionDiv = document.querySelector(".make-more > div");
+  const descriptionDiv = document.querySelector(".modelMore > div");
   if (descriptionDiv.offsetHeight / window.innerHeight > 0.1) {
-    const descriptionContainer = document.querySelector(".make-more");
+    const descriptionContainer = document.querySelector(".modelMore");
     const showMore = document.createElement("p");
     showMore.innerText = "Show more";
     showMore.classList.add("makeDescriptionController");
@@ -83,21 +66,5 @@ function descriptionSize() {
   const showingLess = document.getElementById("showLess");
   if (descriptionDiv.offsetHeight / window.innerHeight > 0.1 && !showingLess) {
     descriptionDiv.style.height = `${0.1 * window.innerHeight}px`;
-  }
-}
-
-deleteOption.addEventListener("click", () => showAndHideWarningMessage());
-btnNo.addEventListener("click", () => showAndHideWarningMessage());
-
-function showAndHideWarningMessage() {
-  if (showingWarning) {
-    warning.classList.add("invisible");
-    showingWarning = false;
-    return;
-  }
-  if (!showingWarning) {
-    warning.classList.remove("invisible");
-    showingWarning = true;
-    return;
   }
 }
