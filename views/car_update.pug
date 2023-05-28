@@ -53,6 +53,8 @@ block content
             .form-content-text-new
                 label(for='updateBody') Body:
                 input(id='updateBody' type='text')
+                label(for='updateFuel') Fuel type: 
+                input(id='updateFuel' type='text')
                 label(for='updatePosition') Engine position: 
                 select(id='updatePosition')         
                     option(value='Front') Front
@@ -75,54 +77,52 @@ block content
                 label(for='updateWeight' class='weight' class='imperial') Weight (lbs): 
                 input(id='updateWeight' type='number' class='weight' class='imperial')
                 p(class='carUpdateSwitch' class='weight' class='imperial') Switch to metric
-                label(for='updateWeight' class='weight' class='metric') Weight (kg): 
-                input(id='updateWeight' type='number' class='weight' class='metric')
-                p(class='carUpdateSwitch' id='toImperial' class='weight' class='metric') Switch to imperial
-                label(for='updateFuel') Fuel type: 
-                input(id='updateFuel' type='text')
+                label(for='updateWeight' class='weight' class='metric' class='invisible') Weight (kg): 
+                input(id='updateWeight' type='number' class='weight' class='metric' class='invisible')
+                p(class='carUpdateSwitch' id='toImperial' class='weight' class='metric' class='invisible') Switch to imperial
                 label(for='updateEfficiencyHighway' class='efficiencyHighway' class='imperial') Highway efficiency (mpg): 
                 input(id='updateEfficiencyHighway' type='text' class='efficiencyHighway' class='imperial')
                 p(class='carUpdateSwitch' class='efficiencyHighway' class='imperial') Switch to metric
+                label(for='updateEfficiencyHighway' class='efficiencyHighway' class='metric' class='invisible') Highway efficiency (kpg): 
+                input(id='updateEfficiencyHighway' type='text' class='efficiencyHighway' class='metric' class='invisible')
+                p(class='carUpdateSwitch' id='toImperial' class='efficiencyHighway' class='metric' class='invisible') Switch to imperial
                 label(for='updateEfficiencyMixed' class='efficiencyMixed' class='imperial') Mixed efficiency (mpg): 
                 input(id='updateEfficiencyMixed' type='text' class='efficiencyMixed' class='imperial')
                 p(class='carUpdateSwitch' class='efficiencyMixed' class='imperial') Switch to metric
+                label(for='updateEfficiencyMixed' class='efficiencyMixed' class='metric' class='invisible') Mixed efficiency (kpg): 
+                input(id='updateEfficiencyMixed' type='text' class='efficiencyMixed' class='metric' class='invisible')
+                p(class='carUpdateSwitch' id='toImperial' class='efficiencyMixed' class='metric' class='invisible') Switch to imperial
                 label(for='updateEfficiencyCity' class='efficiencyCity' class='imperial') City efficiency (mpg): 
                 input(id='updateEfficiencyCity' type='text' class='efficiencyCity' class='imperial')
                 p(class='carUpdateSwitch' class='efficiencyCity' class='imperial') Switch to metric
-                label(for='updateEfficiencyHighway' class='efficiencyHighway' class='metric') Highway efficiency (kpg): 
-                input(id='updateEfficiencyHighway' type='text' class='efficiencyHighway' class='metric')
-                p(class='carUpdateSwitch' id='toImperial' class='efficiencyHighway' class='metric') Switch to imperial
-                label(for='updateEfficiencyMixed' class='efficiencyMixed' class='metric') Mixed efficiency (kpg): 
-                input(id='updateEfficiencyMixed' type='text' class='efficiencyMixed' class='metric')
-                p(class='carUpdateSwitch' id='toImperial' class='efficiencyMixed' class='metric') Switch to imperial
-                label(for='updateEfficiencyCity' class='efficiencyCity' class='metric') City efficiency (kpg): 
-                input(id='updateEfficiencyCity' type='text' class='efficiencyCity' class='metric')
-                p(class='carUpdateSwitch' id='toImperial' class='efficiencyCity' class='metric') Switch to imperial
+                label(for='updateEfficiencyCity' class='efficiencyCity' class='metric' class='invisible') City efficiency (kpg): 
+                input(id='updateEfficiencyCity' type='text' class='efficiencyCity' class='metric' class='invisible')
+                p(class='carUpdateSwitch' id='toImperial' class='efficiencyCity' class='metric' class='invisible') Switch to imperial
                 label(for='updateMaxSpeed' class='speed' class='imperial') Max speed (mph):
                 input(id='updateMaxSpeed' type='number' class='speed' class='imperial')
                 p(class='carUpdateSwitch' class='speed' class='imperial') Switch to metric
-                label(for='updateMaxSpeed' class='speed' class='metric') Max speed (km/h):
-                input(id='updateMaxSpeed' type='number' class='speed' class='metric')
-                p(class='carUpdateSwitch' id='toImperial' class='speed' class='metric') Switch to imperial
+                label(for='updateMaxSpeed' class='speed' class='metric' class='invisible') Max speed (km/h):
+                input(id='updateMaxSpeed' type='number' class='speed' class='metric' class='invisible')
+                p(class='carUpdateSwitch' id='toImperial' class='speed' class='metric' class='invisible') Switch to imperial
                 label(for='updateAcceleration') Acceleration (seconds):
                 input(id='updateAcceleration' type='text')
                 p Time it takes to reach 60 mph (100 km/h)
                 label(for='updateLength' class='length' class='imperial') Length (inches):
                 input(id='updateLength' type='text' class='length' class='imperial')
                 p(class='carUpdateSwitch' class='length' class='imperial') Switch to metric
+                label(for='updateLength' class='length' class='metric' class='invisible') Length (m):
+                input(id='updateLength' type='text' class='length' class='metric' class='invisible')
+                p(class='carUpdateSwitch' id='toImperial' class='length' class='metric' class='invisible') Switch to imperial
                 label(for='updateWidth' class='width' class='imperial') Width (inches):
                 input(id='updateWidth' type='text' class='width' class='imperial')
                 p(class='carUpdateSwitch' class='width' class='imperial') Switch to metric
+                label(for='updateWidth' class='width' class='metric' class='invisible') Width (m):
+                input(id='updateWidth' type='text' class='width' class='metric' class='invisible')
+                p(class='carUpdateSwitch' id='toImperial' class='width' class='metric' class='invisible') Switch to imperial
                 label(for='updateHeight' class='height' class='imperial') Height (inches):
                 input(id='updateHeight' type='text' class='height' class='imperial')
                 p(class='carUpdateSwitch' class='height' class='imperial') Switch to metric
-                label(for='updateLength' class='length' class='metric') Length (m):
-                input(id='updateLength' type='text' class='length' class='metric')
-                p(class='carUpdateSwitch' id='toImperial' class='length' class='metric') Switch to imperial
-                label(for='updateWidth' class='width' class='metric') Width (m):
-                input(id='updateWidth' type='text' class='width' class='metric')
-                p(class='carUpdateSwitch' id='toImperial' class='width' class='metric') Switch to imperial
-                label(for='updateHeight' class='height' class='metric') Height (m):
-                input(id='updateHeight' type='text' class='height' class='metric')
-                p(class='carUpdateSwitch' id='toImperial' class='height' class='metric') Switch to imperial
+                label(for='updateHeight' class='height' class='metric' class='invisible') Height (m):
+                input(id='updateHeight' type='text' class='height' class='metric' class='invisible')
+                p(class='carUpdateSwitch' id='toImperial' class='height' class='metric' class='invisible') Switch to imperial
 

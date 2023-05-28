@@ -122,7 +122,7 @@ function handleSwitchClick(c) {
   }
   for (let i = 0; i < switches.length; i++) {
     if (
-      switches[1].classList.contains(field) &&
+      switches[i].classList.contains(field) &&
       !switches[i].classList.contains(system)
     ) {
       switches[i].classList.toggle("invisible");
