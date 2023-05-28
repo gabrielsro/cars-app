@@ -74,7 +74,10 @@ function setMode() {
       if (carTitle) {
         carTitle.style.background = "black";
         carBasicInfo.style.background = "black";
-        technicalCards.forEach((t) => (t.style.background = "#1a1a1a"));
+        technicalCards.forEach((t) => {
+          t.style.background = "black";
+          t.style.border = "1px solid #333333";
+        });
       }
       if (makeHeader) {
         makeHeader.style.background = "black";
@@ -113,7 +116,10 @@ function setMode() {
       if (carTitle) {
         carTitle.style.background = "#eee";
         carBasicInfo.style.background = "#eee";
-        technicalCards.forEach((t) => (t.style.background = "#eee"));
+        technicalCards.forEach((t) => {
+          t.style.background = "#eee";
+          t.style.border = "";
+        });
       }
       if (makeHeader) {
         makeHeader.style.background = "#eee";

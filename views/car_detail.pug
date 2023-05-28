@@ -37,7 +37,8 @@ block content
             .card-technical
                 .card-technical-title(id='measurementSwitch')
                     .card-technical-title-group
-                        img(src='/images/icons/carIcons/car3.svg' alt='Car Icon')
+                        img(src='/images/icons/carIcons/carBlack1.svg' alt='Car Icon' class='black')
+                        img(src='/images/icons/carIcons/carWhite1.svg' alt='Car Icon' class='white')
                         h4 Basics
                     .measurementSystem(id='measurementBasics')
                         p(class='selectedText') Imperial
@@ -46,15 +47,18 @@ block content
                 .card-technical-rows
                     if car.version.fuelSpecifics 
                         .card-technical-row 
-                            img(src='/images/icons/energyIcons/energy1.svg' alt='Energy Icon' id='energyIcon')
+                            img(src='/images/icons/energyIcons/energyBlack1.svg' alt='Energy Icon' id='energyIcon' class='black')
+                            img(src='/images/icons/energyIcons/energyWhite1.svg' alt='Energy Icon' id='energyIcon' class='white')
                             h5 #{car.version.fuelSpecifics}
                     else 
                         .card-technical-row 
-                            img(src='/images/icons/energyIcons/energy1.svg' alt='Energy Icon' id='energyIcon')
+                            img(src='/images/icons/energyIcons/energyBlack1.svg' alt='Energy Icon' id='energyIcon' class='black')
+                            img(src='/images/icons/energyIcons/energyWhite1.svg' alt='Energy Icon' id='energyIcon' class='white')
                             h5 N/A
                     if car.version.transmission
                         .card-technical-row
-                            img(src='/images/icons/transmissionIcons/transmission2.svg' alt='Transmission Icon')
+                            img(src='/images/icons/transmissionIcons/transmissionBlack1.svg' alt='Transmission Icon' class='black')
+                            img(src='/images/icons/transmissionIcons/transmissionWhite1.svg' alt='Transmission Icon' class='white')
                             if /transmission/i.test(car.version.transmission) == false
                                 h5 #{car.version.transmission} Transmission
                             else
@@ -62,81 +66,102 @@ block content
                     if car.version.drive
                         .card-technical-row(id='technicalRowDrive')
                             if /^r/i.test(car.version.drive)
-                                img(src='/images/icons/RWDIcons/rear1.svg' alt='Rear-wheel-drive Icon')
+                                img(src='/images/icons/RWDIcons/RWDBlack1.svg' alt='Rear-wheel-drive Icon' class='black')
+                                img(src='/images/icons/RWDIcons/RWDWhite1.svg' alt='Rear-wheel-drive Icon' class='white')
                                 h5 RWD
                             if /^f/i.test(car.version.drive)
-                                img(src='/images/icons/FWDIcons/front1.svg' alt='Front-wheel-drive Icon')
+                                img(src='/images/icons/FWDIcons/FWDBlack1.svg' alt='Front-wheel-drive Icon' class='black')
+                                img(src='/images/icons/FWDIcons/FWDWhite1.svg' alt='Front-wheel-drive Icon' class='white')
                                 h5 FWD
                             if /^all/i.test(car.version.drive)
-                                img(src='/images/icons/AWDIcons/all1.svg' alt='All-wheel-drive Icon')
+                                img(src='/images/icons/AWDIcons/AWDBlack1.svg' alt='All-wheel-drive Icon' class='black')
+                                img(src='/images/icons/AWDIcons/AWDWhite1.svg' alt='All-wheel-drive Icon' class='white')
                                 h5 AWD
                             if /4/.test(car.version.drive)
-                                img(src='/images/icons/AWDIcons/all1.svg' alt='All-wheel-drive Icon')
+                                img(src='/images/icons/AWDIcons/AWDBlack1.svg' alt='All-wheel-drive Icon' class='black')
+                                img(src='/images/icons/AWDIcons/AWDWhite1.svg' alt='All-wheel-drive Icon' class='white')
                                 h5 4WD
                     if car.version.weight
                         - weight = car.version.weight
                         .card-technical-row(id='imperialWeight')                             
-                            img(src='/images/icons/weightIcons/weight3.svg' alt='Weight Icon' id='weightIcon')
+                            img(src='/images/icons/weightIcons/weightBlack1.svg' alt='Weight Icon' id='weightIcon' class='black')
+                            img(src='/images/icons/weightIcons/weightWhite1.svg' alt='Weight Icon' id='weightIcon' class='white')
                             h5 #{Math.round(weight*2.20462).toLocaleString()} lbs
                         .card-technical-row(id='metricWeight' class='invisible')
-                            img(src='/images/icons/weightIcons/weight3.svg' alt='Weight Icon' id='weightIcon')
+                            img(src='/images/icons/weightIcons/weightBlack1.svg' alt='Weight Icon' id='weightIcon' class='black')
+                            img(src='/images/icons/weightIcons/weightWhite1.svg' alt='Weight Icon' id='weightIcon' class='white')
                             h5 #{car.version.weight.toLocaleString()} kg
                     if !car.version.length && !car.version.width && !car.version.height
                         .card-technical-row(id='imperialDimensions')
-                            img(src='/images/icons/dimensionsIcons/dimensions1.svg' alt='Dimensions Icon' id='dimensionsIcon')
+                            img(src='/images/icons/dimensionsIcons/dimensionsBlack1.svg' alt='Dimensions Icon' id='dimensionsIcon' class='black')
+                            img(src='/images/icons/dimensionsIcons/dimensionsWhite1.svg' alt='Dimensions Icon' id='dimensionsIcon' class='white')
                             h5 LxWxH: N/A
                     if car.version.length && car.version.width && car.version.height
                         .card-technical-row(id='imperialDimensions')
-                            img(src='/images/icons/dimensionsIcons/dimensions1.svg' alt='Dimensions Icon')
+                            img(src='/images/icons/dimensionsIcons/dimensionsBlack1.svg' alt='Dimensions Icon' id='dimensionsIcon' class='black')
+                            img(src='/images/icons/dimensionsIcons/dimensionsWhite1.svg' alt='Dimensions Icon' id='dimensionsIcon' class='white')
                             h5 LxWxH: #{(Math.round(car.version.length*0.3937*10)/10).toLocaleString()} in x #{(Math.round(car.version.width*0.3937*10)/10).toLocaleString()} in x #{(Math.round(car.version.height*0.3937*10)/10).toLocaleString()} in
                         .card-technical-row(id='metricDimensions' class='invisible')
-                            img(src='/images/icons/dimensionsIcons/dimensions1.svg' alt='Dimensions Icon')
+                            img(src='/images/icons/dimensionsIcons/dimensionsBlack1.svg' alt='Dimensions Icon' id='dimensionsIcon' class='black')
+                            img(src='/images/icons/dimensionsIcons/dimensionsWhite1.svg' alt='Dimensions Icon' id='dimensionsIcon' class='white')
                             h5 LxWxH: #{Math.round(car.version.length/10)/100} m x #{Math.round(car.version.width/10)/100} m x #{Math.round(car.version.height/10)/100} m
             if car.version.enginePower || car.version.engineTorqueNm || car.version.enginePosition || car.version.engineCC || car.version.engineCyl || !car.version.engineCompression || /Not/.test(car.version.engineCompression) == false            
                 .card-technical
                     .card-technical-title
-                        img(src='/images/icons/engineIcons/engine2.svg' alt='Engine Icon' id='engineIcon')
+                        img(src='/images/icons/engineIcons/engineBlack1.svg' alt='Engine Icon' class='black')
+                        img(src='/images/icons/engineIcons/engineWhite1.svg' alt='Engine Icon' class='white')
                         h4 Engine 
                     .card-technical-rows(id='cardTechnicalRowsEngine')
                         if car.version.enginePosition
                             .card-technical-row
                                 if /front/i.test(car.version.enginePosition)
-                                    img(src='/images/icons/engineFrontIcons/front1.svg' alt='Front Engine Icon')
+                                    img(src='/images/icons/engineFrontIcons/frontBlack1.svg' alt='Front Engine Icon' class='black')
+                                    img(src='/images/icons/engineFrontIcons/frontWhite1.svg' alt='Front Engine Icon' class='white')
                                 if /middle/i.test(car.version.enginePosition)
-                                    img(src='/images/icons/engineCenterIcons/center1.svg' alt='Middle Engine Icon')
+                                    img(src='/images/icons/engineCenterIcons/centerBlack1.svg' alt='Middle Engine Icon' class='black')
+                                    img(src='/images/icons/engineCenterIcons/centerWhite1.svg' alt='Middle Engine Icon' class='white')
                                 if /back/i.test(car.version.enginePosition)
-                                    img(src='/images/icons/engineBackIcons/back1.svg' alt='Back Engine Icon')
+                                    img(src='/images/icons/engineBackIcons/backBlack1.svg' alt='Back Engine Icon' class='black')
+                                    img(src='/images/icons/engineBackIcons/backWhite1.svg' alt='Back Engine Icon' class='white')
                                 if /rear/i.test(car.version.enginePosition)
-                                    img(src='/images/icons/engineBackIcons/back1.svg' alt='Back Engine Icon')
+                                    img(src='/images/icons/engineBackIcons/backBlack1.svg' alt='Back Engine Icon' class='black')
+                                    img(src='/images/icons/engineBackIcons/backWhite1.svg' alt='Back Engine Icon' class='white')
                                 h5 Position: #{car.version.enginePosition}
                         if car.version.engineType
                             .card-technical-row
-                                img(src='/images/icons/engineIcons/engine1.svg' alt='Engine Type Icon')
+                                img(src='/images/icons/engineIcons/engineTypeBlack1.svg' alt='Engine Type Icon' class='black')
+                                img(src='/images/icons/engineIcons/engineTypeWhite1.svg' alt='Engine Type Icon' class='white')
                                 h5 Type: #{car.version.engineType}
                         if car.version.engineCC
                             .card-technical-row
-                                img(src='/images/icons/displacementIcons/displacement1.svg' alt='Displacement Icon')
+                                img(src='/images/icons/displacementIcons/displacementBlack1.svg' alt='Displacement Icon' class='black')
+                                img(src='/images/icons/displacementIcons/displacementWhite1.svg' alt='Displacement Icon' class='white')
                                 h5 Displacement: #{car.version.engineCC.toLocaleString()} cc
                         if car.version.engineCyl
                             .card-technical-row
-                                img(src='/images/icons/cylinderIcons/cylinders2.svg' alt='Cylinders Icon')
+                                img(src='/images/icons/cylinderIcons/cylindersBlack1.svg' alt='Cylinders Icon' class='black')
+                                img(src='/images/icons/cylinderIcons/cylindersWhite1.svg' alt='Cylinders Icon' class='white')
                                 h5 Cylinders: #{car.version.engineCyl}
                         if /\d/.test(car.version.engineCompression)
                             .card-technical-row
-                                img(src='/images/icons/compressionIcons/compression3.svg' alt='Compression Icon')
+                                img(src='/images/icons/compressionIcons/compressionBlack1.svg' alt='Compression Icon' class='black')
+                                img(src='/images/icons/compressionIcons/compressionWhite1.svg' alt='Compression Icon' class='white')
                                 h5 Compression: #{car.version.engineCompression}
                         if car.version.engineTorqueNm
                             .card-technical-row
-                                img(src='/images/icons/torqueIcons/torque3.svg' alt='Torque Icon')
+                                img(src='/images/icons/torqueIcons/torqueBlack1.svg' alt='Torque Icon' class='black')
+                                img(src='/images/icons/torqueIcons/torqueWhite1.svg' alt='Torque Icon' class='white')
                                 h5 Torque: #{car.version.engineTorqueNm} Nm
                         if car.version.enginePower
                             .card-technical-row
-                                img(src='/images/icons/powerIcons/power3.svg' alt='Power Icon' id='powerIcon')
+                                img(src='/images/icons/powerIcons/powerBlack1.svg' alt='Power Icon' id='powerIcon' class='black')
+                                img(src='/images/icons/powerIcons/powerWhite1.svg' alt='Power Icon' id='powerIcon' class='white')
                                 h5 Power: #{car.version.enginePower} hp
             .card-technical
                 .card-technical-title(id='measurementSwitch')
                     .card-technical-title-group
-                        img(src='/images/icons/efficiencyIcons/efficiency2.svg' alt='Efficiency Icon')
+                        img(src='/images/icons/efficiencyIcons/efficiencyBlack1.svg' alt='Efficiency Icon' class='black')
+                        img(src='/images/icons/efficiencyIcons/efficiencyWhite1.svg' alt='Efficiency Icon' class='white')
                         h4 Efficiency   
                     .measurementSystem(id='measurementEfficiency')
                         p(class='selectedText') Imperial
@@ -144,37 +169,43 @@ block content
                         p Metric
                 .card-technical-rows
                     .card-technical-row(id='imperialHwy')
-                        img(src='/images/icons/highwayIcons/highway2.svg' alt='Highway Icon')
+                        img(src='/images/icons/highwayIcons/highwayBlack1.svg' alt='Highway Icon' class='black')
+                        img(src='/images/icons/highwayIcons/highwayWhite1.svg' alt='Highway Icon' class='white')
                         if !car.version.fuelEfficiencyHgw 
                             h5 Highway: N/A
                         if car.version.fuelEfficiencyHgw && typeof car.version.fuelEfficiencyHgw !== 'string'
                             h5 Highway: #{car.version.fuelEfficiencyHgw} mpg
                     .card-technical-row(id='metricHwy' class='invisible')
-                        img(src='/images/icons/highwayIcons/highway2.svg' alt='Highway Icon')
+                        img(src='/images/icons/highwayIcons/highwayBlack1.svg' alt='Highway Icon' class='black')
+                        img(src='/images/icons/highwayIcons/highwayWhite1.svg' alt='Highway Icon' class='white')
                         if !car.version.fuelEfficiencyHgw
                             h5 Highway: N/A 
                         if car.version.fuelEfficiencyHgw && typeof car.version.fuelEfficiencyHgw !== 'string'
                             h5 Highway: #{Math.round(car.version.fuelEfficiencyHgw*1.6)} kpg
                     .card-technical-row(id='imperialMixed')
-                        img(src='/images/icons/mixedIcons/mixed1.svg' alt='Mixed Icon')
+                        img(src='/images/icons/mixedIcons/mixedBlack2.svg' alt='Mixed Icon' class='black')
+                        img(src='/images/icons/mixedIcons/mixedWhite2.svg' alt='Mixed Icon' class='white')
                         if !car.version.fuelEfficiencyMixed 
                             h5 Mixed: N/A
                         if car.version.fuelEfficiencyMixed && typeof car.version.fuelEfficiencyMixed !== 'string'
                             h5 Mixed: #{car.version.fuelEfficiencyMixed} mpg
                     .card-technical-row(id='metricMixed' class='invisible')
-                        img(src='/images/icons/mixedIcons/mixed1.svg' alt='Mixed Icon')
+                        img(src='/images/icons/mixedIcons/mixedBlack2.svg' alt='Mixed Icon' class='black')
+                        img(src='/images/icons/mixedIcons/mixedWhite2.svg' alt='Mixed Icon' class='white')
                         if !car.version.fuelEfficiencyMixed
                             h5 Mixed: N/A 
                         if car.version.fuelEfficiencyMixed && typeof car.version.fuelEfficiencyMixed !== 'string'
                             h5 Mixed: #{Math.round(car.version.fuelEfficiencyMixed*1.6)} kpg
                     .card-technical-row(id='imperialCity')
-                        img(src='/images/icons/cityIcons/city1.svg' alt='City Icon')
+                        img(src='/images/icons/cityIcons/cityBlack1.svg' alt='City Icon' class='black')
+                        img(src='/images/icons/cityIcons/cityWhite1.svg' alt='City Icon' class='white')
                         if !car.version.fuelEfficiencyCity 
                             h5 City: N/A
                         if car.version.fuelEfficiencyCity && typeof car.version.fuelEfficiencyCity !== 'string'
                             h5 City: #{car.version.fuelEfficiencyCity} mpg
                     .card-technical-row(id='metricCity' class='invisible')
-                        img(src='/images/icons/cityIcons/city1.svg' alt='City Icon')
+                        img(src='/images/icons/cityIcons/cityBlack1.svg' alt='City Icon' class='black')
+                        img(src='/images/icons/cityIcons/cityWhite1.svg' alt='City Icon' class='white')
                         if !car.version.fuelEfficiencyCity
                             h5 City: N/A 
                         if car.version.fuelEfficiencyCity && typeof car.version.fuelEfficiencyCity !== 'string'
@@ -182,7 +213,8 @@ block content
             .card-technical
                 .card-technical-title(id='measurementSwitch')
                     .card-technical-title-group
-                        img(src='/images/icons/performanceIcons/performance1.svg' alt='Performance Icon')
+                        img(src='/images/icons/performanceIcons/performanceBlack1.svg' alt='Performance Icon' class='black')
+                        img(src='/images/icons/performanceIcons/performanceWhite1.svg' alt='Performance Icon' class='white')
                         h4 Performance   
                     .measurementSystem(id='measurementPerformance') 
                         p(class='selectedText') Imperial
@@ -190,7 +222,8 @@ block content
                         p Metric
                 .card-technical-rows(id='imperialSpeed')
                     .card-technical-row
-                        img(src='/images/icons/speedIcons/speed1.svg' alt='Speed Icon')
+                        img(src='/images/icons/speedIcons/speedBlack1.svg' alt='Speed Icon' class='black')
+                        img(src='/images/icons/speedIcons/speedWhite1.svg' alt='Speed Icon' class='white')
                         if car.version.maxSpeed 
                             h5 Top speed: #{`${Math.round(car.version.maxSpeed/1.6)} mph`}
                         if car.version.maxSpeed < 1
@@ -199,7 +232,8 @@ block content
                             h5 Top speed: N/A
                 .card-technical-rows(id='imperialAcceleration')
                     .card-technical-row
-                        img(src='/images/icons/accelerationIcons/acceleration1.svg' alt='Acceleration Icon' id='accelerationIcon')
+                        img(src='/images/icons/accelerationIcons/accelerationBlack1.svg' alt='Acceleration Icon' id='accelerationIcon' class='black')
+                        img(src='/images/icons/accelerationIcons/accelerationWhite1.svg' alt='Acceleration Icon' id='accelerationIcon' class='white')
                         if car.version.accel0To100 
                             h5 Acceleration (0-60 mph): #{`${car.version.accel0To100} s`}
                         if car.version.accel0To100 < 1
@@ -208,7 +242,8 @@ block content
                             h5 Acceleration (0-60 mph): N/A
                 .card-technical-rows(id='metricSpeed' class='invisible')
                     .card-technical-row
-                        img(src='/images/icons/speedIcons/speed1.svg' alt='Speed Icon')
+                        img(src='/images/icons/speedIcons/speedBlack1.svg' alt='Speed Icon' class='black')
+                        img(src='/images/icons/speedIcons/speedWhite1.svg' alt='Speed Icon' class='white')
                         if car.version.maxSpeed 
                             h5 Top speed: #{`${car.version.maxSpeed} km/h`}
                         if car.version.maxSpeed < 1
@@ -217,7 +252,8 @@ block content
                             h5 Top speed: N/A
                 .card-technical-rows(id='metricAcceleration' class='invisible')
                     .card-technical-row
-                        img(src='/images/icons/accelerationIcons/acceleration1.svg' alt='Acceleration Icon' id='accelerationIcon')
+                        img(src='/images/icons/accelerationIcons/accelerationBlack1.svg' alt='Acceleration Icon' id='accelerationIcon' class='black')
+                        img(src='/images/icons/accelerationIcons/accelerationWhite1.svg' alt='Acceleration Icon' id='accelerationIcon' class='white')
                         if car.version.accel0To100 
                             h5 Acceleration (0-100 km/h): #{`${car.version.accel0To100} s`}
                         if car.version.accel0To100 < 1
