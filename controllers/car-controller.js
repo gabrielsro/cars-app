@@ -328,7 +328,7 @@ exports.add_car_variants_submit = [
                             }),
                             ...createPics(savedCar._id, req.files),
                           ])
-                            .then(res.redirect(savedCar.url))
+                            .then(res.redirect(`${savedCar.url}/update`))
                             .catch((err) => next(err));
                         })
                         .catch((err) => next(err));
@@ -381,7 +381,7 @@ exports.add_car_variants_submit = [
                               }),
                               ...createPics(savedCar._id, req.files),
                             ])
-                              .then(res.redirect(savedCar.url))
+                              .then(res.redirect(`${savedCar.url}/update`))
                               .catch((err) => next(err));
                           })
                           .catch((err) => next(err));
@@ -425,7 +425,7 @@ exports.add_car_variants_submit = [
                               }),
                               ...createPics(savedCar._id, req.files),
                             ])
-                              .then(res.redirect(savedCar.url))
+                              .then(res.redirect(`${savedCar.url}/update`))
                               .catch((err) => next(err));
                           });
                         })
@@ -450,7 +450,7 @@ exports.add_car_variants_submit = [
                             modelResult[0].save(),
                             ...createPics(savedCar._id, req.files),
                           ])
-                            .then(res.redirect(savedCar.url))
+                            .then(res.redirect(`${savedCar.url}/update`))
                             .catch((err) => next(err));
                         })
                         .catch((err) => next(err));
@@ -484,7 +484,16 @@ exports.carDetail = (req, res, next) => {
 };
 
 exports.carUpdate = (req, res, next) => {
-  res.send(`Pending update for ${req.params.id}`);
+  Car.findById(req.params.id)
+    .populate("version")
+    .then((car) =>
+      res.render("car_update", {
+        title: `Review your ${car.year} ${car.makeName} ${car.modelName} information`,
+        instructions:
+          "The following is the information you gave us for this vehicle along with the one retrieved by our API. Please review it and change it if needed. You can always modify this information later.",
+        countries: countryList(),
+      })
+    );
 };
 
 exports.carDelete = (req, res, next) => {

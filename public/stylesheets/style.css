@@ -358,6 +358,13 @@ form {
   grid-template-columns: 0.25fr auto;
 }
 
+.form-content-text-new {
+  display: grid;
+  row-gap: 17px;
+  column-gap: 10px;
+  grid-template-columns: 30% 30% 30%;
+}
+
 .form-content-pic {
   display: grid;
   row-gap: 7px;
@@ -365,8 +372,18 @@ form {
   grid-template-columns: 0.1fr auto;
 }
 
-.form-content-text label {
+.form-content-text label,
+.form-content-text-new label {
   justify-self: end;
+}
+
+.form-content-text-new label {
+  grid-column: 1/2;
+}
+
+.form-content-text-new input,
+.form-content-text-new select {
+  grid-column: 2/3;
 }
 
 .form-content-text input {
@@ -1124,6 +1141,34 @@ fieldset {
   gap: 5px 30px;
   flex-wrap: wrap;
   margin-bottom: 20px;
+}
+
+#formUpdateCar {
+  margin-left: 0;
+}
+
+#formUpdateCar fieldset {
+  margin-top: 35px;
+}
+
+#formUpdateCar legend {
+  font-weight: bold;
+  margin-left: 12%;
+  margin-bottom: 13px;
+  font-size: 1.3rem;
+}
+
+.carUpdateSwitch {
+  font-weight: bold;
+  color: #1e90ff;
+}
+
+.carUpdateSwitch:hover {
+  cursor: pointer;
+}
+
+#toImperial {
+  color: #ff7f50;
 }
 
 @media only screen and (max-width: 945px) {
