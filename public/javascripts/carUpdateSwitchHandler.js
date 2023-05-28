@@ -10,6 +10,16 @@ switches.forEach((s) => {
   s.addEventListener("click", (c) => handleSwitchClick(c.target));
 });
 
+function initialConversion() {
+  inputs.forEach((i) => {
+    if (i.value) {
+      if (i.classList.contains("imperial") || i.classList.contains("metric")) {
+        handleUnitConversion(i);
+      }
+    }
+  });
+}
+
 function handleUnitConversion(c) {
   const field = c.classList[0];
   const initialSystem = c.classList[1];
@@ -68,7 +78,6 @@ function handleUnitConversion(c) {
         inputs[i].classList.contains(field) &&
         inputs[i].classList.contains("metric")
       ) {
-        console.log("something was found");
         inputs[i].value = Math.round(conversion * c.value * 100) / 100;
         break;
       }
@@ -130,3 +139,5 @@ function handleSwitchClick(c) {
     }
   }
 }
+
+initialConversion();
