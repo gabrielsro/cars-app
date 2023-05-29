@@ -615,7 +615,7 @@ exports.carUpdate = (req, res, next) => {
         mixed: car.version.fuelEfficiencyMixed,
         city: car.version.fuelEfficiencyCity,
         speed: car.version.maxSpeed,
-        acceleration: car.version.accel0to100,
+        acceleration: car.version.accel0To100,
         length: car.version.length,
         width: car.version.width,
         height: car.version.height,
