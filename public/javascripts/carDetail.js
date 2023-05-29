@@ -41,7 +41,9 @@ metricB.addEventListener("click", () => {
   imperialWeight.classList.add("invisible");
   metricWeight.classList.remove("invisible");
   imperialDimensions.classList.add("invisible");
-  metricDimensions.classList.remove("invisible");
+  if (metricDimensions) {
+    metricDimensions.classList.remove("invisible");
+  }
 });
 
 imperialB.addEventListener("click", () => {
@@ -50,9 +52,13 @@ imperialB.addEventListener("click", () => {
     imperialB.classList.toggle("selectedText");
   }
   imperialWeight.classList.remove("invisible");
-  metricWeight.classList.add("invisible");
+  if (metricWeight) {
+    metricWeight.classList.add("invisible");
+  }
   imperialDimensions.classList.remove("invisible");
-  metricDimensions.classList.add("invisible");
+  if (metricDimensions) {
+    metricDimensions.classList.add("invisible");
+  }
 });
 
 metricP.addEventListener("click", () => {

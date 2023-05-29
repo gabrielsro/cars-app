@@ -1161,6 +1161,7 @@ fieldset {
 .carUpdateSwitch {
   font-weight: bold;
   color: #1e90ff;
+  width: auto;
 }
 
 .carUpdateSwitch:hover {
@@ -1169,6 +1170,35 @@ fieldset {
 
 #toImperial {
   color: #ff7f50;
+}
+
+.formOptions {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  margin-top: 20px;
+}
+
+.formChangesConfirmation,
+.formChangesOptions div {
+  display: flex;
+  gap: 50px;
+}
+
+.formChangesOptions > p {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+}
+
+.formOption {
+  font-weight: bold;
+  color: #00b7ff;
+  font-size: 1.3rem;
+}
+
+.formOption:hover {
+  cursor: pointer;
 }
 
 @media only screen and (max-width: 945px) {

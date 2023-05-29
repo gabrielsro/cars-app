@@ -1,10 +1,115 @@
 const switches = document.querySelectorAll(".carUpdateSwitch");
 const inputs = document.querySelectorAll("input");
+const selects = document.querySelectorAll("select");
 const labels = document.querySelectorAll("label");
+const noChanges = document.querySelector(".formNoChanges");
+const changesConfirmation = document.querySelector(".formChangesConfirmation");
+const restore = document.querySelector(".formChangesConfirmation>p");
+const save = document.querySelector(".formChangesConfirmation>p:nth-child(2)");
+const savingOptions = document.querySelector(".formChangesOptions");
+const looksGood = document.querySelector(".formNoChanges p");
+const allVersions = document.querySelector(
+  ".formChangesOptions div>p:nth-child(2)"
+);
+const currentVersion = document.querySelector(".formChangesOptions div>p");
+const form = document.getElementById("formUpdateCar");
+
+looksGood.addEventListener("click", () => {
+  window.location.href = `/inventory/car/${looksGood.dataset.id}`;
+});
+
+changesConfirmation.style.display = "none";
+
+restore.addEventListener("click", () => location.reload());
+save.addEventListener("click", () => {
+  savingOptions.classList.remove("invisible");
+  changesConfirmation.style.display = "none";
+  changesConfirmation.setAttribute("data-modification", "true");
+});
 
 inputs.forEach((i) =>
-  i.addEventListener("change", (c) => handleUnitConversion(c.target))
+  i.addEventListener("input", (c) => {
+    handleUnitConversion(c.target);
+    noChanges.classList.add("invisible");
+    if (!changesConfirmation.getAttribute("data-modification")) {
+      changesConfirmation.style.display = "flex";
+    }
+    if (c.target.classList.contains("car")) {
+      allVersions.setAttribute("data-carChange", `true`);
+      currentVersion.setAttribute("data-carChange", `true`);
+    }
+    if (c.target.classList.contains("version")) {
+      allVersions.setAttribute("data-versionChange", `true`);
+      currentVersion.setAttribute("data-versionChange", `true`);
+    }
+  })
 );
+
+allVersions.addEventListener("click", () => {
+  if (
+    allVersions.getAttribute("data-versionChange") &&
+    allVersions.getAttribute("data-carChange")
+  ) {
+    //Version and car where changed. Update both
+    form.setAttribute(
+      "action",
+      `/inventory/car_version_update/${allVersions.dataset.car}/${allVersions.dataset.version}/true/true`
+    );
+    form.submit();
+    return;
+  }
+  if (allVersions.getAttribute("data-versionChange")) {
+    //Version was changed. Update version
+    form.setAttribute(
+      "action",
+      `/inventory/car_version_update/${allVersions.dataset.car}/${allVersions.dataset.version}/false/true`
+    );
+    form.submit();
+    return;
+  }
+  if (allVersions.getAttribute("data-carChange")) {
+    //Car was changed. Update car
+    form.setAttribute(
+      "action",
+      `/inventory/car_version_update/${allVersions.dataset.car}/${allVersions.dataset.version}/true/false`
+    );
+    form.submit();
+  }
+});
+
+currentVersion.addEventListener("click", () => {
+  if (
+    currentVersion.getAttribute("data-versionChange") &&
+    currentVersion.getAttribute("data-carChange")
+  ) {
+    //Version and car where changed. Update both
+    return;
+  }
+  if (currentVersion.getAttribute("data-versionChange")) {
+    //Version was changed. Update version
+    return;
+  }
+  if (currentVersion.getAttribute("data-carChange")) {
+    //Car was changed. Update car
+  }
+});
+
+selects.forEach((s) => {
+  s.addEventListener("input", (c) => {
+    noChanges.classList.add("invisible");
+    if (!changesConfirmation.getAttribute("data-modification")) {
+      changesConfirmation.style.display = "flex";
+    }
+    if (c.target.classList.contains("car")) {
+      allVersions.setAttribute("data-carChange", `true`);
+      currentVersion.setAttribute("data-carChange", `true`);
+    }
+    if (c.target.classList.contains("version")) {
+      allVersions.setAttribute("data-versionChange", `true`);
+      currentVersion.setAttribute("data-versionChange", `true`);
+    }
+  });
+});
 
 switches.forEach((s) => {
   s.addEventListener("click", (c) => handleSwitchClick(c.target));

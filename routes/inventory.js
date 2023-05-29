@@ -32,6 +32,10 @@ router.get("/car/:id/update", carController.carUpdate);
 router.get("/car/:id/delete", carController.carDelete);
 router.get("/cars", carController.car_list);
 router.get("/car/:id", carController.carDetail);
+router.post(
+  "/car_version_update/:carId/:versionId/:carChange/:versionChange",
+  carController.carAndVersionUpdate
+);
 
 //Make Routes
 router.get("/make/:id", makeController.makeDetail);
