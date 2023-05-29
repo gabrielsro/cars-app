@@ -328,7 +328,7 @@ exports.add_car_variants_submit = [
                             }),
                             ...createPics(savedCar._id, req.files),
                           ])
-                            .then(res.redirect(`${savedCar.url}/update`))
+                            .then(res.redirect(`${savedCar.url}/update/new`))
                             .catch((err) => next(err));
                         })
                         .catch((err) => next(err));
@@ -381,7 +381,7 @@ exports.add_car_variants_submit = [
                               }),
                               ...createPics(savedCar._id, req.files),
                             ])
-                              .then(res.redirect(`${savedCar.url}/update`))
+                              .then(res.redirect(`${savedCar.url}/update/new`))
                               .catch((err) => next(err));
                           })
                           .catch((err) => next(err));
@@ -425,7 +425,7 @@ exports.add_car_variants_submit = [
                               }),
                               ...createPics(savedCar._id, req.files),
                             ])
-                              .then(res.redirect(`${savedCar.url}/update`))
+                              .then(res.redirect(`${savedCar.url}/update/new`))
                               .catch((err) => next(err));
                           });
                         })
@@ -450,7 +450,7 @@ exports.add_car_variants_submit = [
                             modelResult[0].save(),
                             ...createPics(savedCar._id, req.files),
                           ])
-                            .then(res.redirect(`${savedCar.url}/update`))
+                            .then(res.redirect(`${savedCar.url}/update/new`))
                             .catch((err) => next(err));
                         })
                         .catch((err) => next(err));
@@ -496,7 +496,39 @@ exports.carAndVersionUpdate = (req, res, next) => {
       email: req.body.email,
       phone: req.body.phone,
     });
-    res.send("car and version");
+    Promise.all([
+      Version.findByIdAndUpdate(req.params.versionId, {
+        versionBodyType: req.body.body,
+        enginePosition: req.body.position,
+        engineCC: req.body.displacement,
+        engineType: req.body.engineType,
+        engineTorqueNm: req.body.torque,
+        enginePower: req.body.power,
+        engineCompression: req.body.compression,
+        drive: req.body.drive,
+        transmission: req.body.transmission,
+        weight: req.body.weight,
+        fuelSpecifics: req.body.fuelSpecifics,
+        fuelEfficiencyHgw: req.body.hEff,
+        fuelEfficiencyMixed: req.body.mEff,
+        fuelEfficiencyCity: req.body.cEff,
+        maxSpeed: req.body.speed,
+        accel0To100: req.body.acceleration,
+        length: req.body.length,
+        width: req.body.width,
+        height: req.body.height,
+      }),
+      Car.findByIdAndUpdate(req.params.carId, {
+        price: req.body.price,
+        mileage: req.body.mileage,
+        status: req.body.status,
+        color: req.body.color,
+        description: req.body.description,
+        country: req.body.carCountry,
+        email: req.body.email,
+        phone: req.body.phone,
+      }),
+    ]).then(res.redirect(res.redirect(`/inventory/car/${req.params.carId}`)));
   }
   if (req.params.carChange == "false" && req.params.versionChange == "true") {
     //Version must be updated
@@ -546,12 +578,18 @@ exports.carUpdateHandler = () => {};
 exports.carUpdate = (req, res, next) => {
   Car.findById(req.params.id)
     .populate("version")
-    .then((car) =>
+    .then((car) => {
+      const formTitle =
+        req.params.from == "old"
+          ? `Update your ${car.year} ${car.makeName} ${car.modelName}`
+          : `Review your ${car.year} ${car.makeName} ${car.modelName} information`;
       res.render("car_update", {
-        title: `Review your ${car.year} ${car.makeName} ${car.modelName} information`,
+        title: formTitle,
         model: `${car.year} ${car.makeName} ${car.modelName}`,
         instructions:
-          "The following is the information you gave us for this vehicle along with the one retrieved by our API. Please review it and change it if needed. You can always modify this information later.",
+          req.params.from == "new"
+            ? "The following is the information you gave us for this vehicle along with the one retrieved by our API. Please review it and change it if needed. You can always modify this information later."
+            : "",
         countries: countryList(),
         price: car.price,
         mileage: car.mileage,
@@ -583,8 +621,8 @@ exports.carUpdate = (req, res, next) => {
         height: car.version.height,
         id: car._id,
         versionId: car.version._id,
-      })
-    );
+      });
+    });
 };
 
 exports.carDelete = (req, res, next) => {

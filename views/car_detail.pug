@@ -11,7 +11,7 @@ block content
             h2 #[em #{car.version.name}]
         .car-title-controls
             p 
-                a(href=`/inventory/car/${car._id}/update`) Update
+                a(href=`/inventory/car/${car._id}/update/old`) Update
             p2
                 a(href=`/inventory/car/${car._id}/delete`) Delete
     .car-info-container
@@ -104,7 +104,7 @@ block content
                         .card-technical-row(id='imperialDimensions')
                             img(src='/images/icons/dimensionsIcons/dimensionsBlack1.svg' alt='Dimensions Icon' id='dimensionsIcon' class='black')
                             img(src='/images/icons/dimensionsIcons/dimensionsWhite1.svg' alt='Dimensions Icon' id='dimensionsIcon' class='white')
-                            h5 LxWxH: #{(Math.round(car.version.length*0.3937*10)/10).toLocaleString()} in x #{(Math.round(car.version.width*0.3937*10)/10).toLocaleString()} in x #{(Math.round(car.version.height*0.3937*10)/10).toLocaleString()} in
+                            h5 LxWxH: #{(Math.round(car.version.length*0.03937*10)/10).toLocaleString()} in x #{(Math.round(car.version.width*0.03937*10)/10).toLocaleString()} in x #{(Math.round(car.version.height*0.03937*10)/10).toLocaleString()} in
                         .card-technical-row(id='metricDimensions' class='invisible')
                             img(src='/images/icons/dimensionsIcons/dimensionsBlack1.svg' alt='Dimensions Icon' id='dimensionsIcon' class='black')
                             img(src='/images/icons/dimensionsIcons/dimensionsWhite1.svg' alt='Dimensions Icon' id='dimensionsIcon' class='white')

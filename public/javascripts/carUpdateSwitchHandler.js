@@ -145,8 +145,8 @@ function handleUnitConversion(c) {
       conversion = kgToLb;
     }
     if (field == "length" || field == "width" || field == "height") {
-      const mToIn = 39.37;
-      conversion = mToIn;
+      const mMToIn = 0.03937;
+      conversion = mMToIn;
     }
     for (let i = 0; i < inputs.length; i++) {
       if (
@@ -175,8 +175,8 @@ function handleUnitConversion(c) {
       conversion = lbToKg;
     }
     if (field == "length" || field == "width" || field == "height") {
-      const inToM = 0.0254;
-      conversion = inToM;
+      const inToMm = 25.4;
+      conversion = inToMm;
     }
     for (let i = 0; i < inputs.length; i++) {
       if (
