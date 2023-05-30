@@ -267,7 +267,8 @@ block content
     .car-basic-info
         .car-basic-info-section1
             .car-logo 
-                img(src=car.make.logoSrc, alt=`${car.make.name} logo`)
+                a(href=car.make.url) 
+                    img(src=car.make.logoSrc, alt=`${car.make.name} logo`)
             .car-basic-details
                 .car-technical 
                     h3 Make: 

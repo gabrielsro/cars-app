@@ -277,10 +277,7 @@ exports.modelPage = (req, res, next) => {
         modelsOverview.makeName = models[0].make.name;
         modelsOverview.modelName = models[0].name;
         modelsOverview.makeId = req.params.makeId;
-
-        /**
-         * OLD CODE BELOW:
-         */
+        modelsOverview.makeUrl = models[0].make.url;
 
         //Each model will need to conduct asynchronous operations on its versions, so each model will need a promise. The resulting array of model promises will be run in parallel
         const modelsPromises = models.map((model) => {

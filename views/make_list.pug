@@ -4,7 +4,8 @@ block content
     .makeContainer 
         for make in makesInfo
             .makeCard
-                img(src=`${make.make.logoSrc}` alt=`${make.make.name} logo`)
+                a(href=make.make.url) 
+                    img(src=`${make.make.logoSrc}` alt=`${make.make.name} logo`)
                 .makeCardInfo
                     h2
                         a(href=make.make.url) #{make.make.name}

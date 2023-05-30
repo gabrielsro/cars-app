@@ -12,7 +12,8 @@ block content
 
         .model-list-header
             .modelMakeLogo 
-                img(src=`${makeLogo}` alt='Make logo')
+                a(href=modelsOverview.makeUrl) 
+                    img(src=`${makeLogo}` alt='Make logo')
             .models-list-info
                 .models-list-title
                     h1(class='pageTitle') #{modelsOverview.makeName} #{modelsOverview.modelName}
