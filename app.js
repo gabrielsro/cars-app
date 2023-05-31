@@ -1,3 +1,4 @@
+require("dotenv").config();
 var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
@@ -12,8 +13,7 @@ const inventoryRouter = require("./routes/inventory");
 var app = express();
 
 mongoose.set("strictQuery", false);
-const mongoDB =
-  "mongodb+srv://gabrielsro:pitalito88@cluster0.rytee9c.mongodb.net/car_app?retryWrites=true&w=majority";
+const mongoDB = process.env.DATABASE;
 
 main().catch((err) => console.log(err));
 async function main() {

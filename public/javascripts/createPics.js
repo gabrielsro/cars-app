@@ -8,7 +8,7 @@ exports.createPics = (carId, files) => {
         car: carId,
         position: f.number,
         image: f.buffer,
-        description: f.description[0],
+        description: f.description,
       });
       let picPromise = new Promise((resolve, reject) => {
         pic

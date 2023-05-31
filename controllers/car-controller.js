@@ -294,11 +294,13 @@ exports.add_car_variants_submit = [
     let receivedPics = [];
     for (let i = 1; i < 6; i++) {
       if (req.files[`picture${i}`]) {
-        receivedPics.push({
-          number: i,
-          buffer: req.files[`picture${i}`][0].buffer,
-          description: req.body[`pic${i}Description`],
-        });
+        if (req.files[`picture${i}`][0].buffer) {
+          receivedPics.push({
+            number: i,
+            buffer: req.files[`picture${i}`][0].buffer,
+            description: req.body[`pic${i}Description`],
+          });
+        }
       }
     }
     const errors = validationResult(req);
