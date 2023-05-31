@@ -6,9 +6,9 @@ exports.createPics = (carId, files) => {
     files.forEach((f, i) => {
       let pic = new Pic({
         car: carId,
-        position: (i += 1),
+        position: f.number,
         image: f.buffer,
-        description: "test",
+        description: f.description[0],
       });
       let picPromise = new Promise((resolve, reject) => {
         pic

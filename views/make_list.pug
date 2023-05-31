@@ -5,7 +5,7 @@ block content
         for make in makesInfo
             .makeCard
                 a(href=make.make.url) 
-                    img(src=`${make.make.logoSrc}` alt=`${make.make.name} logo`)
+                    img(src=`${make.make.logoSrc}` alt=`${make.make.name} logo` loading='lazy')
                 .makeCardInfo
                     h2
                         a(href=make.make.url) #{make.make.name}

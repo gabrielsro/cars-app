@@ -267,7 +267,13 @@ exports.add_car_get_variants_post = async (req, res, next) => {
 };
 
 exports.add_car_variants_submit = [
-  upload.array("picture", 5),
+  upload.fields([
+    { name: "picture1", maxCount: 1 },
+    { name: "picture2", maxCount: 1 },
+    { name: "picture3", maxCount: 1 },
+    { name: "picture4", maxCount: 1 },
+    { name: "picture5", maxCount: 1 },
+  ]),
   body("make", "make cannot be empty").trim().isLength({ min: 1 }).escape(),
   body("year").trim().escape(),
   body("model").trim().isLength({ min: 1 }).escape(),
@@ -285,8 +291,19 @@ exports.add_car_variants_submit = [
   body("phone").trim().escape(),
   body("email").trim().escape(),
   async (req, res, next) => {
+    let receivedPics = [];
+    for (let i = 1; i < 6; i++) {
+      if (req.files[`picture${i}`]) {
+        receivedPics.push({
+          number: i,
+          buffer: req.files[`picture${i}`][0].buffer,
+          description: req.body[`pic${i}Description`],
+        });
+      }
+    }
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
+      res.send(`La cagamos ${errors[0]}, ${errors}`);
       return;
     }
     Make.find({ name: req.body.make.split(",")[0] })
@@ -326,7 +343,7 @@ exports.add_car_variants_submit = [
                               savedModel.versions.push(finalVersion);
                               savedModel.save();
                             }),
-                            ...createPics(savedCar._id, req.files),
+                            ...createPics(savedCar._id, receivedPics),
                           ])
                             .then(res.redirect(`${savedCar.url}/update/new`))
                             .catch((err) => next(err));
@@ -379,7 +396,7 @@ exports.add_car_variants_submit = [
                                 savedModel.cars.push(savedCar._id);
                                 savedModel.save();
                               }),
-                              ...createPics(savedCar._id, req.files),
+                              ...createPics(savedCar._id, receivedPics),
                             ])
                               .then(res.redirect(`${savedCar.url}/update/new`))
                               .catch((err) => next(err));
@@ -423,7 +440,7 @@ exports.add_car_variants_submit = [
                                 modelResult[0].cars.push(savedCar._id);
                                 modelResult[0].save();
                               }),
-                              ...createPics(savedCar._id, req.files),
+                              ...createPics(savedCar._id, receivedPics),
                             ])
                               .then(res.redirect(`${savedCar.url}/update/new`))
                               .catch((err) => next(err));
@@ -448,7 +465,7 @@ exports.add_car_variants_submit = [
                           Promise.all([
                             versionResult[0].save(),
                             modelResult[0].save(),
-                            ...createPics(savedCar._id, req.files),
+                            ...createPics(savedCar._id, receivedPics),
                           ])
                             .then(res.redirect(`${savedCar.url}/update/new`))
                             .catch((err) => next(err));
@@ -572,8 +589,6 @@ exports.carAndVersionUpdate = (req, res, next) => {
       .catch((err) => next(err));
   }
 };
-
-exports.carUpdateHandler = () => {};
 
 exports.carUpdate = (req, res, next) => {
   Car.findById(req.params.id)

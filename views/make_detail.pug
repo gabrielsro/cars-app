@@ -35,12 +35,12 @@ block content
                     a(href=car.car.url) 
                         .card-thumbnail
                             if undefined===car.pic
-                                img(src=`/images/dummyImages/dummy4.avif` alt=`Unavailable car pic placeholder image`)
+                                img(src=`/images/dummyImages/dummy4.avif` alt=`Unavailable car pic placeholder image` loading='lazy')
                             else 
-                                img(src=`data:${car.pic.image.contentType};base64,${car.pic.image.toString('base64')}` alt=`Vehicle image`)
+                                img(src=`data:${car.pic.image.contentType};base64,${car.pic.image.toString('base64')}` alt=`Vehicle image` loading='lazy')
                         .card-info
                             .card-logo
-                                img(src=car.car.make.logoSrc alt=`${car.car.make.name} logo`)
+                                img(src=car.car.make.logoSrc alt=`${car.car.make.name} logo` loading='lazy')
                             .card-text
                                 .title 
                                     p #{car.car.version.year} #{car.car.make.name} #{car.car.model.name}
