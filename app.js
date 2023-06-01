@@ -6,11 +6,10 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const mongoose = require("mongoose");
 
+var app = express();
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 const inventoryRouter = require("./routes/inventory");
-
-var app = express();
 
 mongoose.set("strictQuery", false);
 const mongoDB = process.env.DATABASE;

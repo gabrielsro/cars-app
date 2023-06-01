@@ -1,10 +1,35 @@
 const express = require("express");
 const router = express.Router();
-
 const carController = require("../controllers/car-controller");
 const makeController = require("../controllers/make-controller");
 const modelController = require("../controllers/model-controller");
 const versionController = require("../controllers/version-controller");
+
+/**
+ * cloudinary section (Image handling):
+ */
+const cloudinary = require("cloudinary").v2;
+cloudinary.config({
+  cloud_name: process.env.CLOUDNAME,
+  api_key: process.env.CLOUDAPIKEY,
+  api_secret: process.env.CLOUDINARYSECRET,
+  secure: true,
+});
+
+cloudinary.api.upload_preset("CarFast").then((result) => console.log(result));
+
+router.get("/get-signature", (req, res) => {
+  const timestamp = Math.round(new Date().getTime() / 1000);
+  const signature = cloudinary.utils.api_sign_request(
+    { timestamp: timestamp },
+    process.env.CLOUDINARYSECRET
+  );
+  res.json({ timestamp, signature });
+});
+
+/**
+ * App internal affairs:
+ */
 
 //Car Routes
 router.get("/", carController.index);
