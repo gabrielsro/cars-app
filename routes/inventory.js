@@ -4,6 +4,8 @@ const carController = require("../controllers/car-controller");
 const makeController = require("../controllers/make-controller");
 const modelController = require("../controllers/model-controller");
 const versionController = require("../controllers/version-controller");
+const multer = require("multer");
+const upload = multer({ storage: multer.memoryStorage() });
 
 /**
  * cloudinary section (Image handling):
@@ -25,6 +27,23 @@ router.get("/get-signature", (req, res) => {
     process.env.CLOUDINARYSECRET
   );
   res.json({ timestamp, signature });
+});
+
+router.post("/check-pics", upload.none(), (req, res) => {
+  const whitelist = [];
+  const received = req.body.pic.map((picture) => {
+    return JSON.parse(picture);
+  });
+  received.forEach((receivedPic) => {
+    const expectedSignature = cloudinary.utils.api_sign_request(
+      { public_id: receivedPic.public_id, version: receivedPic.version },
+      process.env.CLOUDINARYSECRET
+    );
+    if (receivedPic.signature == expectedSignature) {
+      whitelist.push(receivedPic.position);
+    }
+  });
+  res.send(whitelist.join());
 });
 
 /**
