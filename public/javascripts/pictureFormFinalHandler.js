@@ -5,7 +5,6 @@ const cloud_name = "dpqwimjsm";
 finalForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   const formData = new FormData(finalForm);
-
   //Detect pic inputs to modify
   const picInputs = Array.from(document.querySelectorAll("input[type=file]"));
   const loadedPicInputs = [];
@@ -90,6 +89,16 @@ finalForm.addEventListener("submit", async (event) => {
             window.location.href = response.url;
           })
           .catch((err) => console.log(err));
+      })
+      .catch((err) => console.log(err));
+  }
+  if (loadedPicInputs.length < 1) {
+    fetch("/inventory/add-car/form-submission", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => {
+        window.location.href = response.url;
       })
       .catch((err) => console.log(err));
   }
