@@ -23,7 +23,12 @@ exports.versionDetail = (req, res, next) => {
           Car.findById(c._id)
             .populate("thumbnail")
             .populate("make")
-            .then((t) => resolve({ car: t, pic: t.thumbnail.thumbnailSrc }))
+            .then((t) =>
+              resolve({
+                car: t,
+                pic: t.thumbnail ? t.thumbnail.thumbnailSrc : undefined,
+              })
+            )
             .catch((err) => reject(err));
         });
         promises.push(promise);

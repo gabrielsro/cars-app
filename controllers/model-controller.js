@@ -311,7 +311,9 @@ exports.modelPage = (req, res, next) => {
                         .then((bundleResults) => {
                           resolveBundle({
                             car: bundleResults[0],
-                            pic: bundleResults[0].thumbnail.thumbnailSrc,
+                            pic: bundleResults[0].thumbnail
+                              ? bundleResults.thumbnail.thumbnailSrc
+                              : undefined,
                           });
                         })
                         .catch((err) => rejectBundle(err));
