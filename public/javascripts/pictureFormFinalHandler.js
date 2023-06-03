@@ -64,39 +64,16 @@ finalForm.addEventListener("submit", async (event) => {
     });
 
     //Once the array is ready, it'll be run in parallel:
-    Promise.all(promises)
-      .then((result) => {
-        return result;
-      }) //Security check:
-      .then((processedPics) => {
-        const formCheck = new FormData();
-        processedPics.forEach((p) => {
-          formCheck.append("pic", JSON.stringify(p));
+    Promise.all(promises).then((result) => {
+      result.forEach((r) => {
+        hiddenTargets.forEach((h) => {
+          if (h.getAttribute("name").match(/\d/)[0] == r.position) {
+            h.value = r.public_id;
+          }
         });
-        fetch("/inventory/check-pics", {
-          method: "POST",
-          body: formCheck,
-        })
-          .then((response) => response.text())
-          .then((txt) => {
-            const whitelist = txt.split(",");
-            processedPics.forEach((p) => {
-              if (whitelist.some((w) => w == p.position)) {
-                //formData.append(`pic${p.position}`, p.public_id);
-                hiddenTargets.forEach((h) => {
-                  if (h.getAttribute("class").match(/\d/)[0] == p.position) {
-                    h.value = p.public_id;
-                  }
-                });
-              }
-            });
-          });
-      }) //Send processed form to backend:
-      .then(() => {
-        //Send natural form instead:
-        event.target.submit();
-      })
-      .catch((err) => console.log(err));
+      });
+      event.target.submit();
+    });
   }
   if (loadedPicInputs.length < 1) {
     event.target.submit();
