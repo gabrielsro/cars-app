@@ -44,7 +44,6 @@ exports.car_list = (req, res, next) => {
     .then((resultCars) => {
       let makes = [];
       let cars = [];
-      let promises = [];
       for (let i = 0; i < resultCars.length; i++) {
         if (makes.every((m) => m.makeName != resultCars[i].make.name)) {
           makes.push({
@@ -52,21 +51,16 @@ exports.car_list = (req, res, next) => {
             makeId: resultCars[i].make._id,
           });
         }
-        let picPromise = new Promise((resolve, reject) => {
-          Pic.find({ car: resultCars[i]._id, position: 1 }, "image")
-            .then(resolve)
-            .catch((err) => reject(err));
+        const thumb = resultCars[i].thumbnail
+          ? resultCars[i].thumbnail.thumbnailSrc
+          : undefined;
+
+        cars.push({
+          car: resultCars[i],
+          pic: thumb,
         });
-        promises.push(picPromise);
       }
-      Promise.all(promises)
-        .then((resultPics) => {
-          for (let i = 0; i < resultPics.length; i++) {
-            cars.push({ car: resultCars[i], pic: resultPics[i][0] });
-          }
-          res.render("car_list", { cars, makes });
-        })
-        .catch((err) => next(err));
+      res.render("car_list", { cars, makes });
     })
     .catch((err) => next(err));
 };
