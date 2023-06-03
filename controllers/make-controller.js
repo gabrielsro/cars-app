@@ -119,7 +119,10 @@ exports.makeDetail = (req, res, next) => {
       let cars = results[2];
       let carList = [];
       for (let i = 0; i < cars.length; i++) {
-        carList.push({ car: cars[i], pic: cars[i].thumbnail.thumbnailSrc });
+        carList.push({
+          car: cars[i],
+          pic: cars[i].thumbnail ? cars[i].thumbnail.thumbnailSrc : undefined,
+        });
       }
       res.render("make_detail", {
         make: results[0],
