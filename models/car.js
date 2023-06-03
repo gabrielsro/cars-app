@@ -49,6 +49,8 @@ const CarSchema = new Schema(
         ref: "Pic",
       },
     ],
+    thumbnail: { type: Schema.Types.ObjectId, ref: "Pic" },
+    thumbnailPicPosition: { type: Number },
     description: { type: String },
     country: { type: String },
     email: { type: String },

@@ -37,7 +37,7 @@ finalForm.addEventListener("submit", async (event) => {
         petition.append("timestamp", authorization.timestamp); //Timestamp
 
         //Send form to cloudinary:
-        fetch(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload/`, {
+        fetch(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`, {
           method: "POST",
           body: petition,
         })

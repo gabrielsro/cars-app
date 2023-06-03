@@ -40,6 +40,7 @@ exports.car_list = (req, res, next) => {
     .populate("make", "name")
     .populate("model", "name")
     .populate("version", "energy year")
+    .populate("thumbnail")
     .then((resultCars) => {
       let makes = [];
       let cars = [];
@@ -348,7 +349,28 @@ exports.add_car_variants_submit = [
                             }),
                             ...createPics(savedCar._id, receivedPics),
                           ])
-                            .then(res.redirect(`${savedCar.url}/update/new`))
+                            .then((results) => {
+                              let thumbPosition = 6;
+                              let thumbId;
+                              results.forEach((r) => {
+                                if (r) {
+                                  if (
+                                    r.hasOwnProperty("position") &&
+                                    r.position < thumbPosition
+                                  ) {
+                                    thumbPosition = r.position;
+                                    thumbId = r.id;
+                                  }
+                                }
+                              });
+                              Car.findByIdAndUpdate(savedCar._id, {
+                                thumbnail: thumbId,
+                              })
+                                .then(
+                                  res.redirect(`${savedCar.url}/update/new`)
+                                )
+                                .catch((err) => next(err));
+                            })
                             .catch((err) => next(err));
                         })
                         .catch((err) => next(err));
@@ -401,7 +423,28 @@ exports.add_car_variants_submit = [
                               }),
                               ...createPics(savedCar._id, receivedPics),
                             ])
-                              .then(res.redirect(`${savedCar.url}/update/new`))
+                              .then((results) => {
+                                let thumbPosition = 6;
+                                let thumbId;
+                                results.forEach((r) => {
+                                  if (r) {
+                                    if (
+                                      r.hasOwnProperty("position") &&
+                                      r.position < thumbPosition
+                                    ) {
+                                      thumbPosition = r.position;
+                                      thumbId = r.id;
+                                    }
+                                  }
+                                });
+                                Car.findByIdAndUpdate(savedCar._id, {
+                                  thumbnail: thumbId,
+                                })
+                                  .then(
+                                    res.redirect(`${savedCar.url}/update/new`)
+                                  )
+                                  .catch((err) => next(err));
+                              })
                               .catch((err) => next(err));
                           })
                           .catch((err) => next(err));
@@ -445,7 +488,28 @@ exports.add_car_variants_submit = [
                               }),
                               ...createPics(savedCar._id, receivedPics),
                             ])
-                              .then(res.redirect(`${savedCar.url}/update/new`))
+                              .then((results) => {
+                                let thumbPosition = 6;
+                                let thumbId;
+                                results.forEach((r) => {
+                                  if (r) {
+                                    if (
+                                      r.hasOwnProperty("position") &&
+                                      r.position < thumbPosition
+                                    ) {
+                                      thumbPosition = r.position;
+                                      thumbId = r.id;
+                                    }
+                                  }
+                                });
+                                Car.findByIdAndUpdate(savedCar._id, {
+                                  thumbnail: thumbId,
+                                })
+                                  .then(
+                                    res.redirect(`${savedCar.url}/update/new`)
+                                  )
+                                  .catch((err) => next(err));
+                              })
                               .catch((err) => next(err));
                           });
                         })
@@ -470,7 +534,27 @@ exports.add_car_variants_submit = [
                             modelResult[0].save(),
                             ...createPics(savedCar._id, receivedPics),
                           ])
-                            .then(res.redirect(`${savedCar.url}/update/new`))
+                            .then((results) => {
+                              let thumbPosition = 6;
+                              let thumbId;
+                              results.forEach((r) => {
+                                if (r) {
+                                  if (
+                                    r.hasOwnProperty("position") &&
+                                    r.position < thumbPosition
+                                  ) {
+                                    thumbId = r.id;
+                                  }
+                                }
+                              });
+                              Car.findByIdAndUpdate(savedCar._id, {
+                                thumbnail: thumbId,
+                              })
+                                .then(
+                                  res.redirect(`${savedCar.url}/update/new`)
+                                )
+                                .catch((err) => next(err));
+                            })
                             .catch((err) => next(err));
                         })
                         .catch((err) => next(err));

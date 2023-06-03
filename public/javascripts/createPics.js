@@ -14,7 +14,10 @@ exports.createPics = (carId, files) => {
       let picPromise = new Promise((resolve, reject) => {
         pic
           .save()
-          .then(resolve)
+          .then((savedPic) => savedPic)
+          .then((thePic) =>
+            resolve({ position: thePic.position, id: thePic._id })
+          )
           .catch((err) => reject(err));
       });
       picPromises.push(picPromise);
