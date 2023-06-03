@@ -432,6 +432,7 @@ exports.add_car_variants_submit = [
                               .then((results) => {
                                 let thumbPosition = 6;
                                 let thumbId;
+                                const carPictures = [];
                                 results.forEach((r) => {
                                   if (r) {
                                     if (
@@ -441,10 +442,14 @@ exports.add_car_variants_submit = [
                                       thumbPosition = r.position;
                                       thumbId = r.id;
                                     }
+                                    if (r.hasOwnProperty("id")) {
+                                      carPictures.push(r.id);
+                                    }
                                   }
                                 });
                                 Car.findByIdAndUpdate(savedCar._id, {
                                   thumbnail: thumbId,
+                                  pics: carPictures,
                                 })
                                   .then(
                                     res.redirect(`${savedCar.url}/update/new`)
@@ -497,6 +502,7 @@ exports.add_car_variants_submit = [
                               .then((results) => {
                                 let thumbPosition = 6;
                                 let thumbId;
+                                const carPictures = [];
                                 results.forEach((r) => {
                                   if (r) {
                                     if (
@@ -506,10 +512,14 @@ exports.add_car_variants_submit = [
                                       thumbPosition = r.position;
                                       thumbId = r.id;
                                     }
+                                    if (r.hasOwnProperty("id")) {
+                                      carPictures.push(r.id);
+                                    }
                                   }
                                 });
                                 Car.findByIdAndUpdate(savedCar._id, {
                                   thumbnail: thumbId,
+                                  pics: carPictures,
                                 })
                                   .then(
                                     res.redirect(`${savedCar.url}/update/new`)
@@ -543,6 +553,7 @@ exports.add_car_variants_submit = [
                             .then((results) => {
                               let thumbPosition = 6;
                               let thumbId;
+                              const carPictures = [];
                               results.forEach((r) => {
                                 if (r) {
                                   if (
@@ -551,10 +562,14 @@ exports.add_car_variants_submit = [
                                   ) {
                                     thumbId = r.id;
                                   }
+                                  if (r.hasOwnProperty("id")) {
+                                    carPictures.push(r.id);
+                                  }
                                 }
                               });
                               Car.findByIdAndUpdate(savedCar._id, {
                                 thumbnail: thumbId,
+                                pics: carPictures,
                               })
                                 .then(
                                   res.redirect(`${savedCar.url}/update/new`)
@@ -739,31 +754,44 @@ exports.carUpdate = (req, res, next) => {
 };
 
 exports.carDelete = (req, res, next) => {
-  //Delete pics from Cloudinary
+  //Get pics ready to be deleten in parallel from cloudinary:
+  const promisesCloudinary = [];
   Car.findById(req.params.id)
     .populate("pics")
     .then((car) => {
       if (car.pics.length > 0) {
-        const picsToDelete = car.pics.map((p) => p.cloudinaryId);
+        const picsToDelete = car.pics.map((p) => {
+          return p.cloudinaryId;
+        });
         picsToDelete.forEach((pic) => {
-          cloudinary.uploader.destroy(pic);
+          const promiseCloudinary = new Promise((resolve, reject) => {
+            cloudinary.uploader
+              .destroy(pic)
+              .then(resolve)
+              .catch((err) => reject(err));
+          });
+          promisesCloudinary.push(promiseCloudinary);
         });
       }
-    });
-
-  //Delete car and pics from Car and Pic collections
-  Car.findByIdAndRemove(req.params.id)
-    .then((deletedCar) => {
-      Promise.all([
-        Version.findByIdAndUpdate(deletedCar.version, {
-          $pull: { cars: deletedCar._id },
-        }),
-        Model.findByIdAndUpdate(deletedCar.mode, {
-          $pull: { cars: deletedCar._id },
-        }),
-        Pic.deleteMany({ car: req.params.id }),
-      ])
-        .then(res.redirect(`/inventory/version/${deletedCar.version}`))
+      Promise.all(promisesCloudinary)
+        .then(
+          //Delete car and pics from Car and Pic collections
+          Car.findByIdAndRemove(req.params.id)
+            .then((deletedCar) => {
+              Promise.all([
+                Version.findByIdAndUpdate(deletedCar.version, {
+                  $pull: { cars: deletedCar._id },
+                }),
+                Model.findByIdAndUpdate(deletedCar.mode, {
+                  $pull: { cars: deletedCar._id },
+                }),
+                Pic.deleteMany({ car: req.params.id }),
+              ])
+                .then(res.redirect(`/inventory/version/${deletedCar.version}`))
+                .catch((err) => next(err));
+            })
+            .catch((err) => next(err))
+        )
         .catch((err) => next(err));
     })
     .catch((err) => next(err));
