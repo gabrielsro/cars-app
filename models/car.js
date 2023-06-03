@@ -43,14 +43,8 @@ const CarSchema = new Schema(
       ],
     },
     version: { type: Schema.Types.ObjectId, required: true, ref: "Version" },
-    pictures: [
-      {
-        type: Buffer,
-        ref: "Pic",
-      },
-    ],
+    pics: [{ type: Schema.Types.ObjectId, ref: "Pic" }],
     thumbnail: { type: Schema.Types.ObjectId, ref: "Pic" },
-    thumbnailPicPosition: { type: Number },
     description: { type: String },
     country: { type: String },
     email: { type: String },

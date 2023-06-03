@@ -17,25 +17,25 @@ exports.versionDetail = (req, res, next) => {
     .populate("cars")
     .populate("make")
     .then((version) => {
-      let picPromises = [];
+      const promises = [];
       version.cars.forEach((c) => {
-        let picPromise = new Promise((resolve, reject) => {
-          Pic.find({ car: c._id, position: 1 }, "image")
-            .then(resolve)
+        let promise = new Promise((resolve, reject) => {
+          Car.findById(c._id)
+            .populate("thumbnail")
+            .populate("make")
+            .then((t) => resolve({ car: t, pic: t.thumbnail.thumbnailSrc }))
             .catch((err) => reject(err));
         });
-        picPromises.push(picPromise);
+        promises.push(promise);
       });
-      Promise.all(picPromises)
-        .then((picResults) => {
-          let carList = [];
-          for (let i = 0; i < picResults.length; i++) {
-            carList.push({ car: version.cars[i], pic: picResults[i][0] });
-          }
-          let modelName = version.model.name.split(" ").join("_");
-          res.render("versionDetail", { version, modelName, carList });
-        })
-        .catch((err) => next(err));
+      Promise.all(promises).then((resultados) => {
+        let modelName = version.model.name.split(" ").join("_");
+        res.render("versionDetail", {
+          version,
+          modelName,
+          carList: resultados,
+        });
+      });
     })
     .catch((err) => next(err));
 };

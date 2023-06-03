@@ -11,10 +11,6 @@ const PicSchema = new Schema({
   position: {
     type: Number,
   },
-  image: {
-    type: Buffer,
-    required: true,
-  },
   description: {
     type: String,
   },
@@ -28,7 +24,7 @@ PicSchema.virtual("thumbnailSrc").get(function () {
 });
 
 PicSchema.virtual("midsizeSrc").get(function () {
-  return `https://res.cloudinary.com/${process.env.CLOUDNAME}/image/upload/b_rgb:000000,c_fit,h_310,w_550/${this.cloudinaryId}`;
+  return `https://res.cloudinary.com/${process.env.CLOUDNAME}/image/upload/b_rgb:000000,c_fit,h_1000,w_1000/${this.cloudinaryId}`;
 });
 
 PicSchema.virtual("originalSrc").get(function () {

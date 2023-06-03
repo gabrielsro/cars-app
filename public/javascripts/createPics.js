@@ -7,7 +7,6 @@ exports.createPics = (carId, files) => {
       let pic = new Pic({
         car: carId,
         position: f.number,
-        image: f.buffer,
         description: f.description,
         cloudinaryId: f.cloudinaryId,
       });

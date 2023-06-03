@@ -21,17 +21,17 @@ block content
                     .previous-control
                         img(src='/images/icons/previousIcons/previous1.svg' alt='Previous icon' class='main-img-control')
                     .main-img-container
-                        img(src=`data:${pics[0].image.contentType};base64,${pics[0].image.toString('base64')}` alt='Car image' id='main-img')
+                        img(src=pics[0].mid alt='Car image' id='main-img')
                     .next-control
                         img(src='/images/icons/nextIcons/next1.svg' alt='Next icon' class='main-img-control')
                 .side-imgs
                     for pic in pics 
-                        img(src=`data:${pic.image.contentType};base64,${pic.image.toString('base64')}` alt='Car image')
+                        img(src=pic.mid alt='Car image')
             if pics.length < 1
                 .main-img 
                     .previous-control 
                     .main-img-container 
-                        img(src='/images/dummyImages/dummy4.avif' alt='Unavailable vehicle picture placeholder image')
+                        img(src='https://res.cloudinary.com/dpqwimjsm/image/upload/c_fit,w_800/iz6xc3p9434pwnxzqqjk' alt='Unavailable vehicle picture placeholder image')
                     .next-control 
         .car-technical
             .card-technical

@@ -295,7 +295,6 @@ textarea {
 
 .card-thumbnail img {
   width: 100%;
-  aspect-ratio: 1.777;
   border-radius: 9px;
 }
 
@@ -926,12 +925,11 @@ fieldset {
 .main-img-container {
   display: grid;
   place-items: center;
-  padding-top: 10px;
 }
 
-.main-img-container img {
-  max-width: 100%;
-  max-height: 100%;
+.car-media .main-img .main-img-container img {
+  max-height: 50vh;
+  width: auto;
 }
 
 .previous-control,
@@ -1293,10 +1291,6 @@ fieldset {
     grid-column: 1/3;
   }
 
-  .car-media .main-img .main-img-container img {
-    max-height: 50vh;
-  }
-
   .car-media .side-imgs {
     grid-template-columns: 15% 15% 15% 15% 15%;
     height: 100%;
@@ -1331,6 +1325,10 @@ fieldset {
   .car-basic-info-section3 p,
   .car-basic-info-section3 a {
     white-space: nowrap;
+  }
+  .car-media .main-img .main-img-container img {
+    max-width: 90vh;
+    height: auto;
   }
 }
 

@@ -17,6 +17,13 @@ const { body, validationResult } = require("express-validator");
 const multer = require("multer");
 const upload = multer({ storage: multer.memoryStorage() });
 const { countryList } = require("..//public/javascripts/countryList");
+const cloudinary = require("cloudinary").v2;
+cloudinary.config({
+  cloud_name: process.env.CLOUDNAME,
+  api_key: process.env.CLOUDAPIKEY,
+  api_secret: process.env.CLOUDINARYSECRET,
+  secure: true,
+});
 
 exports.index = (req, res, next) => {
   Car.find({}, "make version status price")
@@ -346,6 +353,7 @@ exports.add_car_variants_submit = [
                             .then((results) => {
                               let thumbPosition = 6;
                               let thumbId;
+                              const carPictures = [];
                               results.forEach((r) => {
                                 if (r) {
                                   if (
@@ -355,10 +363,14 @@ exports.add_car_variants_submit = [
                                     thumbPosition = r.position;
                                     thumbId = r.id;
                                   }
+                                  if (r.hasOwnProperty("id")) {
+                                    carPictures.push(r.id);
+                                  }
                                 }
                               });
                               Car.findByIdAndUpdate(savedCar._id, {
                                 thumbnail: thumbId,
+                                pics: carPictures,
                               })
                                 .then(
                                   res.redirect(`${savedCar.url}/update/new`)
@@ -565,18 +577,23 @@ exports.add_car_variants_submit = [
 ];
 
 exports.carDetail = (req, res, next) => {
-  Promise.all([
-    Car.findById(req.params.id)
-      .populate("make")
-      .populate("model")
-      .populate("version"),
-    Pic.find({ car: req.params.id }),
-  ])
-    .then((results) => {
-      let picsSorted = results[1].sort((a, b) => {
-        return a.position - b.position;
-      });
-      res.render("car_detail", { car: results[0], pics: picsSorted });
+  Car.findById(req.params.id)
+    .populate("make")
+    .populate("model")
+    .populate("version")
+    .populate("pics")
+    .then((car) => {
+      const pics = [];
+      if (car.pics.length > 0) {
+        car.pics.forEach((p) => {
+          pics.push({
+            full: p.originalSrc,
+            mid: p.midsizeSrc,
+            thumb: p.thumbnailSrc,
+          });
+        });
+      }
+      res.render("car_detail", { car, pics });
     })
     .catch((err) => next(err));
 };
@@ -722,6 +739,19 @@ exports.carUpdate = (req, res, next) => {
 };
 
 exports.carDelete = (req, res, next) => {
+  //Delete pics from Cloudinary
+  Car.findById(req.params.id)
+    .populate("pics")
+    .then((car) => {
+      if (car.pics.length > 0) {
+        const picsToDelete = car.pics.map((p) => p.cloudinaryId);
+        picsToDelete.forEach((pic) => {
+          cloudinary.uploader.destroy(pic);
+        });
+      }
+    });
+
+  //Delete car and pics from Car and Pic collections
   Car.findByIdAndRemove(req.params.id)
     .then((deletedCar) => {
       Promise.all([

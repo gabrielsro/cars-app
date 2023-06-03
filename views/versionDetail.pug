@@ -157,9 +157,9 @@ block content
                         a(href=car.car.url) 
                             .card-thumbnail
                                 if undefined===car.pic
-                                    img(src=`/images/dummyImages/dummy4.avif` alt=`Unavailable car pic placeholder image` loading='lazy')
+                                    img(src='https://res.cloudinary.com/dpqwimjsm/image/upload/c_fit,w_800/iz6xc3p9434pwnxzqqjk' alt=`Unavailable car pic placeholder image` loading='lazy')
                                 else 
-                                    img(src=`data:${car.pic.image.contentType};base64,${car.pic.image.toString('base64')}` alt=`Vehicle image` loading='lazy')
+                                    img(src=car.pic alt=`Vehicle image` loading='lazy')
                                 
                             .card-info
                                 .card-logo
@@ -168,6 +168,7 @@ block content
                                     .title 
                                         p #{version.year} #{version.make.name} #{modelName}
                                     .subtitle 
-                                        p #{car.car.modelVariant}
+                                        - country = car.car.country? car.car.country : 'Unknown location'
+                                        p #{country}
                                     .footer
                                         p $#{car.car.price.toLocaleString()} • #{car.car.status}

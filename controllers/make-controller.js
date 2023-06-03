@@ -7,6 +7,7 @@ const { makesGetter } = require("../public/javascripts/carInfoAPI");
 const { createMake } = require("../public/javascripts/createMake");
 
 const { body, validationResult } = require("express-validator");
+const car = require("../models/car");
 
 exports.makeList = (req, res, next) => {
   Make.find()
@@ -93,7 +94,8 @@ exports.makeDetail = (req, res, next) => {
     )
       .populate("make", "name")
       .populate("model", "name")
-      .populate("version", "energy year"),
+      .populate("version", "energy year")
+      .populate("thumbnail"),
   ])
     .then((results) => {
       let modelsList = results[1];
@@ -115,29 +117,16 @@ exports.makeDetail = (req, res, next) => {
         });
       }
       let cars = results[2];
-      let picPromises = [];
-      cars.forEach((c) => {
-        let promise = new Promise((resolve, reject) => {
-          Pic.find({ car: c._id, position: 1 }, "image")
-            .then(resolve)
-            .catch(reject);
-        });
-        picPromises.push(promise);
+      let carList = [];
+      for (let i = 0; i < cars.length; i++) {
+        carList.push({ car: cars[i], pic: cars[i].thumbnail.thumbnailSrc });
+      }
+      res.render("make_detail", {
+        make: results[0],
+        list: modelsListComplete,
+        makeId: req.params.id,
+        cars: carList,
       });
-      Promise.all(picPromises)
-        .then((pics) => {
-          let carList = [];
-          for (let i = 0; i < pics.length; i++) {
-            carList.push({ car: cars[i], pic: pics[i][0] });
-          }
-          res.render("make_detail", {
-            make: results[0],
-            list: modelsListComplete,
-            makeId: req.params.id,
-            cars: carList,
-          });
-        })
-        .catch((err) => next(err));
     })
     .catch((err) => next(err));
 };

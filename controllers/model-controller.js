@@ -302,24 +302,16 @@ exports.modelPage = (req, res, next) => {
                             "make model status price version modelVariant country mileage"
                           )
                             .populate("make")
+                            .populate("thumbnail")
                             .then(resolveCar)
                             .catch((error) => rejectCar(error));
                         }
                       );
-                      //create promise for car's thumbnail pic:
-                      const picPromise = new Promise(
-                        (resolvePic, rejectPic) => {
-                          Pic.find({ car: car._id, position: 1 }, "image")
-                            .then(resolvePic)
-                            .catch((error) => rejectPic(error));
-                        }
-                      );
-                      //run both promises in parallel and fulfill the bundle promise:
-                      Promise.all([carPromise, picPromise])
+                      Promise.all([carPromise])
                         .then((bundleResults) => {
                           resolveBundle({
                             car: bundleResults[0],
-                            pic: bundleResults[1][0],
+                            pic: bundleResults[0].thumbnail.thumbnailSrc,
                           });
                         })
                         .catch((err) => rejectBundle(err));

@@ -71,22 +71,7 @@ router.post(
   carController.add_car_get_models_repost
 );
 router.post("/add-car/get-variants", carController.add_car_get_variants_post);
-router.post(
-  "/add-car/form-submission",
-  /*
-  upload.fields([
-    { name: "picture1", maxCount: 1 },
-    { name: "picture2", maxCount: 1 },
-    { name: "picture3", maxCount: 1 },
-    { name: "picture4", maxCount: 1 },
-    { name: "picture5", maxCount: 1 },
-  ]),
-  (req, res) => {
-    res.send(Object.entries(req.body));
-  }
-  */
-  carController.add_car_variants_submit
-);
+router.post("/add-car/form-submission", carController.add_car_variants_submit);
 router.get("/car/:id/update/:from", carController.carUpdate);
 router.get("/car/:id/delete", carController.carDelete);
 router.get("/cars", carController.car_list);
