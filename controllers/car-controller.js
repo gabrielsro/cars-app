@@ -299,6 +299,7 @@ exports.add_car_variants_submit = [
             number: i,
             buffer: req.files[`picture${i}`][0].buffer,
             description: req.body[`pic${i}Description`],
+            cloudinaryId: req.body[`picId${i}`],
           });
         }
       }

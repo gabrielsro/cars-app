@@ -18,6 +18,9 @@ const PicSchema = new Schema({
   description: {
     type: String,
   },
+  cloudinaryId: {
+    type: String,
+  },
 });
 
 module.exports = mongoose.model("Pic", PicSchema);

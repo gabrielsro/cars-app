@@ -16,7 +16,7 @@ finalForm.addEventListener("submit", async (event) => {
     }
   });
 
-  //Detect if there are pics to work with and, if so, start working
+  //If there are pics to work on, start working:
   if (loadedPicInputs.length > 0) {
     //Get authorization (signature):
     const authorization = await fetch("/inventory/get-signature").then(
@@ -25,11 +25,6 @@ finalForm.addEventListener("submit", async (event) => {
 
     //Get hidden inputs to intervene:
     const hidden = Array.from(document.querySelectorAll(".picId"));
-    const hiddenTargets = hidden.filter((h) =>
-      loadedPicInputs.some(
-        (l) => l.position == h.getAttribute("name").match(/\d/)[0]
-      )
-    );
 
     //Create an array of promises of each pic:
     const promises = loadedPicInputs.map((pic) => {
@@ -42,7 +37,7 @@ finalForm.addEventListener("submit", async (event) => {
         petition.append("timestamp", authorization.timestamp); //Timestamp
 
         //Send form to cloudinary:
-        fetch(`https://api.cloudinary.com/v1_1/${cloud_name}/auto/upload`, {
+        fetch(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload/`, {
           method: "POST",
           body: petition,
         })
@@ -66,15 +61,13 @@ finalForm.addEventListener("submit", async (event) => {
     //Once the array is ready, it'll be run in parallel:
     Promise.all(promises).then((result) => {
       result.forEach((r) => {
-        hiddenTargets.forEach((h) => {
-          if (h.getAttribute("name").match(/\d/)[0] == r.position) {
-            h.value = r.public_id;
-          }
-        });
+        hidden[(r.position -= 1)].value = r.public_id;
       });
       event.target.submit();
     });
   }
+
+  //If there are no pics to work on, submit the form as is:
   if (loadedPicInputs.length < 1) {
     event.target.submit();
   }

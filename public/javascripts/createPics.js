@@ -9,6 +9,7 @@ exports.createPics = (carId, files) => {
         position: f.number,
         image: f.buffer,
         description: f.description,
+        cloudinaryId: f.cloudinaryId,
       });
       let picPromise = new Promise((resolve, reject) => {
         pic
