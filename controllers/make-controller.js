@@ -7,7 +7,13 @@ const { makesGetter } = require("../public/javascripts/carInfoAPI");
 const { createMake } = require("../public/javascripts/createMake");
 
 const { body, validationResult } = require("express-validator");
-const car = require("../models/car");
+const cloudinary = require("cloudinary").v2;
+cloudinary.config({
+  cloud_name: process.env.CLOUDNAME,
+  api_key: process.env.CLOUDAPIKEY,
+  api_secret: process.env.CLOUDINARYSECRET,
+  secure: true,
+});
 
 exports.makeList = (req, res, next) => {
   Make.find()
@@ -174,25 +180,44 @@ exports.makeUpdate = (req, res, next) => {
 };
 
 exports.makeDelete = (req, res, next) => {
-  Car.find({ make: req.params.id }, "_id")
+  Car.find({ make: req.params.id }, "_id pics")
+    .populate("pics")
     .then((cars) => {
-      let picPromises = [];
+      const picPromises = [];
+      const cloudinaryPromises = [];
       cars.forEach((c) => {
+        //Make promise for each Pic model of that car:
         let picPromise = new Promise((resolve, reject) => {
           Pic.deleteMany({ car: { $in: c._id } })
             .then(resolve)
             .catch((err) => reject(err));
         });
         picPromises.push(picPromise);
+        //Make promise for each Cloudinary image of that car:
+        if (c.pics.length > 0) {
+          c.pics.forEach((p) => {
+            const cloudnryPromise = new Promise((resolve, reject) => {
+              cloudinary.uploader
+                .destroy(p.cloudinaryId)
+                .then(resolve)
+                .catch((err) => reject(err));
+            });
+            cloudinaryPromises.push(cloudnryPromise);
+          });
+        }
       });
-      Promise.all([
-        Make.findByIdAndDelete(req.params.id),
-        Model.deleteMany({ make: req.params.id }),
-        Version.deleteMany({ make: req.params.id }),
-        Car.deleteMany({ make: req.params.id }),
-        ...picPromises,
-      ]);
+      Promise.all(cloudinaryPromises)
+        .then(
+          Promise.all([
+            Make.findByIdAndDelete(req.params.id),
+            Model.deleteMany({ make: req.params.id }),
+            Version.deleteMany({ make: req.params.id }),
+            Car.deleteMany({ make: req.params.id }),
+            ...picPromises,
+          ])
+        )
+        .then(res.redirect("/inventory/"))
+        .catch((err) => next(err));
     })
-    .then(res.redirect("/inventory/"))
     .catch((err) => next(err));
 };

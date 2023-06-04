@@ -2,6 +2,13 @@ const Version = require("../models/version");
 const Model = require("../models/model");
 const Pic = require("../models/pic");
 const Car = require("../models/car");
+const cloudinary = require("cloudinary").v2;
+cloudinary.config({
+  cloud_name: process.env.CLOUDNAME,
+  api_key: process.env.CLOUDAPIKEY,
+  api_secret: process.env.CLOUDINARYSECRET,
+  secure: true,
+});
 
 exports.versionList = (req, res, next) => {
   Version.find()
@@ -46,25 +53,43 @@ exports.versionDetail = (req, res, next) => {
 };
 
 exports.versionDelete = (req, res, next) => {
-  Promise.all([
-    Version.findByIdAndRemove(req.params.versionId),
-    Car.find({ version: req.params.versionId }, "_id"),
-  ])
-    .then((results) => {
-      Promise.all([
-        Model.findByIdAndUpdate(req.params.modelId, {
-          $pullAll: { cars: results[1] },
-          $pull: { versions: req.params.versionId },
-        }),
-        Car.deleteMany({ _id: { $in: results[1] } }),
-        Pic.deleteMany({ car: { $in: results[1] } }),
-      ])
+  const clnryPromises = [];
+  Car.find({ version: req.params.versionId }, "pics")
+    .populate("pics")
+    .then((cars) => {
+      cars.forEach((c) => {
+        if (c.pics.length > 0) {
+          c.pics.forEach((p) => {
+            const clnryPromise = new Promise((resolve, reject) => {
+              cloudinary.uploader
+                .destroy(p.cloudinaryId)
+                .then(resolve)
+                .catch((err) => reject(err));
+            });
+            clnryPromises.push(clnryPromise);
+          });
+        }
+      });
+      Promise.all(clnryPromises)
         .then(
-          res.redirect(
-            `/inventory/model/model-page/${req.params.makeId}/${req.params.modelName}`
-          )
+          Promise.all([
+            Version.findByIdAndRemove(req.params.versionId),
+            Car.find({ version: req.params.versionId }, "_id"),
+          ])
+            .then((results) => {
+              Promise.all([
+                Model.findByIdAndUpdate(req.params.modelId, {
+                  $pullAll: { cars: results[1] },
+                  $pull: { versions: req.params.versionId },
+                }),
+                Car.deleteMany({ _id: { $in: results[1] } }),
+                Pic.deleteMany({ car: { $in: results[1] } }),
+              ])
+                .then(res.redirect(`back`))
+                .catch((err) => next(err));
+            })
+            .catch((err) => next(err))
         )
         .catch((err) => next(err));
-    })
-    .catch((err) => next(err));
+    });
 };

@@ -8,6 +8,13 @@ const {
   makesGetter,
   modelsGetter,
 } = require("../public/javascripts/carInfoAPI");
+const cloudinary = require("cloudinary").v2;
+cloudinary.config({
+  cloud_name: process.env.CLOUDNAME,
+  api_key: process.env.CLOUDAPIKEY,
+  api_secret: process.env.CLOUDINARYSECRET,
+  secure: true,
+});
 
 exports.modelList = (req, res, next) => {
   let makes = [];
@@ -272,105 +279,135 @@ exports.modelPage = (req, res, next) => {
     .populate("make")
     .populate("versions")
     .then((models) => {
-      const modelsOverview = { makeName: null, modelName: null };
       if (models.length > 0) {
-        modelsOverview.makeName = models[0].make.name;
-        modelsOverview.modelName = models[0].name;
-        modelsOverview.makeId = req.params.makeId;
-        modelsOverview.makeUrl = models[0].make.url;
+        const modelsOverview = { makeName: null, modelName: null };
+        if (models.length > 0) {
+          modelsOverview.makeName = models[0].make.name;
+          modelsOverview.modelName = models[0].name;
+          modelsOverview.makeId = req.params.makeId;
+          modelsOverview.makeUrl = models[0].make.url;
 
-        //Each model will need to conduct asynchronous operations on its versions, so each model will need a promise. The resulting array of model promises will be run in parallel
-        const modelsPromises = models.map((model) => {
-          return new Promise((resolveModel, rejectModel) => {
-            //The versions array must be filled (if the model has versions) with its name and list of cars.
-            //Fill out versions array only if model has versions:
-            if (model.versions.length > 0) {
-              //Create the array of version promises that each model will run in parallel:
-              const versionsPromises = model.versions.map((version) => {
-                return new Promise((resolveVersion, rejectVersion) => {
-                  //version object has each of its cars id. Those can be used to find the car's specifics and thumbnail pic.
-                  //car specifics and car pic can be found in parallel. Both parallel operations can be assigned to a promise array.
-                  //The promise array (carBundlePromises) will hold each car's parallel operations. The promise array of all cars will be run in parallel.
-                  const carBundlePromises = version.cars.map((car) => {
-                    //Create promise for both (pic and car specifics) parallel operations:
-                    return new Promise((resolveBundle, rejectBundle) => {
-                      //create promise for car specifics:
-                      const carPromise = new Promise(
-                        (resolveCar, rejectCar) => {
-                          Car.findById(
-                            car._id,
-                            "make model status price version modelVariant country mileage"
-                          )
-                            .populate("make")
-                            .populate("thumbnail")
-                            .then(resolveCar)
-                            .catch((error) => rejectCar(error));
-                        }
-                      );
-                      Promise.all([carPromise])
-                        .then((bundleResults) => {
-                          resolveBundle({
-                            car: bundleResults[0],
-                            pic: bundleResults[0].thumbnail
-                              ? bundleResults.thumbnail.thumbnailSrc
-                              : undefined,
-                          });
-                        })
-                        .catch((err) => rejectBundle(err));
+          //Each model will need to conduct asynchronous operations on its versions, so each model will need a promise. The resulting array of model promises will be run in parallel
+          const modelsPromises = models.map((model) => {
+            return new Promise((resolveModel, rejectModel) => {
+              //The versions array must be filled (if the model has versions) with its name and list of cars.
+              //Fill out versions array only if model has versions:
+              if (model.versions.length > 0) {
+                //Create the array of version promises that each model will run in parallel:
+                const versionsPromises = model.versions.map((version) => {
+                  return new Promise((resolveVersion, rejectVersion) => {
+                    //version object has each of its cars id. Those can be used to find the car's specifics and thumbnail pic.
+                    //car specifics and car pic can be found in parallel. Both parallel operations can be assigned to a promise array.
+                    //The promise array (carBundlePromises) will hold each car's parallel operations. The promise array of all cars will be run in parallel.
+                    const carBundlePromises = version.cars.map((car) => {
+                      //Create promise for both (pic and car specifics) parallel operations:
+                      return new Promise((resolveBundle, rejectBundle) => {
+                        //create promise for car specifics:
+                        const carPromise = new Promise(
+                          (resolveCar, rejectCar) => {
+                            Car.findById(
+                              car._id,
+                              "make model status price version modelVariant country mileage thumbnail"
+                            )
+                              .populate("make")
+                              .populate("thumbnail")
+                              .then(resolveCar)
+                              .catch((error) => rejectCar(error));
+                          }
+                        );
+                        Promise.all([carPromise])
+                          .then((bundleResults) => {
+                            resolveBundle({
+                              car: bundleResults[0],
+                              pic: bundleResults[0].thumbnail
+                                ? bundleResults[0].thumbnail.thumbnailSrc
+                                : undefined,
+                            });
+                          })
+                          .catch((err) => rejectBundle(err));
+                      });
                     });
+                    //Run carBundlePromises in parallel in order to get all the data (car specifics and pic) for each car in the version:
+                    Promise.all(carBundlePromises)
+                      .then((versionBundles) =>
+                        resolveVersion({
+                          cars: versionBundles,
+                          versionId: version._id,
+                          versionName: version.name,
+                        })
+                      )
+                      .catch((err) => rejectVersion(err));
                   });
-                  //Run carBundlePromises in parallel in order to get all the data (car specifics and pic) for each car in the version:
-                  Promise.all(carBundlePromises)
-                    .then((versionBundles) =>
-                      resolveVersion({
-                        cars: versionBundles,
-                        versionId: version._id,
-                        versionName: version.name,
-                      })
-                    )
-                    .catch((err) => rejectVersion(err));
                 });
-              });
-              Promise.all(versionsPromises)
-                .then((arrOfVersBund) => {
-                  resolveModel({
-                    versions: arrOfVersBund,
-                    year: model.year,
-                    id: model._id,
-                  });
-                })
-                .catch((err) => rejectModel(err));
-            }
-          });
-        });
-        Promise.all(modelsPromises)
-          .then((modelsRetrievedInfo) => {
-            const modelList = modelsRetrievedInfo;
-            res.render("model_page", {
-              modelsOverview,
-              modelList,
-              makeLogo: models.length > 0 ? models[0].make.logoSrc : null,
+                Promise.all(versionsPromises)
+                  .then((arrOfVersBund) => {
+                    resolveModel({
+                      versions: arrOfVersBund,
+                      year: model.year,
+                      id: model._id,
+                    });
+                  })
+                  .catch((err) => rejectModel(err));
+              }
             });
-          })
-          .catch((err) => next(err));
+          });
+          Promise.all(modelsPromises)
+            .then((modelsRetrievedInfo) => {
+              const modelList = modelsRetrievedInfo;
+              res.render("model_page", {
+                modelsOverview,
+                modelList,
+                makeLogo: models.length > 0 ? models[0].make.logoSrc : null,
+              });
+            })
+            .catch((err) => next(err));
+        }
+      }
+      if (models.length < 0) {
+        res.redirect("back");
       }
     })
     .catch((err) => next(err));
 };
 
 exports.modelDelete = (req, res, next) => {
-  Model.find({ _id: req.params.id }).then((foundModel) => {
-    Pic.deleteMany({ car: { $in: foundModel[0].cars } })
-      .then(() =>
-        Promise.all([
-          Model.findByIdAndRemove({ _id: req.params.id }),
-          Car.deleteMany({ model: req.params.id }),
-          Version.deleteMany({ model: req.params.id }),
-        ])
-      )
-      .then(() => res.redirect("back"))
-      .catch((err) => next(err));
-  });
+  const clnryPromises = [];
+  Car.find({ model: req.params.id }, "pics")
+    .populate("pics")
+    .then((cars) => {
+      cars.forEach((c) => {
+        if (c.pics.length > 0) {
+          c.pics.forEach((p) => {
+            const clnryPromise = new Promise((resolve, reject) => {
+              cloudinary.uploader
+                .destroy(p.cloudinaryId)
+                .then(resolve)
+                .catch((err) => reject(err));
+            });
+            clnryPromises.push(clnryPromise);
+          });
+        }
+      });
+      return clnryPromises;
+    })
+    .then((promises) => {
+      Promise.all(promises)
+        .then(
+          Model.find({ _id: req.params.id }).then((foundModel) => {
+            Pic.deleteMany({ car: { $in: foundModel[0].cars } })
+              .then(() => {
+                return Promise.all([
+                  Model.findByIdAndRemove({ _id: req.params.id }),
+                  Car.deleteMany({ model: req.params.id }),
+                  Version.deleteMany({ model: req.params.id }),
+                ]);
+              })
+              .then(() => res.redirect("/"))
+              .catch((err) => next(err));
+          })
+        )
+        .catch((err) => next(err));
+    });
 };
 
 exports.modelDeleteAll = (req, res, next) => {
