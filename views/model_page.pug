@@ -51,28 +51,32 @@ block content
                                     .version-row
                                         .version-row-title
                                             h3 
-                                                a(href=`/inventory/version/${version.versionId}`) #{version.versionName} 
+                                                if version.cars.length > 0
+                                                    a(href=`/inventory/version/${version.versionId}`) #{version.versionName}
+                                                if version.cars.length < 1
+                                                    a(href=`/inventory/version/${version.versionId}`) #{version.versionName} - No vehicles at the moment
                                         .version-row-numbers 
-                                            h4 Vehicles:
-                                        .listFlex
-                                            for car in version.cars 
-                                                .list-card 
-                                                    a(href=car.car.url)
-                                                        .card-thumbnail
-                                                            if undefined===car.pic
-                                                                img(src='https://res.cloudinary.com/dpqwimjsm/image/upload/c_fit,w_800/iz6xc3p9434pwnxzqqjk' alt=`Unavailable car pic placeholder image` loading='lazy')
-                                                            else 
-                                                                img(src=car.pic alt=`Vehicle image` loading='lazy')
-                                                        .card-info
-                                                            .card-logo
-                                                                img(src=car.car.make.logoSrc alt=`${car.car.make.name} logo` loading='lazy')
-                                                            .card-text
-                                                                .title 
-                                                                    p $#{car.car.price.toLocaleString()} • #{car.car.status}
-                                                                .subtitleModelPage 
-                                                                    p #{car.car.mileage.toLocaleString()} miles
-                                                                .footer
-                                                                    p #{car.car.country ? car.car.country : 'Unknown location'}
+                                            if version.cars.length > 0
+                                                h4 Vehicles:
+                                            .listFlex
+                                                for car in version.cars 
+                                                    .list-card 
+                                                        a(href=car.car.url)
+                                                            .card-thumbnail
+                                                                if undefined===car.pic
+                                                                    img(src='https://res.cloudinary.com/dpqwimjsm/image/upload/c_fit,w_800/iz6xc3p9434pwnxzqqjk' alt=`Unavailable car pic placeholder image` loading='lazy')
+                                                                else 
+                                                                    img(src=car.pic alt=`Vehicle image` loading='lazy')
+                                                            .card-info
+                                                                .card-logo
+                                                                    img(src=car.car.make.logoSrc alt=`${car.car.make.name} logo` loading='lazy')
+                                                                .card-text
+                                                                    .title 
+                                                                        p $#{car.car.price.toLocaleString()} • #{car.car.status}
+                                                                    .subtitleModelPage 
+                                                                        p #{car.car.mileage.toLocaleString()} miles
+                                                                    .footer
+                                                                        p #{car.car.country ? car.car.country : 'Unknown location'}
         if modelList.length < 1
             h3 We don't have any vehicles of this model
                         
