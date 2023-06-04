@@ -25,21 +25,23 @@ exports.versionDetail = (req, res, next) => {
     .populate("make")
     .then((version) => {
       const promises = [];
-      version.cars.forEach((c) => {
-        let promise = new Promise((resolve, reject) => {
-          Car.findById(c._id)
-            .populate("thumbnail")
-            .populate("make")
-            .then((t) =>
-              resolve({
-                car: t,
-                pic: t.thumbnail ? t.thumbnail.thumbnailSrc : undefined,
-              })
-            )
-            .catch((err) => reject(err));
+      if (version.cars && version.cars.length > 0) {
+        version.cars.forEach((c) => {
+          let promise = new Promise((resolve, reject) => {
+            Car.findById(c._id)
+              .populate("thumbnail")
+              .populate("make")
+              .then((t) =>
+                resolve({
+                  car: t,
+                  pic: t.thumbnail ? t.thumbnail.thumbnailSrc : undefined,
+                })
+              )
+              .catch((err) => reject(err));
+          });
+          promises.push(promise);
         });
-        promises.push(promise);
-      });
+      }
       Promise.all(promises).then((resultados) => {
         let modelName = version.model.name.split(" ").join("_");
         res.render("versionDetail", {
@@ -85,7 +87,7 @@ exports.versionDelete = (req, res, next) => {
                 Car.deleteMany({ _id: { $in: results[1] } }),
                 Pic.deleteMany({ car: { $in: results[1] } }),
               ])
-                .then(res.redirect(`back`))
+                .then(res.redirect(`/`))
                 .catch((err) => next(err));
             })
             .catch((err) => next(err))

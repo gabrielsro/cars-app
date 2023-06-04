@@ -27,7 +27,7 @@ block content
                     a(id='btn-delete-all-no') No, return
                     a(id='btn-delete-all-yes' href=`/inventory/model/${modelsOverview.modelName.split(' ').join('_')}/${modelsOverview.makeId}/deleteAll`) Yes, delete
         .modelMore
-        if modelList 
+        if modelList.length > 0
             - count = 0
             for model in modelList
                 .model-row
@@ -47,35 +47,38 @@ block content
                             h3 We don't have versions for this year at the moment.
                         else
                             for version in model.versions 
-                                .version-row
-                                    .version-row-title
-                                        h3 
-                                            a(href=`/inventory/version/${version.versionId}`) #{version.versionName} 
-                                    .version-row-numbers 
-                                        h4 Vehicles:
-                                    .listFlex
-                                        for car in version.cars 
-                                            .list-card 
-                                                a(href=car.car.url)
-                                                    .card-thumbnail
-                                                        if undefined===car.pic
-                                                            img(src='https://res.cloudinary.com/dpqwimjsm/image/upload/c_fit,w_800/iz6xc3p9434pwnxzqqjk' alt=`Unavailable car pic placeholder image` loading='lazy')
-                                                        else 
-                                                            img(src=car.pic alt=`Vehicle image` loading='lazy')
-                                                    .card-info
-                                                        .card-logo
-                                                            img(src=car.car.make.logoSrc alt=`${car.car.make.name} logo` loading='lazy')
-                                                        .card-text
-                                                            .title 
-                                                                p $#{car.car.price.toLocaleString()} • #{car.car.status}
-                                                            .subtitleModelPage 
-                                                                p #{car.car.mileage.toLocaleString()} miles
-                                                            .footer
-                                                                p #{car.car.country ? car.car.country : 'Unknown location'}
+                                if typeof version !== 'string'
+                                    .version-row
+                                        .version-row-title
+                                            h3 
+                                                a(href=`/inventory/version/${version.versionId}`) #{version.versionName} 
+                                        .version-row-numbers 
+                                            h4 Vehicles:
+                                        .listFlex
+                                            for car in version.cars 
+                                                .list-card 
+                                                    a(href=car.car.url)
+                                                        .card-thumbnail
+                                                            if undefined===car.pic
+                                                                img(src='https://res.cloudinary.com/dpqwimjsm/image/upload/c_fit,w_800/iz6xc3p9434pwnxzqqjk' alt=`Unavailable car pic placeholder image` loading='lazy')
+                                                            else 
+                                                                img(src=car.pic alt=`Vehicle image` loading='lazy')
+                                                        .card-info
+                                                            .card-logo
+                                                                img(src=car.car.make.logoSrc alt=`${car.car.make.name} logo` loading='lazy')
+                                                            .card-text
+                                                                .title 
+                                                                    p $#{car.car.price.toLocaleString()} • #{car.car.status}
+                                                                .subtitleModelPage 
+                                                                    p #{car.car.mileage.toLocaleString()} miles
+                                                                .footer
+                                                                    p #{car.car.country ? car.car.country : 'Unknown location'}
+        if modelList.length < 1
+            h3 We don't have any vehicles of this model
+                        
+        
+        
+                                        
                     
-    
-    
-                                    
-                
-        
-        
+            
+            
