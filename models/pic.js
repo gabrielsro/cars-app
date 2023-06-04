@@ -20,11 +20,11 @@ const PicSchema = new Schema({
 });
 
 PicSchema.virtual("thumbnailSrc").get(function () {
-  return `https://res.cloudinary.com/${process.env.CLOUDNAME}/image/upload/b_rgb:000000,c_fit,h_203,w_360/${this.cloudinaryId}`;
+  return `https://res.cloudinary.com/${process.env.CLOUDNAME}/image/upload/b_rgb:000000,c_fit,f_auto,q_auto:low,h_203,w_360,r_9,dpr_2/${this.cloudinaryId}`;
 });
 
 PicSchema.virtual("midsizeSrc").get(function () {
-  return `https://res.cloudinary.com/${process.env.CLOUDNAME}/image/upload/b_rgb:000000,c_fit,h_1000,w_1000/${this.cloudinaryId}`;
+  return `https://res.cloudinary.com/${process.env.CLOUDNAME}/image/upload/b_rgb:000000,c_fit,w_auto/${this.cloudinaryId}`;
 });
 
 PicSchema.virtual("originalSrc").get(function () {

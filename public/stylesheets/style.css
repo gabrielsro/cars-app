@@ -130,13 +130,13 @@ textarea {
 
 .main-view {
   padding-top: 11vh;
-  margin-left: 15vw;
+  margin-left: min(15vw, 170px);
   width: 85vw;
 }
 
 .side-bar {
   height: 100vh;
-  width: 15vw;
+  width: min(15vw, 170px);
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -295,6 +295,7 @@ textarea {
 
 .card-thumbnail img {
   width: 100%;
+  max-height: 202.57px;
   border-radius: 9px;
 }
 
@@ -920,16 +921,19 @@ fieldset {
   grid-template-rows: 1fr;
   background-color: black;
   border-radius: 5px;
+  place-content: center;
 }
 
 .main-img-container {
   display: grid;
   place-items: center;
+  width: 100%;
 }
 
 .car-media .main-img .main-img-container img {
-  max-height: 50vh;
-  width: auto;
+  max-width: 85vw;
+  height: auto;
+  max-height: 83vh;
 }
 
 .previous-control,
@@ -1285,7 +1289,7 @@ fieldset {
 
   .car-media {
     grid-column: 1/3;
-    grid-template-rows: auto 15%;
+    grid-template-rows: auto auto;
   }
   .car-technical {
     grid-column: 1/3;
@@ -1326,9 +1330,33 @@ fieldset {
   .car-basic-info-section3 a {
     white-space: nowrap;
   }
+
+  .main-img {
+    grid-template-columns: 5vw 90vw 5vw;
+    place-content: center;
+  }
+
+  .previous-control {
+    display: none;
+  }
+
+  .next-control {
+    display: none;
+  }
+
+  .main-img-container {
+    aspect-ratio: 1.5;
+    width: 100vw;
+    padding-left: min(5vw, 3px);
+    padding-right: (5vw, 3px);
+    place-content: center;
+    grid-column: 1/4;
+  }
+
   .car-media .main-img .main-img-container img {
-    max-width: 90vh;
+    max-width: 90vw;
     height: auto;
+    max-height: 73vh;
   }
 }
 
