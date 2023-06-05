@@ -20,7 +20,7 @@ const PicSchema = new Schema({
 });
 
 PicSchema.virtual("miniSrc").get(function () {
-  return `https://res.cloudinary.com/${process.env.CLOUDNAME}/image/upload/b_rgb:000000,c_fit,f_auto,q_auto:low,h_101,w_162,r_5,dpr_2/${this.cloudinaryId}`;
+  return `https://res.cloudinary.com/${process.env.CLOUDNAME}/image/upload/b_rgb:000000,c_fit,f_auto,q_auto:low,h_50,w_78,r_5,dpr_2/${this.cloudinaryId}`;
 });
 
 PicSchema.virtual("thumbnailSrc").get(function () {

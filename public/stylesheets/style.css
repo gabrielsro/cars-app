@@ -430,11 +430,10 @@ fieldset {
 }
 
 .car-basic-info {
-  margin-top: 10px;
+  margin-top: 5px;
   margin-bottom: 10px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  border: 1px solid black;
   padding-top: 5px;
   padding-bottom: 5px;
   padding-left: 5px;
@@ -550,7 +549,7 @@ fieldset {
 
 .card-technical {
   padding-top: 5px;
-  padding-bottom: 5px;
+  padding-bottom: 2px;
   padding-left: 10px;
   width: auto;
   background-color: #eee;
@@ -890,8 +889,8 @@ fieldset {
   display: flex;
   justify-content: space-between;
   background-color: #eee;
-  margin-top: 15px;
-  margin-bottom: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
   padding-right: 10px;
   padding-left: 10px;
   border-radius: 5px;
@@ -925,7 +924,7 @@ fieldset {
 
 .car-media {
   display: grid;
-  grid-template-rows: 85% 15%;
+  grid-template-rows: 46vw auto;
   background-color: black;
   width: 100%;
   height: 100%;
@@ -950,9 +949,8 @@ fieldset {
 }
 
 .car-media .main-img .main-img-container img {
-  max-width: 85vw;
-  height: auto;
-  max-height: 83vh;
+  max-height: calc(46vw - 24px);
+  max-width: 100%;
 }
 
 .previous-control,
@@ -975,19 +973,20 @@ fieldset {
 .car-media .side-imgs {
   border-radius: 5px;
   display: grid;
-  gap: 3%;
-  grid-template-columns: 15% 15% 15% 15% 15%;
-  grid-template-rows: 100%;
-  height: 100%;
+  gap: 20px;
+  grid-template-columns: auto auto auto auto auto;
+  grid-template-rows: auto;
+  height: auto;
   width: 100%;
   place-content: center;
-  margin: auto;
+  padding-bottom: 9px;
+  margin-top: 2px;
 }
 
 .car-media .side-imgs img {
   border-radius: 5px;
-  width: 100%;
-  height: 70%;
+  width: 78px;
+  height: 50px;
   align-self: center;
 }
 
@@ -1435,15 +1434,13 @@ fieldset {
     width: 88vw;
     grid-template-columns: 2vw 84vw 2vw;
   }
-  .car-media .main-img .main-img-container img {
-    max-width: 80vw;
-  }
+
   .car-media .main-img {
-    height: 760px;
+    height: 5ivw;
   }
 
   #specs {
-    height: 650px;
+    height: 600px;
     position: relative;
     top: 29px;
     right: 27px;
