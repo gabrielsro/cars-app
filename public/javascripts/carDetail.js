@@ -133,7 +133,7 @@ sideImgs.forEach((s) => {
   s.addEventListener("click", (s) => {
     sideImgs.forEach((i) => i.classList.remove("selected"));
     s.target.classList.add("selected");
-    mainImg.setAttribute("src", `${s.target.src}`);
+    mainImg.setAttribute("src", `${s.target.dataset.mid}`);
   });
 });
 
@@ -144,10 +144,10 @@ if (controlNext) {
         sideImgs[i].classList.remove("selected");
         if (i == sideImgs.length - 1) {
           sideImgs[0].classList.add("selected");
-          mainImg.setAttribute("src", `${sideImgs[0].src}`);
+          mainImg.setAttribute("src", `${sideImgs[0].dataset.mid}`);
         } else {
           sideImgs[(i += 1)].classList.add("selected");
-          mainImg.setAttribute("src", `${sideImgs[i].src}`);
+          mainImg.setAttribute("src", `${sideImgs[i].dataset.mid}`);
         }
         return;
       }
@@ -161,11 +161,14 @@ if (controlPrevious) {
       if (sideImgs[i].classList.contains("selected")) {
         sideImgs[i].classList.remove("selected");
         if (i == 0) {
-          mainImg.setAttribute("src", `${sideImgs[sideImgs.length - 1].src}`);
+          mainImg.setAttribute(
+            "src",
+            `${sideImgs[sideImgs.length - 1].dataset.mid}`
+          );
           sideImgs[sideImgs.length - 1].classList.add("selected");
         } else {
           sideImgs[(i -= 1)].classList.add("selected");
-          mainImg.setAttribute("src", `${sideImgs[i].src}`);
+          mainImg.setAttribute("src", `${sideImgs[i].dataset.mid}`);
         }
         return;
       }

@@ -34,14 +34,18 @@ function setMode() {
     if (carTitle) {
       carTitle.style.background = "#eee";
       carBasicInfo.style.background = "#eee";
-      technicalCards.forEach((t) => (t.style.background = "#eee"));
+      technicalCards.forEach(
+        (t) => (t.style.background = "rgb(238, 238, 238)")
+      );
     }
     if (makeHeader) {
       makeHeader.style.background = "#eee";
     }
     if (versionHeader) {
       versionHeader.style.background = "#eee";
-      technicalCards.forEach((t) => (t.style.background = "#eee"));
+      technicalCards.forEach(
+        (t) => (t.style.background = "rgb(238, 238, 238,0.3)")
+      );
     }
     if (formProgress) {
       formProgress.style.background = "#eee";
@@ -75,7 +79,7 @@ function setMode() {
         carTitle.style.background = "black";
         carBasicInfo.style.background = "black";
         technicalCards.forEach((t) => {
-          t.style.background = "black";
+          t.style.background = "rgb(0, 0, 0,0.7)";
           t.style.border = "1px solid #333333";
         });
       }
@@ -117,7 +121,7 @@ function setMode() {
         carTitle.style.background = "#eee";
         carBasicInfo.style.background = "#eee";
         technicalCards.forEach((t) => {
-          t.style.background = "#eee";
+          t.style.background = "rgb(238, 238, 238,0.7)";
           t.style.border = "";
         });
       }
