@@ -10,34 +10,48 @@ nav {
   font-size: 2em;
   position: fixed;
   width: 100vw;
-  height: 10vh;
+  height: 7vh;
   display: grid;
   grid-template-columns: 15vw 50vw 35vw;
   z-index: 2;
-  padding-bottom: 5px;
 }
 
 .searchOptions {
-  display: flex;
+  display: none;
   padding-top: 6vh;
   grid-column: 2/3;
+}
+
+.searchOptionsList {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.logo {
+  display: flex;
 }
 
 .logo a {
   place-self: center;
   font-size: 2rem;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.logo img {
+  width: 33px;
 }
 
 .mode {
   display: grid;
   place-content: center;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: auto auto;
   grid-template-rows: 1fr 1fr;
   height: 8vh;
   padding-top: 10px;
   padding-bottom: 10px;
-  padding-right: 20px;
-  width: 90px;
   place-self: end;
   align-self: center;
 }
@@ -48,37 +62,30 @@ nav {
 
 .mode img {
   width: 25px;
-  place-self: end;
-  align-self: center;
-}
-
-.search {
-  height: 9vh;
-  width: 100%;
 }
 
 .search form {
-  margin-left: 0px;
-  height: 100%;
-  width: 100%;
-  display: grid;
-  align-content: center;
-  grid-template-rows: 6vh 4vh;
+  display: flex;
+  align-items: center;
 }
 
 .search form input {
-  height: 80%;
-  width: 100%;
+  width: 40vw;
   border-radius: 40px;
   padding-left: 30px;
   font-size: 1rem;
   border: 1px solid black;
   align-self: center;
+  height: 35px;
 }
 
 .searchIcon {
   padding-top: 3px;
   padding-left: 3px;
+}
+
+#mainSearchIcon {
+  padding-right: 0px;
 }
 
 .searchIcon img {
@@ -129,7 +136,7 @@ textarea {
 }
 
 .main-view {
-  padding-top: 11vh;
+  padding-top: 7vh;
   margin-left: min(15vw, 145px);
   width: 88vw;
 }
@@ -144,6 +151,7 @@ textarea {
   padding-left: 15px;
   padding-top: 10vh;
   padding-bottom: 10vh;
+  backdrop-filter: blur(10px);
 }
 
 .side-bar a {
@@ -154,11 +162,12 @@ textarea {
   position: fixed;
   z-index: 3;
   width: 100vw;
-  display: grid;
-  grid-template-columns: 15vw 50vw 35vw;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  height: 10vh;
-  padding-right: 2vw;
+  height: 61.04px;
+  padding-left: 5px;
+  padding-right: 30px;
 }
 
 .menu {
@@ -340,10 +349,6 @@ textarea {
 
 .card-text .footer p {
   color: black;
-}
-
-form {
-  margin-left: 20%;
 }
 
 .form label {
@@ -1078,7 +1083,7 @@ fieldset {
 
 .dark {
   background-color: black;
-  color: white;
+  color: rgb(255, 255, 255);
 }
 
 fieldset {
@@ -1267,23 +1272,17 @@ fieldset {
   }
 
   .top {
-    grid-template-columns: max(20vw, 120px) 40vw max(40vw, 70px);
-    height: 7vh;
-    padding-top: 0px;
+    grid-template-columns: 160px auto 61.04px;
   }
 
-  .search {
-    height: 6vh;
-    margin-top: 0px;
+  .top .mode {
+    grid-column: 4/5;
+    justify-self: end;
   }
 
   .search form {
     height: 5vh;
     align-content: center;
-  }
-
-  .search form input {
-    height: 4vh;
   }
 
   .mode {
@@ -1420,6 +1419,11 @@ fieldset {
   .search form input {
     padding-left: 12px;
   }
+}
+
+#showSpecs,
+#hideSpecs {
+  color: white;
 }
 
 @media only screen and (min-width: 946px) {

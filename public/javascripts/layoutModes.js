@@ -163,6 +163,7 @@ window.addEventListener("resize", () => {
   if (window.innerWidth > 945) {
     sidebar.style.background = "";
     topBar.style.background = "";
+    nav.classList.add("invisible");
   }
   if (window.innerWidth > 945 && sidebar.classList.contains("visibleMenu")) {
     sidebar.classList.remove("visibleMenu");
@@ -170,9 +171,11 @@ window.addEventListener("resize", () => {
   if (window.innerWidth < 945) {
     if (localStorage.getItem("mode") == "light") {
       topBar.style.background = "white";
+      nav.classList.remove("invisible");
     }
     if (localStorage.getItem("mode") == "dark") {
       topBar.style.background = "black";
+      nav.classList.remove("invisible");
     }
   }
 });
