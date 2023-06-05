@@ -317,7 +317,7 @@ exports.modelPage = (req, res, next) => {
                           resolveBundle({
                             car: bundleResults[0],
                             pic: bundleResults[0].thumbnail
-                              ? bundleResults[0].thumbnail.thumbnailSrc
+                              ? bundleResults[0].thumbnail.smallThumbSrc
                               : undefined,
                           });
                         })

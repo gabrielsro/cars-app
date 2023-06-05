@@ -59,14 +59,6 @@ block content
                             img(src='/images/icons/energyIcons/energyBlack1.svg' alt='Energy Icon' id='energyIcon' class='black')
                             img(src='/images/icons/energyIcons/energyWhite1.svg' alt='Energy Icon' id='energyIcon' class='white')
                             h5 N/A
-                    if car.version.transmission
-                        .card-technical-row
-                            img(src='/images/icons/transmissionIcons/transmissionBlack1.svg' alt='Transmission Icon' class='black')
-                            img(src='/images/icons/transmissionIcons/transmissionWhite1.svg' alt='Transmission Icon' class='white')
-                            if /transmission/i.test(car.version.transmission) == false
-                                h5 #{car.version.transmission} Transmission
-                            else
-                                h5 #{car.version.transmission}
                     if car.version.drive
                         .card-technical-row(id='technicalRowDrive')
                             if /^r/i.test(car.version.drive)
@@ -85,6 +77,14 @@ block content
                                 img(src='/images/icons/AWDIcons/AWDBlack1.svg' alt='All-wheel-drive Icon' class='black')
                                 img(src='/images/icons/AWDIcons/AWDWhite1.svg' alt='All-wheel-drive Icon' class='white')
                                 h5 4WD
+                    if car.version.transmission
+                        .card-technical-row
+                            img(src='/images/icons/transmissionIcons/transmissionBlack1.svg' alt='Transmission Icon' class='black')
+                            img(src='/images/icons/transmissionIcons/transmissionWhite1.svg' alt='Transmission Icon' class='white')
+                            if /transmission/i.test(car.version.transmission) == false
+                                h5 #{car.version.transmission} Transmission
+                            else
+                                h5 #{car.version.transmission}
                     if car.version.weight
                         - weight = car.version.weight
                         .card-technical-row(id='imperialWeight')                             

@@ -294,8 +294,14 @@ textarea {
 }
 
 .card-thumbnail img {
-  width: 100%;
-  max-height: 202.57px;
+  height: 203px;
+  width: 360px;
+  border-radius: 9px;
+}
+
+#smallThumb img {
+  height: 165px;
+  width: 255px;
   border-radius: 9px;
 }
 
@@ -320,6 +326,10 @@ textarea {
 
 .card-text p {
   white-space: nowrap;
+}
+
+.title {
+  overflow: hidden;
 }
 
 .card-text .title > p:first-child {
@@ -649,7 +659,7 @@ fieldset {
 }
 
 .version-row {
-  margin-bottom: 50px;
+  margin-bottom: 30px;
   padding-left: 30px;
 }
 
@@ -882,7 +892,20 @@ fieldset {
 }
 
 .listFlex .list-card {
-  width: 280px;
+  overflow: hidden;
+}
+
+#cardInfoModelPage {
+  width: 255px;
+}
+
+#cardInfoModelPage img {
+  max-width: 60px;
+  height: auto;
+}
+
+.car-card {
+  justify-self: center;
 }
 
 .car-title {
@@ -918,7 +941,7 @@ fieldset {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 5px;
+  gap: 3px;
   width: 100%;
 }
 
@@ -1412,14 +1435,6 @@ fieldset {
     justify-self: end;
     display: flex;
     font-size: 1.2rem;
-  }
-
-  .specs-control > p:first-child {
-    color: rgb(73, 230, 120);
-  }
-
-  .specs-control > p:last-child {
-    color: rgb(230, 144, 73);
   }
 
   .specs-control p:hover {

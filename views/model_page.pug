@@ -62,12 +62,12 @@ block content
                                                 for car in version.cars 
                                                     .list-card 
                                                         a(href=car.car.url)
-                                                            .card-thumbnail
+                                                            .card-thumbnail(id='smallThumb')
                                                                 if undefined===car.pic
                                                                     img(src='https://res.cloudinary.com/dpqwimjsm/image/upload/c_fit,w_800/iz6xc3p9434pwnxzqqjk' alt=`Unavailable car pic placeholder image` loading='lazy')
                                                                 else 
                                                                     img(src=car.pic alt=`Vehicle image` loading='lazy')
-                                                            .card-info
+                                                            .card-info(id='cardInfoModelPage')
                                                                 .card-logo
                                                                     img(src=car.car.make.logoSrc alt=`${car.car.make.name} logo` loading='lazy')
                                                                 .card-text
