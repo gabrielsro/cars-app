@@ -121,7 +121,7 @@ block content
                         h4 Engine 
                     .card-technical-rows(id='cardTechnicalRowsEngine')
                         if car.version.enginePosition
-                            .card-technical-row
+                            .engineSpecIconContainer
                                 if /front/i.test(car.version.enginePosition)
                                     img(src='/images/icons/engineFrontIcons/frontBlack1.svg' alt='Front Engine Icon' class='black')
                                     img(src='/images/icons/engineFrontIcons/frontWhite1.svg' alt='Front Engine Icon' class='white')
@@ -134,37 +134,37 @@ block content
                                 if /rear/i.test(car.version.enginePosition)
                                     img(src='/images/icons/engineBackIcons/backBlack1.svg' alt='Back Engine Icon' class='black')
                                     img(src='/images/icons/engineBackIcons/backWhite1.svg' alt='Back Engine Icon' class='white')
-                                h5 Position: #{car.version.enginePosition}
+                            h5 Position: #{car.version.enginePosition}
                         if car.version.engineType
-                            .card-technical-row
+                            .engineSpecIconContainer
                                 img(src='/images/icons/engineIcons/engineTypeBlack1.svg' alt='Engine Type Icon' class='black')
                                 img(src='/images/icons/engineIcons/engineTypeWhite1.svg' alt='Engine Type Icon' class='white')
-                                h5 Type: #{car.version.engineType}
+                            h5 Type: #{car.version.engineType}
                         if car.version.engineCC
-                            .card-technical-row
+                            .engineSpecIconContainer
                                 img(src='/images/icons/displacementIcons/displacementBlack1.svg' alt='Displacement Icon' class='black')
                                 img(src='/images/icons/displacementIcons/displacementWhite1.svg' alt='Displacement Icon' class='white')
-                                h5 Displacement: #{car.version.engineCC.toLocaleString()} cc
+                            h5 Displacement: #{car.version.engineCC.toLocaleString()} cc
                         if car.version.engineCyl
-                            .card-technical-row
+                            .engineSpecIconContainer
                                 img(src='/images/icons/cylinderIcons/cylindersBlack1.svg' alt='Cylinders Icon' class='black')
                                 img(src='/images/icons/cylinderIcons/cylindersWhite1.svg' alt='Cylinders Icon' class='white')
-                                h5 Cylinders: #{car.version.engineCyl}
+                            h5 Cylinders: #{car.version.engineCyl}
                         if /\d/.test(car.version.engineCompression)
-                            .card-technical-row
+                            .engineSpecIconContainer
                                 img(src='/images/icons/compressionIcons/compressionBlack1.svg' alt='Compression Icon' class='black')
                                 img(src='/images/icons/compressionIcons/compressionWhite1.svg' alt='Compression Icon' class='white')
-                                h5 Compression: #{car.version.engineCompression}
+                            h5 Compression: #{car.version.engineCompression}
                         if car.version.engineTorqueNm
-                            .card-technical-row
+                            .engineSpecIconContainer
                                 img(src='/images/icons/torqueIcons/torqueBlack1.svg' alt='Torque Icon' class='black')
                                 img(src='/images/icons/torqueIcons/torqueWhite1.svg' alt='Torque Icon' class='white')
-                                h5 Torque: #{car.version.engineTorqueNm} Nm
+                            h5 Torque: #{car.version.engineTorqueNm} Nm
                         if car.version.enginePower
-                            .card-technical-row
+                            .engineSpecIconContainer
                                 img(src='/images/icons/powerIcons/powerBlack1.svg' alt='Power Icon' id='powerIcon' class='black')
                                 img(src='/images/icons/powerIcons/powerWhite1.svg' alt='Power Icon' id='powerIcon' class='white')
-                                h5 Power: #{car.version.enginePower} hp
+                            h5 Power: #{car.version.enginePower} hp
             .card-technical
                 .card-technical-title(id='measurementSwitch')
                     .card-technical-title-group

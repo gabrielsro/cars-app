@@ -549,8 +549,8 @@ fieldset {
 }
 
 .card-technical {
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   padding-left: 10px;
   width: auto;
   background-color: #eee;
@@ -596,6 +596,19 @@ fieldset {
   margin-left: 10px;
 }
 
+.engineSpecIconContainer {
+  display: grid;
+}
+
+.engineSpecIconContainer img {
+  width: 30px;
+  justify-self: center;
+}
+
+.engineSpecIconContainer #powerIcon {
+  width: 40px;
+}
+
 .row-specs {
   display: flex;
   justify-content: space-between;
@@ -618,18 +631,16 @@ fieldset {
   margin-right: 5px;
 }
 
-.card-technical-row h5 {
-  white-space: nowrap;
-}
-
 .card-technical-row img {
   height: auto;
   width: 30px;
 }
 
-.card-technical-row h5 {
+.card-technical-row h5,
+#cardTechnicalRowsEngine h5 {
   margin-left: 3px;
   font-size: 1rem;
+  white-space: nowrap;
 }
 
 .version-specs {
@@ -1067,16 +1078,21 @@ fieldset {
 }
 
 #cardTechnicalRowsEngine {
-  width: 100px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 94%;
+  column-gap: 10px;
+  row-gap: 4px;
+  align-items: center;
+}
+
+#cardTechnicalRowsEngine h5 {
+  margin-left: 0px;
 }
 
 #carAvailable {
   color: #73e600;
   font-size: 1.2rem;
-}
-
-#powerIcon {
-  width: 40px;
 }
 
 #energyIcon {
