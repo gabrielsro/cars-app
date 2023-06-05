@@ -228,46 +228,47 @@ block content
                         p(class='selectedText') Imperial
                         p |
                         p Metric
-                .card-technical-rows(id='imperialSpeed')
-                    .card-technical-row
-                        img(src='/images/icons/speedIcons/speedBlack1.svg' alt='Speed Icon' class='black')
-                        img(src='/images/icons/speedIcons/speedWhite1.svg' alt='Speed Icon' class='white')
-                        if car.version.maxSpeed 
-                            h5 Top speed: #{`${Math.round(car.version.maxSpeed/1.6)} mph`}
-                        if car.version.maxSpeed < 1
-                            h5 Top speed: N/A
-                        if car.version.maxSpeed == 'null'
-                            h5 Top speed: N/A
-                .card-technical-rows(id='imperialAcceleration')
-                    .card-technical-row
-                        img(src='/images/icons/accelerationIcons/accelerationBlack1.svg' alt='Acceleration Icon' id='accelerationIcon' class='black')
-                        img(src='/images/icons/accelerationIcons/accelerationWhite1.svg' alt='Acceleration Icon' id='accelerationIcon' class='white')
-                        if car.version.accel0To100 
-                            h5 Acceleration (0-60 mph): #{`${car.version.accel0To100} s`}
-                        if car.version.accel0To100 < 1
-                            h5 Acceleration (0-60 mph): N/A
-                        if car.version.accel0To100 == 'null'
-                            h5 Acceleration (0-60 mph): N/A
-                .card-technical-rows(id='metricSpeed' class='invisible')
-                    .card-technical-row
-                        img(src='/images/icons/speedIcons/speedBlack1.svg' alt='Speed Icon' class='black')
-                        img(src='/images/icons/speedIcons/speedWhite1.svg' alt='Speed Icon' class='white')
-                        if car.version.maxSpeed 
-                            h5 Top speed: #{`${car.version.maxSpeed} km/h`}
-                        if car.version.maxSpeed < 1
-                            h5 Top speed: N/A
-                        if car.version.maxSpeed == 'null'
-                            h5 Top speed: N/A
-                .card-technical-rows(id='metricAcceleration' class='invisible')
-                    .card-technical-row
-                        img(src='/images/icons/accelerationIcons/accelerationBlack1.svg' alt='Acceleration Icon' id='accelerationIcon' class='black')
-                        img(src='/images/icons/accelerationIcons/accelerationWhite1.svg' alt='Acceleration Icon' id='accelerationIcon' class='white')
-                        if car.version.accel0To100 
-                            h5 Acceleration (0-100 km/h): #{`${car.version.accel0To100} s`}
-                        if car.version.accel0To100 < 1
-                            h5 Acceleration (0-100 km/h): N/A
-                        if car.version.accel0To100 == 'null'
-                            h5 Acceleration (0-100 km/h): N/A
+                .row-specs
+                    .card-technical-rows(id='imperialSpeed')
+                        .card-technical-row
+                            img(src='/images/icons/speedIcons/speedBlack1.svg' alt='Speed Icon' class='black')
+                            img(src='/images/icons/speedIcons/speedWhite1.svg' alt='Speed Icon' class='white')
+                            if car.version.maxSpeed 
+                                h5 Top speed: #{`${Math.round(car.version.maxSpeed/1.6)} mph`}
+                            if car.version.maxSpeed < 1
+                                h5 Top speed: N/A
+                            if car.version.maxSpeed == 'null'
+                                h5 Top speed: N/A
+                    .card-technical-rows(id='imperialAcceleration')
+                        .card-technical-row
+                            img(src='/images/icons/accelerationIcons/accelerationBlack1.svg' alt='Acceleration Icon' id='accelerationIcon' class='black')
+                            img(src='/images/icons/accelerationIcons/accelerationWhite1.svg' alt='Acceleration Icon' id='accelerationIcon' class='white')
+                            if car.version.accel0To100 
+                                h5 Acceleration (0-60 mph): #{`${car.version.accel0To100} s`}
+                            if car.version.accel0To100 < 1
+                                h5 Acceleration (0-60 mph): N/A
+                            if car.version.accel0To100 == 'null'
+                                h5 Acceleration (0-60 mph): N/A
+                    .card-technical-rows(id='metricSpeed' class='invisible')
+                        .card-technical-row
+                            img(src='/images/icons/speedIcons/speedBlack1.svg' alt='Speed Icon' class='black')
+                            img(src='/images/icons/speedIcons/speedWhite1.svg' alt='Speed Icon' class='white')
+                            if car.version.maxSpeed 
+                                h5 Top speed: #{`${car.version.maxSpeed} km/h`}
+                            if car.version.maxSpeed < 1
+                                h5 Top speed: N/A
+                            if car.version.maxSpeed == 'null'
+                                h5 Top speed: N/A
+                    .card-technical-rows(id='metricAcceleration' class='invisible')
+                        .card-technical-row
+                            img(src='/images/icons/accelerationIcons/accelerationBlack1.svg' alt='Acceleration Icon' id='accelerationIcon' class='black')
+                            img(src='/images/icons/accelerationIcons/accelerationWhite1.svg' alt='Acceleration Icon' id='accelerationIcon' class='white')
+                            if car.version.accel0To100 
+                                h5 Acceleration (0-100 km/h): #{`${car.version.accel0To100} s`}
+                            if car.version.accel0To100 < 1
+                                h5 Acceleration (0-100 km/h): N/A
+                            if car.version.accel0To100 == 'null'
+                                h5 Acceleration (0-100 km/h): N/A
     .car-basic-info
         .car-basic-info-section1
             .car-logo 
