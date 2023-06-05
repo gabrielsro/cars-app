@@ -130,13 +130,13 @@ textarea {
 
 .main-view {
   padding-top: 11vh;
-  margin-left: min(15vw, 170px);
-  width: 85vw;
+  margin-left: min(15vw, 145px);
+  width: 88vw;
 }
 
 .side-bar {
   height: 100vh;
-  width: min(15vw, 170px);
+  width: min(15vw, 145px);
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -555,6 +555,7 @@ fieldset {
   width: auto;
   background-color: #eee;
   border-radius: 5px;
+  backdrop-filter: blur(5px);
 }
 
 .card-technical div {
@@ -1204,6 +1205,9 @@ fieldset {
 }
 
 @media only screen and (max-width: 945px) {
+  .specs-control {
+    display: none;
+  }
   .main-view {
     overflow: auto;
     margin-bottom: 11vh;
@@ -1370,6 +1374,56 @@ fieldset {
   }
   .search form input {
     padding-left: 12px;
+  }
+}
+
+@media only screen and (min-width: 946px) {
+  .car-info-container {
+    background-color: black;
+    border-radius: 5px;
+  }
+
+  .specs-control {
+    margin-top: 5px;
+    position: absolute;
+    align-self: baseline;
+    justify-self: end;
+    display: flex;
+    font-size: 1.2rem;
+  }
+
+  .specs-control > p:first-child {
+    color: rgb(73, 230, 120);
+  }
+
+  .specs-control > p:last-child {
+    color: rgb(230, 144, 73);
+  }
+
+  .specs-control p:hover {
+    cursor: pointer;
+  }
+
+  .car-media {
+    width: 88vw;
+  }
+
+  .car-media .main-img {
+    width: 88vw;
+    grid-template-columns: 2vw 84vw 2vw;
+  }
+  .car-media .main-img .main-img-container img {
+    max-width: 80vw;
+  }
+  .car-media .main-img {
+    height: 760px;
+  }
+
+  #specs {
+    height: 650px;
+    position: relative;
+    top: 29px;
+    right: 27px;
   }
 }
 

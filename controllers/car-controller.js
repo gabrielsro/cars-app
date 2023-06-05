@@ -604,7 +604,7 @@ exports.carDetail = (req, res, next) => {
           pics.push({
             full: p.originalSrc,
             mid: p.midsizeSrc,
-            thumb: p.thumbnailSrc,
+            mini: p.miniSrc,
           });
         });
       }
