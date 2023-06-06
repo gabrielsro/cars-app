@@ -5,6 +5,20 @@
   font-family: sans-serif;
 }
 
+::-webkit-scrollbar {
+  width: 8px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsla(0, 0%, 53.3%, 0.4);
+  border-radius: 9px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00b7ff;
+}
+
 nav {
   background-color: white;
   font-size: 2em;
@@ -302,10 +316,34 @@ textarea {
   grid-template-columns: 1fr 1fr 1fr;
 }
 
+.groupCardsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.modelsListContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  border: 1px solid red;
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: 200px;
+}
+
+.modelsListContainer h3 {
+  font-size: 1.2rem;
+}
+
 .card-thumbnail img {
   height: 203px;
   width: 360px;
   border-radius: 9px;
+}
+
+#smallThumb {
+  width: 255px;
 }
 
 #smallThumb img {
@@ -893,11 +931,13 @@ fieldset {
   display: flex;
   gap: 10px;
   flex-wrap: nowrap;
-  overflow: auto;
+  overflow-x: auto;
 }
 
 .listFlex .list-card {
   overflow: hidden;
+  min-width: 255px;
+  width: 255px;
 }
 
 #cardInfoModelPage {

@@ -18,7 +18,7 @@ cloudinary.config({
 
 exports.modelList = (req, res, next) => {
   let makes = [];
-  Model.find({}, "name make")
+  Model.find({}, "name make cars")
     .populate("make")
     .populate("name")
     .then((modelList) => {
@@ -44,6 +44,7 @@ exports.modelList = (req, res, next) => {
                 formattedName: formatted,
                 makeId: model.make._id,
                 makeName: make,
+                carCount: model.cars.length,
               });
             }
             modelSubsetDetails.sort((a, b) => {
