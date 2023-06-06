@@ -43,6 +43,13 @@ nav {
   margin-bottom: 30px;
 }
 
+.searchFuzzyResults {
+  position: absolute;
+  width: 40vw;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
 .logo {
   display: flex;
 }

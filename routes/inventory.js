@@ -4,6 +4,7 @@ const carController = require("../controllers/car-controller");
 const makeController = require("../controllers/make-controller");
 const modelController = require("../controllers/model-controller");
 const versionController = require("../controllers/version-controller");
+const searchController = require("../controllers/search-controller");
 const multer = require("multer");
 const upload = multer({ storage: multer.memoryStorage() });
 
@@ -49,6 +50,9 @@ router.post("/check-pics", upload.none(), (req, res) => {
 /**
  * App internal affairs:
  */
+
+//Searchbar:
+router.post("/fuzzy_search", searchController.fuzzySearch);
 
 //Car Routes
 router.get("/", carController.index);
