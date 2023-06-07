@@ -2,11 +2,22 @@ const mainSearch = document.getElementById("mainSearchBar");
 const mainForm = document.getElementById("mainForm");
 const fuzzySearch = document.querySelector(".searchFuzzyResults");
 
+mainSearch.addEventListener("blur", () =>
+  fuzzySearch.classList.add("invisible")
+);
+
+mainSearch.addEventListener("focus", () => {
+  if (fuzzySearch.firstChild) {
+    fuzzySearch.classList.remove("invisible");
+  }
+});
+
 mainSearch.addEventListener("input", async (e) => {
   if (!/\w+/.test(e.target.value)) {
     while (fuzzySearch.firstChild !== null) {
       fuzzySearch.removeChild(fuzzySearch.firstChild);
     }
+    fuzzySearch.classList.add("invisible");
   }
   if (e.target.value !== " ") {
     const formData = new FormData();
@@ -17,6 +28,7 @@ mainSearch.addEventListener("input", async (e) => {
     });
     const dataObject = await data.json();
     if (dataObject.length > 0) {
+      fuzzySearch.classList.remove("invisible");
       let makes = [];
       let models = [];
       dataObject.forEach((d) => {
@@ -94,6 +106,7 @@ mainSearch.addEventListener("input", async (e) => {
       });
       const makesDiv = document.createElement("div");
       const modelsDiv = document.createElement("div");
+      const errorMsg = document.createElement("div");
       if (makes.length > 0) {
         makes.forEach((m) => {
           const makeRow = document.createElement("div");
@@ -121,11 +134,17 @@ mainSearch.addEventListener("input", async (e) => {
           modelsDiv.appendChild(modelRow);
         });
       }
+      if (makes.length < 1 && models.length < 1) {
+        const error = document.createElement("p");
+        error.innerText = `We couldn't find "${e.target.value}"`;
+        errorMsg.appendChild(error);
+      }
       while (fuzzySearch.firstChild !== null) {
         fuzzySearch.removeChild(fuzzySearch.firstChild);
       }
       fuzzySearch.appendChild(makesDiv);
       fuzzySearch.appendChild(modelsDiv);
+      fuzzySearch.appendChild(errorMsg);
     }
   }
 });

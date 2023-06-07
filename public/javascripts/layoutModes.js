@@ -20,6 +20,7 @@ const blackIcons = document.querySelectorAll(".black");
 const whiteIcons = document.querySelectorAll(".white");
 const sidebar = document.querySelector(".side-bar");
 const topBar = document.querySelector(".top");
+const fzySearch = document.querySelector(".searchFuzzyResults");
 
 function setMode() {
   let mode = localStorage.getItem("mode");
@@ -55,6 +56,8 @@ function setMode() {
     if (window.innerWidth < 945) {
       topBar.style.background = "white";
     }
+    fzySearch.classList.remove("frozenBlack");
+    fzySearch.classList.add("frozenWhite");
   }
   if (mode) {
     if (mode == "dark") {
@@ -98,6 +101,8 @@ function setMode() {
       if (window.innerWidth < 945) {
         topBar.style.background = "black";
       }
+      fzySearch.classList.remove("frozenWhite");
+      fzySearch.classList.add("frozenBlack");
     }
     if (mode == "light") {
       all.classList.remove("dark");
@@ -140,6 +145,8 @@ function setMode() {
       if (window.innerWidth < 945) {
         topBar.style.background = "white";
       }
+      fzySearch.classList.remove("frozenBlack");
+      fzySearch.classList.add("frozenWhite");
     }
   }
 }

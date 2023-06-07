@@ -17,7 +17,7 @@ html
         form(action="/inventory/fuzzy_search" method='GET' class='invisible' id='mainForm')
           .searchBarContainer
             input(type="text" id='mainSearchBar' name='searchText')
-            .searchFuzzyResults
+            .searchFuzzyResults(class='invisible')
           .searchIcon(id='mainSearchIcon') 
             img(src="/images/icons/searchIcons/searchBlack.svg" alt='Search icon' id='searchBlack')
             img(src="/images/icons/searchIcons/searchWhite.svg" alt='Search icon' class='invisible' id='searchWhite')
