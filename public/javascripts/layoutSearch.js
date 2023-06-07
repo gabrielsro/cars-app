@@ -3,10 +3,12 @@ const mainForm = document.getElementById("mainForm");
 const fuzzySearch = document.querySelector(".searchFuzzyResults");
 
 mainSearch.addEventListener("input", async (e) => {
-  if (e.target.value !== " ") {
+  if (!/\w+/.test(e.target.value)) {
     while (fuzzySearch.firstChild !== null) {
       fuzzySearch.removeChild(fuzzySearch.firstChild);
     }
+  }
+  if (e.target.value !== " ") {
     const formData = new FormData();
     formData.append("searchText", e.target.value);
     const data = await fetch("/inventory/fuzzy_search", {
@@ -78,8 +80,9 @@ mainSearch.addEventListener("input", async (e) => {
           });
         }
       });
+      const makesDiv = document.createElement("div");
+      const modelsDiv = document.createElement("div");
       if (makes.length > 0) {
-        const makesDiv = document.createElement("div");
         makes.forEach((m) => {
           const makeRow = document.createElement("div");
           const makeName = document.createElement("a");
@@ -88,10 +91,8 @@ mainSearch.addEventListener("input", async (e) => {
           makeRow.appendChild(makeName);
           makesDiv.appendChild(makeRow);
         });
-        fuzzySearch.appendChild(makesDiv);
       }
       if (models.length > 0) {
-        const modelsDiv = document.createElement("div");
         models.forEach((m) => {
           let count = 0;
           for (let i = 0; i < m.modelYears.length; i++) {
@@ -108,8 +109,12 @@ mainSearch.addEventListener("input", async (e) => {
           modelRow.appendChild(modelName);
           modelsDiv.appendChild(modelRow);
         });
-        fuzzySearch.appendChild(modelsDiv);
       }
+      while (fuzzySearch.firstChild !== null) {
+        fuzzySearch.removeChild(fuzzySearch.firstChild);
+      }
+      fuzzySearch.appendChild(makesDiv);
+      fuzzySearch.appendChild(modelsDiv);
     }
   }
 });
