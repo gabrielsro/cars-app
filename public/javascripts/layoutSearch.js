@@ -16,7 +16,6 @@ mainSearch.addEventListener("input", async (e) => {
       body: formData,
     });
     const dataObject = await data.json();
-    console.log(dataObject);
     if (dataObject.length > 0) {
       let makes = [];
       let models = [];
@@ -48,7 +47,11 @@ mainSearch.addEventListener("input", async (e) => {
                 }
               })
             ) {
-              if (models[index].modelYears.every(y !== modelFound.modelYear)) {
+              if (
+                models[index].modelYears.every(
+                  (y) => y.modelYear !== modelFound.modelYear
+                )
+              ) {
                 models[index].modelYears.push(modelFound);
               }
             }
@@ -76,6 +79,15 @@ mainSearch.addEventListener("input", async (e) => {
                   models[i].modelYears.push(found);
                 }
               }
+              if (models[i].modelName !== found.modelName) {
+                models.push({
+                  modelName: found.modelName,
+                  modelNameFormatted: found.modelNameFormatted,
+                  makeId: found.makeId,
+                  makeName: found.makeName,
+                  modelYears: [found],
+                });
+              }
             }
           });
         }
@@ -98,7 +110,6 @@ mainSearch.addEventListener("input", async (e) => {
           for (let i = 0; i < m.modelYears.length; i++) {
             count += m.modelYears[i].modelCarCount;
           }
-          console.log(count);
           const modelRow = document.createElement("div");
           const modelName = document.createElement("a");
           modelName.innerText = `${m.makeName} ${m.modelName} - ${count} cars`;

@@ -308,7 +308,7 @@ exports.add_car_variants_submit = [
     }
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      res.send(`La cagamos ${errors[0]}, ${errors}`);
+      res.send(`La cagamos ${errors[0]}, ${Object.entries(errors)}`);
       return;
     }
     Make.find({ name: req.body.make.split(",")[0] })
@@ -782,7 +782,7 @@ exports.carDelete = (req, res, next) => {
                 Version.findByIdAndUpdate(deletedCar.version, {
                   $pull: { cars: deletedCar._id },
                 }),
-                Model.findByIdAndUpdate(deletedCar.mode, {
+                Model.findByIdAndUpdate(deletedCar.model, {
                   $pull: { cars: deletedCar._id },
                 }),
                 Pic.deleteMany({ car: req.params.id }),
