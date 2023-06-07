@@ -6,9 +6,6 @@ const upload = multer();
 
 exports.fuzzySearch = [
   upload.none(),
-  //(req, res, next) => {
-  //res.send(req.body.searchText);
-  //},
   body("searchText").isLength({ min: 1 }).trim().escape(),
   (req, res, next) => {
     const result = validationResult(req);
@@ -63,10 +60,12 @@ function prepareAnswer(makes, models) {
       modelsReady.push({
         modelYear: m.year,
         modelName: m.name,
-        modelFullName: `${m.year} ${m.make.name} ${m.name}`,
+        makeName: m.make.name,
+        modelNameFormatted: m.name.split(" ").join("_"),
         modelId: m._id,
         modelCarCount: m.cars.length,
         modelVersions: prepareVersions(m.versions),
+        makeId: m.make._id,
       });
     });
   }
