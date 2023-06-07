@@ -43,14 +43,17 @@ exports.index = (req, res, next) => {
 };
 
 exports.car_list = (req, res, next) => {
-  Car.find({}, "make model status price version modelVariant")
+  Car.find({}, "make model status price version modelVariant country year")
     .populate("make", "name")
     .populate("model", "name")
     .populate("version", "energy year")
     .populate("thumbnail")
     .then((resultCars) => {
-      let makes = [];
-      let cars = [];
+      const makes = [];
+      const cars = [];
+      const years = [];
+      const prices = [];
+      const countries = [];
       for (let i = 0; i < resultCars.length; i++) {
         if (makes.every((m) => m.makeName != resultCars[i].make.name)) {
           makes.push({
@@ -66,8 +69,100 @@ exports.car_list = (req, res, next) => {
           car: resultCars[i],
           pic: thumb,
         });
+        if (
+          !resultCars[i].country &&
+          countries.every((c) => c !== "Unknown Location")
+        ) {
+          countries.push("Unknown Location");
+        }
+        if (
+          countries.every((c) => c !== resultCars[i].country) &&
+          resultCars[i].country
+        ) {
+          countries.push(resultCars[i].country);
+        }
+        if (years.every((y) => y !== resultCars[i].year)) {
+          years.push(resultCars[i].year);
+        }
+        if (
+          resultCars[i].price < 10000 &&
+          prices.every((p) => p !== "< 10.000")
+        ) {
+          prices[0] = "< 10.000";
+        }
+        if (
+          resultCars[i].price >= 10000 &&
+          resultCars[i].price < 20001 &&
+          prices.every((p) => p !== "10.000 - 20.000")
+        ) {
+          prices[1] = "10.000 - 20.000";
+        }
+        if (
+          resultCars[i].price >= 20001 &&
+          resultCars[i].price < 30001 &&
+          prices.every((p) => p !== "20.000 - 30.000")
+        ) {
+          prices[2] = "20.000 - 30.000";
+        }
+        if (
+          resultCars[i].price >= 30001 &&
+          resultCars[i].price < 40000 &&
+          prices.every((p) => p !== "30.000 - 40.000")
+        ) {
+          prices[3] = "30.000 - 40.000";
+        }
+        if (
+          resultCars[i].price >= 40000 &&
+          resultCars[i].price < 60001 &&
+          prices.every((p) => p !== "40.000 - 60.000")
+        ) {
+          prices[4] = "40.000 - 60.000";
+        }
+        if (
+          resultCars[i].price >= 60001 &&
+          resultCars[i].price <= 80000 &&
+          prices.every((p) => p !== "60.000 - 80.000")
+        ) {
+          prices[5] = "60.000 - 80.000";
+        }
+        if (
+          resultCars[i].price >= 80001 &&
+          resultCars[i].price < 100000 &&
+          prices.every((p) => p !== "80.000 - 100.000")
+        ) {
+          prices[6] = "80.000 - 100.000";
+        }
+        if (
+          resultCars[i].price >= 100000 &&
+          resultCars[i].price < 150000 &&
+          prices.every((p) => p !== "100.000 - 150.000")
+        ) {
+          prices[7] = "100.000 - 150.000";
+        }
+        if (
+          resultCars[i].price >= 150000 &&
+          resultCars[i].price < 200000 &&
+          prices.every((p) => p !== "150.000 - 200.000")
+        ) {
+          prices[8] = "150.000 - 200.000";
+        }
+        if (
+          resultCars[i].price >= 200000 &&
+          resultCars[i].price <= 250000 &&
+          prices.every((p) => p !== "200.000 - 250.000")
+        ) {
+          prices[9] = "200.000 - 250.000";
+        }
+        if (
+          resultCars[i].price > 250000 &&
+          prices.every((p) => p !== "> 250.000")
+        ) {
+          prices[10] = "> 250.000";
+        }
       }
-      res.render("car_list", { cars, makes });
+      years.sort();
+      countries.sort();
+      res.render("car_list", { cars, makes, years, prices, countries });
     })
     .catch((err) => next(err));
 };

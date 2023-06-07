@@ -125,7 +125,9 @@ mainSearch.addEventListener("input", async (e) => {
           }
           const modelRow = document.createElement("div");
           const modelName = document.createElement("a");
-          modelName.innerText = `${m.makeName} ${m.modelName} - ${count} cars`;
+          modelName.innerText = `${m.makeName} ${m.modelName} (${count} ${
+            count > 1 || count == 0 ? "cars" : "car"
+          })`;
           modelName.setAttribute(
             "href",
             `/inventory/model/model-page/${m.makeId}/${m.modelNameFormatted}`
