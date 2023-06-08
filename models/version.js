@@ -8,6 +8,10 @@ const VerisonSchema = new Schema({
   make: { type: Schema.Types.ObjectId, ref: "Make" },
   year: { type: Number },
   versionNumber: { type: Number },
+  body: {
+    type: String,
+    enum: ["Automobile", "SUV", "Truck", "Van", "Unspecified"],
+  },
   versionBodyType: { type: String },
   versionBodySubType: { type: String },
   enginePosition: { type: String },
@@ -22,7 +26,7 @@ const VerisonSchema = new Schema({
   weight: { type: Number },
   fuel: {
     type: String,
-    enum: ["Diesel", "Electric", "Gasoline", "Hybrid", "Natural Gas"],
+    enum: ["Diesel", "Electric", "Gasoline", "Hybrid", "Natural Gas", "Other"],
   },
   fuelSpecifics: { type: String },
   fuelEfficiencyHgw: { type: Number },

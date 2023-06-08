@@ -4,13 +4,13 @@ block content
         div(class='option')
             select(id='makeOption' name='makeOption')
                 option(value='' hidden='true' selected='true') Make
-                option(value='all') All
-                for make in makes 
-                    option(value=make.makeName) #{make.makeName}
+                option(value='all') All Makes
+                for make in makesOrdered 
+                    option(value=make) #{make}
         div(class='option')
             select(id='yearOption' name='yearOption')
                 option(value='' hidden='true' selected='true') Year
-                option(value='all') All
+                option(value='all') All Years
                 for year in years 
                     option(value=year) #{year}
         div(class='option')
@@ -22,14 +22,14 @@ block content
         div(class='option')
             select(id='priceOption' name='priceOption')
                 option(value='' hidden='true' selected='true') Price
-                option(value='all') All
+                option(value='all') All Prices
                 for price in prices 
                     if price !== undefined
                         option(value=price) #{price}
         div(class='option') 
             select(id='locationOption' name='locationOption')
                 option(value='' hidden='true' selected='true') Location
-                    option(value='all') All
+                    option(value='all') All Countries
                     for country in countries 
                         option(value=country) #{country}
     .list 

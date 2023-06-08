@@ -16,7 +16,17 @@ if (/^seat/i.test(make)) {
 if (/^tesla/i.test(make)) {
   make = "Tesla, Inc.";
 }
-make = /-/.test(make) ? "Rolls-Royce_Motor_Cars" : make.split("-").join("_");
+
+make = /-/.test(make) ? make : make.split("-").join("_");
+
+if (/^mercedes/i.test(make)) {
+  make = "Mercedes-Benz";
+}
+
+if (/^rolls/i.test(make)) {
+  make = "Rolls-Royce_Motor_Cars";
+}
+
 let showingWarning = false;
 
 let url = `https://en.wikipedia.org/w/api.php?origin=*&action=query&prop=extracts&exsentences=10&titles=${make}&format=json`;

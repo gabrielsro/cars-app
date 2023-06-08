@@ -162,7 +162,18 @@ exports.car_list = (req, res, next) => {
       }
       years.sort();
       countries.sort();
-      res.render("car_list", { cars, makes, years, prices, countries });
+      const makesLower = makes.map((m) => {
+        const lowerFirst = m.makeName[0].toLowerCase();
+        const remaining = m.makeName.slice(1, m.makeName.length);
+        return lowerFirst.concat(remaining);
+      });
+      makesLower.sort();
+      const makesOrdered = makesLower.map((m) => {
+        const upperFirst = m[0].toUpperCase();
+        const remaining = m.slice(1, makesLower.length);
+        return upperFirst.concat(remaining);
+      });
+      res.render("car_list", { cars, makesOrdered, years, prices, countries });
     })
     .catch((err) => next(err));
 };
