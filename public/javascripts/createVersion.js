@@ -115,6 +115,7 @@ exports.createVersion = async (makeId, modelId, modelYear, reqBodyVariant) => {
   }
 
   if (/\b(suv|sport\sutilit.*\svehicles*)\b/i.test(variantInfo.model_body)) {
+    body = "SUV";
   }
 
   let bodyType;
