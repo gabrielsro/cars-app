@@ -2,9 +2,13 @@ const mainSearch = document.getElementById("mainSearchBar");
 const mainForm = document.getElementById("mainForm");
 const fuzzySearch = document.querySelector(".searchFuzzyResults");
 
-mainSearch.addEventListener("blur", () =>
-  fuzzySearch.classList.add("invisible")
-);
+mainSearch.addEventListener("blur", (e) => {
+  if (
+    e.relatedTarget == null ||
+    !e.relatedTarget.classList.contains("searchLink")
+  )
+    fuzzySearch.classList.add("invisible");
+});
 
 mainSearch.addEventListener("focus", () => {
   if (fuzzySearch.firstChild) {
@@ -91,7 +95,11 @@ mainSearch.addEventListener("input", async (e) => {
                   models[i].modelYears.push(found);
                 }
               }
-              if (models[i].modelName !== found.modelName) {
+              if (
+                models.every((m) => {
+                  m.modelName !== found.modelName;
+                })
+              ) {
                 models.push({
                   modelName: found.modelName,
                   modelNameFormatted: found.modelNameFormatted,
@@ -111,6 +119,7 @@ mainSearch.addEventListener("input", async (e) => {
         makes.forEach((m) => {
           const makeRow = document.createElement("div");
           const makeName = document.createElement("a");
+          makeName.classList.add("searchLink");
           makeName.innerText = m.name;
           makeName.setAttribute("href", `/inventory/make/${m.id}`);
           makeRow.appendChild(makeName);
@@ -125,6 +134,7 @@ mainSearch.addEventListener("input", async (e) => {
           }
           const modelRow = document.createElement("div");
           const modelName = document.createElement("a");
+          modelName.classList.add("searchLink");
           modelName.innerText = `${m.makeName} ${m.modelName} (${count} ${
             count > 1 || count == 0 ? "cars" : "car"
           })`;
