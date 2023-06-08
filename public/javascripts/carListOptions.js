@@ -5,6 +5,7 @@ const energySelector = document.getElementById("energySelector");
 const priceSelector = document.getElementById("priceSelector");
 const countrySelector = document.getElementById("countrySelector");
 const cards = Array.from(document.querySelectorAll(".list-card"));
+const makes = Array.from(makeSelector.querySelectorAll("option"));
 const years = Array.from(yearSelector.querySelectorAll("option"));
 const bodies = Array.from(bodySelector.querySelectorAll("option"));
 const energies = Array.from(energySelector.querySelectorAll("option"));
@@ -19,6 +20,8 @@ priceSelector.addEventListener("change", (e) => handleSelectorChange(e));
 countrySelector.addEventListener("change", (e) => handleSelectorChange(e));
 
 function handleSelectorChange(e) {
+  //Options to be shown:
+  const newMakes = [];
   const newYears = [];
   const newBodies = [];
   const newEnergies = [];
@@ -50,16 +53,22 @@ function handleSelectorChange(e) {
     cards.forEach((c) => {
       const carTitle = c.querySelector(".title p").innerText;
       const carYear = carTitle.split(" ")[0];
+      const carMake = c
+        .querySelector(".card-logo img")
+        .getAttribute("alt")
+        .split(" ")
+        .slice(0, -1)
+        .join(" ");
       if (!carYear.match(e.target.value)) {
         c.classList.add("invisible");
       }
       if (carYear.match(e.target.value)) {
         c.classList.remove("invisible");
-        newYears.push(carTitle.split(" ")[0]);
         newBodies.push(c.dataset.body);
         newEnergies.push(c.dataset.energy);
         newCountries.push(c.dataset.location);
         newPrices.push(c.dataset.price);
+        newMakes.push(carMake);
       }
       if (e.target.value == "all") {
         c.classList.remove("invisible");
@@ -69,6 +78,12 @@ function handleSelectorChange(e) {
   //bodySelector change?
   if (e.target.getAttribute("id") == "bodySelector") {
     cards.forEach((c) => {
+      const carMake = c
+        .querySelector(".card-logo img")
+        .getAttribute("alt")
+        .split(" ")
+        .slice(0, -1)
+        .join(" ");
       const carBody = c.dataset.body;
       if (!carBody.match(e.target.value)) {
         c.classList.add("invisible");
@@ -77,10 +92,10 @@ function handleSelectorChange(e) {
         c.classList.remove("invisible");
         const carTitle = c.querySelector(".title p").innerText;
         newYears.push(carTitle.split(" ")[0]);
-        newBodies.push(c.dataset.body);
         newEnergies.push(c.dataset.energy);
         newCountries.push(c.dataset.location);
         newPrices.push(c.dataset.price);
+        newMakes.push(carMake);
       }
       if (e.target.value == "all") {
         c.classList.remove("invisible");
@@ -90,6 +105,12 @@ function handleSelectorChange(e) {
   //energySelector change?
   if (e.target.getAttribute("id") == "energySelector") {
     cards.forEach((c) => {
+      const carMake = c
+        .querySelector(".card-logo img")
+        .getAttribute("alt")
+        .split(" ")
+        .slice(0, -1)
+        .join(" ");
       const carEnergy = c.dataset.energy;
       if (!carEnergy.match(e.target.value)) {
         c.classList.add("invisible");
@@ -99,9 +120,9 @@ function handleSelectorChange(e) {
         const carTitle = c.querySelector(".title p").innerText;
         newYears.push(carTitle.split(" ")[0]);
         newBodies.push(c.dataset.body);
-        newEnergies.push(c.dataset.energy);
         newCountries.push(c.dataset.location);
         newPrices.push(c.dataset.price);
+        newMakes.push(carMake);
       }
       if (e.target.value == "all") {
         c.classList.remove("invisible");
@@ -111,6 +132,12 @@ function handleSelectorChange(e) {
   //priceSelector change?
   if (e.target.getAttribute("id") == "priceSelector") {
     cards.forEach((c) => {
+      const carMake = c
+        .querySelector(".card-logo img")
+        .getAttribute("alt")
+        .split(" ")
+        .slice(0, -1)
+        .join(" ");
       const carPrice = c.dataset.price;
       if (!carPrice.match(e.target.value)) {
         c.classList.add("invisible");
@@ -122,7 +149,7 @@ function handleSelectorChange(e) {
         newBodies.push(c.dataset.body);
         newEnergies.push(c.dataset.energy);
         newCountries.push(c.dataset.location);
-        newPrices.push(c.dataset.price);
+        newMakes.push(carMake);
       }
       if (e.target.value == "all") {
         c.classList.remove("invisible");
@@ -132,6 +159,12 @@ function handleSelectorChange(e) {
   //countrySelector change?
   if (e.target.getAttribute("id") == "countrySelector") {
     cards.forEach((c) => {
+      const carMake = c
+        .querySelector(".card-logo img")
+        .getAttribute("alt")
+        .split(" ")
+        .slice(0, -1)
+        .join(" ");
       const carCountry = c.dataset.location;
       if (!carCountry.match(e.target.value)) {
         c.classList.add("invisible");
@@ -142,8 +175,8 @@ function handleSelectorChange(e) {
         newYears.push(carTitle.split(" ")[0]);
         newBodies.push(c.dataset.body);
         newEnergies.push(c.dataset.energy);
-        newCountries.push(c.dataset.location);
         newPrices.push(c.dataset.price);
+        newMakes.push(carMake);
       }
       if (e.target.value == "all") {
         c.classList.remove("invisible");
@@ -152,72 +185,99 @@ function handleSelectorChange(e) {
   }
 
   //Update yearSelector options:
-  years.forEach((year) => {
-    if (year.value !== "all" && newYears.every((y) => y !== year.value)) {
-      year.classList.add("invisible");
-    }
-    if (year.value !== "all" && newYears.some((y) => y == year.value)) {
-      year.classList.remove("invisible");
-    }
-    if (e.target.value == "all") {
-      year.classList.remove("invisible");
-    }
-  });
+  if (newYears.length > 0) {
+    years.forEach((year) => {
+      if (year.value !== "all" && newYears.every((y) => y !== year.value)) {
+        year.classList.add("invisible");
+      }
+      if (year.value !== "all" && newYears.some((y) => y == year.value)) {
+        year.classList.remove("invisible");
+      }
+      if (e.target.value == "all") {
+        year.classList.remove("invisible");
+      }
+    });
+  }
   //Update bodySelector options:
-  bodies.forEach((body) => {
-    if (body.value !== "all" && newBodies.every((b) => b !== body.value)) {
-      body.classList.add("invisible");
-    }
-    if (body.value !== "all" && newBodies.some((b) => b == body.value)) {
-      body.classList.remove("invisible");
-    }
-    if (e.target.value == "all") {
-      body.classList.remove("invisible");
-    }
-  });
+  if (newBodies.length > 0) {
+    bodies.forEach((body) => {
+      if (body.value !== "all" && newBodies.every((b) => b !== body.value)) {
+        body.classList.add("invisible");
+      }
+      if (body.value !== "all" && newBodies.some((b) => b == body.value)) {
+        body.classList.remove("invisible");
+      }
+      if (e.target.value == "all") {
+        body.classList.remove("invisible");
+      }
+    });
+  }
   //Update energySelector options:
-  energies.forEach((energy) => {
-    if (
-      energy.value !== "all" &&
-      newEnergies.every((b) => b !== energy.value)
-    ) {
-      energy.classList.add("invisible");
-    }
-    if (energy.value !== "all" && newEnergies.some((b) => b == energy.value)) {
-      energy.classList.remove("invisible");
-    }
-    if (e.target.value == "all") {
-      energy.classList.remove("invisible");
-    }
-  });
+  if (newEnergies.length > 0) {
+    energies.forEach((energy) => {
+      if (
+        energy.value !== "all" &&
+        newEnergies.every((b) => b !== energy.value)
+      ) {
+        energy.classList.add("invisible");
+      }
+      if (
+        energy.value !== "all" &&
+        newEnergies.some((b) => b == energy.value)
+      ) {
+        energy.classList.remove("invisible");
+      }
+      if (e.target.value == "all") {
+        energy.classList.remove("invisible");
+      }
+    });
+  }
   //Update countrySelector options:
-  countries.forEach((country) => {
-    if (
-      country.value !== "all" &&
-      newCountries.every((b) => b !== country.value)
-    ) {
-      country.classList.add("invisible");
-    }
-    if (
-      country.value !== "all" &&
-      newCountries.some((b) => b == country.value)
-    ) {
-      country.classList.remove("invisible");
-    }
-    if (e.target.value == "all") {
-      country.classList.remove("invisible");
-    }
-  });
+  if (newCountries.length > 0) {
+    countries.forEach((country) => {
+      if (
+        country.value !== "all" &&
+        newCountries.every((b) => b !== country.value)
+      ) {
+        country.classList.add("invisible");
+      }
+      if (
+        country.value !== "all" &&
+        newCountries.some((b) => b == country.value)
+      ) {
+        country.classList.remove("invisible");
+      }
+      if (e.target.value == "all") {
+        country.classList.remove("invisible");
+      }
+    });
+  }
   //Update priceSelector options:
-  prices.forEach((price) => {
-    if (price.value !== "all" && newPrices.every((b) => b !== price.value)) {
-      price.classList.add("invisible");
-    }
-    if (price.value !== "all" && newPrices.some((b) => b == price.value)) {
-      price.classList.remove("invisible");
-    }
-    if (e.target.value == "all") {
-      price.classList.remove("invisible");
-    }
-  });
+  if (newPrices.length > 0) {
+    prices.forEach((price) => {
+      if (price.value !== "all" && newPrices.every((b) => b !== price.value)) {
+        price.classList.add("invisible");
+      }
+      if (price.value !== "all" && newPrices.some((b) => b == price.value)) {
+        price.classList.remove("invisible");
+      }
+      if (e.target.value == "all") {
+        price.classList.remove("invisible");
+      }
+    });
+  }
+  //Update makeSelector options:
+  if (newMakes.length > 0) {
+    makes.forEach((make) => {
+      if (make.value !== "all" && newMakes.every((b) => b !== make.value)) {
+        make.classList.add("invisible");
+      }
+      if (make.value !== "all" && newMakes.some((b) => b == make.value)) {
+        make.classList.remove("invisible");
+      }
+      if (e.target.value == "all") {
+        make.classList.remove("invisible");
+      }
+    });
+  }
 }
