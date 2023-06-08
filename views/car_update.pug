@@ -81,7 +81,7 @@ block content
                 label(for='updateTransmission') Transmission: 
                 input(id='updateTransmission' type='text' value=transmission class='version' name='transmission')
                 label(for='updateWeight' class='weight' class='imperial') Weight (lbs):
-                input(id='updateWeight' type='number' class='weight' class='imperial' value=weight class='version' name='weight')
+                input(id='updateWeight' type='number' class='weight' class='imperial' value=Math.round(weight*2.204) class='version' name='weight')
                 p(class='carUpdateSwitch' class='weight' class='imperial') Switch to metric
                 label(for='updateWeight' class='weight' class='metric' class='invisible') Weight (kg): 
                 input(id='updateWeight' type='number' class='weight' class='metric' class='invisible' class='version')
