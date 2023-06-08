@@ -46,7 +46,7 @@ exports.car_list = (req, res, next) => {
   Car.find({}, "make model status price version modelVariant country year")
     .populate("make", "name")
     .populate("model", "name")
-    .populate("version", "energy year")
+    .populate("version", "fuel year body")
     .populate("thumbnail")
     .then((resultCars) => {
       const makes = [];
@@ -54,6 +54,8 @@ exports.car_list = (req, res, next) => {
       const years = [];
       const prices = [];
       const countries = [];
+      const bodies = [];
+      const energies = [];
       for (let i = 0; i < resultCars.length; i++) {
         if (makes.every((m) => m.makeName != resultCars[i].make.name)) {
           makes.push({
@@ -159,7 +161,21 @@ exports.car_list = (req, res, next) => {
         ) {
           prices[10] = "> 250.000";
         }
+        if (
+          bodies.every((b) => b !== resultCars[i].version.body) &&
+          resultCars[i].version.body
+        ) {
+          bodies.push(resultCars[i].version.body);
+        }
+        if (
+          energies.every((e) => e !== resultCars[i].version.fuel) &&
+          resultCars[i].version.fuel
+        ) {
+          energies.push(resultCars[i].version.fuel);
+        }
       }
+      energies.sort();
+      bodies.sort();
       years.sort();
       countries.sort();
       const makesLower = makes.map((m) => {
@@ -173,7 +189,15 @@ exports.car_list = (req, res, next) => {
         const remaining = m.slice(1, makesLower.length);
         return upperFirst.concat(remaining);
       });
-      res.render("car_list", { cars, makesOrdered, years, prices, countries });
+      res.render("car_list", {
+        cars,
+        makesOrdered,
+        years,
+        prices,
+        countries,
+        bodies,
+        energies,
+      });
     })
     .catch((err) => next(err));
 };

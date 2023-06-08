@@ -16,9 +16,15 @@ block content
         div(class='option')
             select(id='bodyOption' name='bodyOption')
                 option(value='' hidden='true' selected='true') Body
+                option(value='all') All Bodies
+                for body in bodies 
+                    option(value=body) #{body}
         div(class='option')
             select(id='energyOption' name='energyOption')
                 option(value='' hidden='true' selected='true') Energy  
+                option(value='all') All Energies 
+                for energy in energies 
+                    option(value=energy) #{energy}
         div(class='option')
             select(id='priceOption' name='priceOption')
                 option(value='' hidden='true' selected='true') Price
