@@ -11,30 +11,146 @@ const energies = Array.from(energySelector.querySelectorAll("option"));
 const prices = Array.from(priceSelector.querySelectorAll("option"));
 const countries = Array.from(countrySelector.querySelectorAll("option"));
 
-makeSelector.addEventListener("change", (e) => {
+makeSelector.addEventListener("change", (e) => handleSelectorChange(e));
+yearSelector.addEventListener("change", (e) => handleSelectorChange(e));
+bodySelector.addEventListener("change", (e) => handleSelectorChange(e));
+energySelector.addEventListener("change", (e) => handleSelectorChange(e));
+priceSelector.addEventListener("change", (e) => handleSelectorChange(e));
+countrySelector.addEventListener("change", (e) => handleSelectorChange(e));
+
+function handleSelectorChange(e) {
   const newYears = [];
   const newBodies = [];
   const newEnergies = [];
   const newPrices = [];
   const newCountries = [];
   //Filter cards
-  cards.forEach((c) => {
-    const carTitle = c.querySelector(".title p").innerText;
-    if (!carTitle.match(e.target.value)) {
-      c.classList.add("invisible");
-    }
-    if (carTitle.match(e.target.value)) {
-      c.classList.remove("invisible");
-      newYears.push(carTitle.split(" ")[0]);
-      newBodies.push(c.dataset.body);
-      newEnergies.push(c.dataset.energy);
-      newCountries.push(c.dataset.location);
-      newPrices.push(c.dataset.price);
-    }
-    if (e.target.value == "all") {
-      c.classList.remove("invisible");
-    }
-  });
+  //makeSelector change?
+  if (e.target.getAttribute("id") == "makeSelector") {
+    cards.forEach((c) => {
+      const carTitle = c.querySelector(".title p").innerText;
+      if (!carTitle.match(e.target.value)) {
+        c.classList.add("invisible");
+      }
+      if (carTitle.match(e.target.value)) {
+        c.classList.remove("invisible");
+        newYears.push(carTitle.split(" ")[0]);
+        newBodies.push(c.dataset.body);
+        newEnergies.push(c.dataset.energy);
+        newCountries.push(c.dataset.location);
+        newPrices.push(c.dataset.price);
+      }
+      if (e.target.value == "all") {
+        c.classList.remove("invisible");
+      }
+    });
+  }
+  //yearSelector change?
+  if (e.target.getAttribute("id") == "yearSelector") {
+    cards.forEach((c) => {
+      const carTitle = c.querySelector(".title p").innerText;
+      const carYear = carTitle.split(" ")[0];
+      if (!carYear.match(e.target.value)) {
+        c.classList.add("invisible");
+      }
+      if (carYear.match(e.target.value)) {
+        c.classList.remove("invisible");
+        newYears.push(carTitle.split(" ")[0]);
+        newBodies.push(c.dataset.body);
+        newEnergies.push(c.dataset.energy);
+        newCountries.push(c.dataset.location);
+        newPrices.push(c.dataset.price);
+      }
+      if (e.target.value == "all") {
+        c.classList.remove("invisible");
+      }
+    });
+  }
+  //bodySelector change?
+  if (e.target.getAttribute("id") == "bodySelector") {
+    cards.forEach((c) => {
+      const carBody = c.dataset.body;
+      if (!carBody.match(e.target.value)) {
+        c.classList.add("invisible");
+      }
+      if (carBody.match(e.target.value)) {
+        c.classList.remove("invisible");
+        const carTitle = c.querySelector(".title p").innerText;
+        newYears.push(carTitle.split(" ")[0]);
+        newBodies.push(c.dataset.body);
+        newEnergies.push(c.dataset.energy);
+        newCountries.push(c.dataset.location);
+        newPrices.push(c.dataset.price);
+      }
+      if (e.target.value == "all") {
+        c.classList.remove("invisible");
+      }
+    });
+  }
+  //energySelector change?
+  if (e.target.getAttribute("id") == "energySelector") {
+    cards.forEach((c) => {
+      const carEnergy = c.dataset.energy;
+      if (!carEnergy.match(e.target.value)) {
+        c.classList.add("invisible");
+      }
+      if (carEnergy.match(e.target.value)) {
+        c.classList.remove("invisible");
+        const carTitle = c.querySelector(".title p").innerText;
+        newYears.push(carTitle.split(" ")[0]);
+        newBodies.push(c.dataset.body);
+        newEnergies.push(c.dataset.energy);
+        newCountries.push(c.dataset.location);
+        newPrices.push(c.dataset.price);
+      }
+      if (e.target.value == "all") {
+        c.classList.remove("invisible");
+      }
+    });
+  }
+  //priceSelector change?
+  if (e.target.getAttribute("id") == "priceSelector") {
+    cards.forEach((c) => {
+      const carPrice = c.dataset.price;
+      if (!carPrice.match(e.target.value)) {
+        c.classList.add("invisible");
+      }
+      if (carPrice.match(e.target.value)) {
+        c.classList.remove("invisible");
+        const carTitle = c.querySelector(".title p").innerText;
+        newYears.push(carTitle.split(" ")[0]);
+        newBodies.push(c.dataset.body);
+        newEnergies.push(c.dataset.energy);
+        newCountries.push(c.dataset.location);
+        newPrices.push(c.dataset.price);
+      }
+      if (e.target.value == "all") {
+        c.classList.remove("invisible");
+      }
+    });
+  }
+  //countrySelector change?
+  if (e.target.getAttribute("id") == "countrySelector") {
+    cards.forEach((c) => {
+      const carCountry = c.dataset.location;
+      if (!carCountry.match(e.target.value)) {
+        c.classList.add("invisible");
+      }
+      if (carCountry.match(e.target.value)) {
+        c.classList.remove("invisible");
+        const carTitle = c.querySelector(".title p").innerText;
+        newYears.push(carTitle.split(" ")[0]);
+        newBodies.push(c.dataset.body);
+        newEnergies.push(c.dataset.energy);
+        newCountries.push(c.dataset.location);
+        newPrices.push(c.dataset.price);
+      }
+      if (e.target.value == "all") {
+        c.classList.remove("invisible");
+      }
+    });
+  }
+
   //Update yearSelector options:
   years.forEach((year) => {
     if (year.value !== "all" && newYears.every((y) => y !== year.value)) {
@@ -104,4 +220,4 @@ makeSelector.addEventListener("change", (e) => {
       price.classList.remove("invisible");
     }
   });
-});
+}
