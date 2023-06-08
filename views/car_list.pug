@@ -38,14 +38,14 @@ block content
                     if price !== undefined
                         option(value=price) #{price}
         div(class='option') 
-            select(id='locationSelector' name='locationOption')
+            select(id='countrySelector' name='locationOption')
                 option(value='' hidden='true' selected='true') Location
                     option(value='all') All Countries
                     for country in countries 
                         option(value=country) #{country}
     .list 
         for car in cars
-                .list-card(data-body=car.car.version.body data-energy=car.car.version.fuel data-location=car.car.country)
+                .list-card(data-body=car.car.version.body data-energy=car.car.version.fuel data-location=car.car.country data-price=car.priceRange)
                     a(href=car.car.url) 
                         .card-thumbnail
                             if undefined===car.pic

@@ -66,11 +66,7 @@ exports.car_list = (req, res, next) => {
         const thumb = resultCars[i].thumbnail
           ? resultCars[i].thumbnail.thumbnailSrc
           : undefined;
-
-        cars.push({
-          car: resultCars[i],
-          pic: thumb,
-        });
+        let priceRange;
         if (
           !resultCars[i].country &&
           countries.every((c) => c !== "Unknown Location")
@@ -86,11 +82,17 @@ exports.car_list = (req, res, next) => {
         if (years.every((y) => y !== resultCars[i].year)) {
           years.push(resultCars[i].year);
         }
+        if (resultCars[i].price < 10000) {
+          priceRange = "< 10.000";
+        }
         if (
           resultCars[i].price < 10000 &&
           prices.every((p) => p !== "< 10.000")
         ) {
           prices[0] = "< 10.000";
+        }
+        if (resultCars[i].price >= 10000 && resultCars[i].price < 20001) {
+          priceRange = "10.000 - 20.000";
         }
         if (
           resultCars[i].price >= 10000 &&
@@ -99,19 +101,28 @@ exports.car_list = (req, res, next) => {
         ) {
           prices[1] = "10.000 - 20.000";
         }
+        if (resultCars[i].price >= 20001 && resultCars[i].price < 30000) {
+          priceRange = "20.000 - 30.000";
+        }
         if (
           resultCars[i].price >= 20001 &&
-          resultCars[i].price < 30001 &&
+          resultCars[i].price < 30000 &&
           prices.every((p) => p !== "20.000 - 30.000")
         ) {
           prices[2] = "20.000 - 30.000";
         }
+        if (resultCars[i].price >= 30000 && resultCars[i].price < 40000) {
+          priceRange = "30.000 - 40.000";
+        }
         if (
-          resultCars[i].price >= 30001 &&
+          resultCars[i].price >= 30000 &&
           resultCars[i].price < 40000 &&
           prices.every((p) => p !== "30.000 - 40.000")
         ) {
           prices[3] = "30.000 - 40.000";
+        }
+        if (resultCars[i].price >= 40000 && resultCars[i].price < 60001) {
+          priceRange = "40.000 - 60.000";
         }
         if (
           resultCars[i].price >= 40000 &&
@@ -120,6 +131,9 @@ exports.car_list = (req, res, next) => {
         ) {
           prices[4] = "40.000 - 60.000";
         }
+        if (resultCars[i].price >= 60001 && resultCars[i].price <= 80000) {
+          priceRange = "60.000 - 80.000";
+        }
         if (
           resultCars[i].price >= 60001 &&
           resultCars[i].price <= 80000 &&
@@ -127,12 +141,18 @@ exports.car_list = (req, res, next) => {
         ) {
           prices[5] = "60.000 - 80.000";
         }
+        if (resultCars[i].price > 80000 && resultCars[i].price < 100000) {
+          priceRange = "80.000 - 100.000";
+        }
         if (
-          resultCars[i].price >= 80001 &&
+          resultCars[i].price > 80000 &&
           resultCars[i].price < 100000 &&
           prices.every((p) => p !== "80.000 - 100.000")
         ) {
           prices[6] = "80.000 - 100.000";
+        }
+        if (resultCars[i].price >= 100000 && resultCars[i].price < 150000) {
+          priceRange = "100.000 - 150.000";
         }
         if (
           resultCars[i].price >= 100000 &&
@@ -141,6 +161,9 @@ exports.car_list = (req, res, next) => {
         ) {
           prices[7] = "100.000 - 150.000";
         }
+        if (resultCars[i].price >= 150000 && resultCars[i].price < 200000) {
+          priceRange = "150.000 - 200.000";
+        }
         if (
           resultCars[i].price >= 150000 &&
           resultCars[i].price < 200000 &&
@@ -148,12 +171,18 @@ exports.car_list = (req, res, next) => {
         ) {
           prices[8] = "150.000 - 200.000";
         }
+        if (resultCars[i].price >= 200000 && resultCars[i].price <= 250000) {
+          priceRange = "200.000 - 250.000";
+        }
         if (
           resultCars[i].price >= 200000 &&
           resultCars[i].price <= 250000 &&
           prices.every((p) => p !== "200.000 - 250.000")
         ) {
           prices[9] = "200.000 - 250.000";
+        }
+        if (resultCars[i].price > 250000) {
+          priceRange = "> 250.000";
         }
         if (
           resultCars[i].price > 250000 &&
@@ -173,6 +202,11 @@ exports.car_list = (req, res, next) => {
         ) {
           energies.push(resultCars[i].version.fuel);
         }
+        cars.push({
+          car: resultCars[i],
+          pic: thumb,
+          priceRange: priceRange,
+        });
       }
       energies.sort();
       bodies.sort();
