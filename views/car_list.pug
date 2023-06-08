@@ -1,46 +1,51 @@
 extends layout 
+block scripts 
+    script(src="/javascripts/layoutSearch.js" defer='true')
+    script(src="/javascripts/layoutModes.js" defer='true')
+    script(src="/javascripts/layoutMenuButton.js" defer='true')
+    script(src="/javascripts/carListOptions.js" defer='true')
 block content 
     .searchOptionsList 
         div(class='option')
-            select(id='makeOption' name='makeOption')
+            select(id='makeSelector' name='make')
                 option(value='' hidden='true' selected='true') Make
                 option(value='all') All Makes
                 for make in makesOrdered 
                     option(value=make) #{make}
         div(class='option')
-            select(id='yearOption' name='yearOption')
+            select(id='yearSelector' name='year')
                 option(value='' hidden='true' selected='true') Year
                 option(value='all') All Years
                 for year in years 
                     option(value=year) #{year}
         div(class='option')
-            select(id='bodyOption' name='bodyOption')
+            select(id='bodySelector' name='body')
                 option(value='' hidden='true' selected='true') Body
                 option(value='all') All Bodies
                 for body in bodies 
                     option(value=body) #{body}
         div(class='option')
-            select(id='energyOption' name='energyOption')
+            select(id='energySelector' name='energy')
                 option(value='' hidden='true' selected='true') Energy  
                 option(value='all') All Energies 
                 for energy in energies 
                     option(value=energy) #{energy}
         div(class='option')
-            select(id='priceOption' name='priceOption')
+            select(id='priceSelector' name='price')
                 option(value='' hidden='true' selected='true') Price
                 option(value='all') All Prices
                 for price in prices 
                     if price !== undefined
                         option(value=price) #{price}
         div(class='option') 
-            select(id='locationOption' name='locationOption')
+            select(id='locationSelector' name='locationOption')
                 option(value='' hidden='true' selected='true') Location
                     option(value='all') All Countries
                     for country in countries 
                         option(value=country) #{country}
     .list 
         for car in cars
-                .list-card
+                .list-card(data-body=car.car.version.body data-energy=car.car.version.fuel data-location=car.car.country)
                     a(href=car.car.url) 
                         .card-thumbnail
                             if undefined===car.pic

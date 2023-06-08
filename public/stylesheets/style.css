@@ -56,7 +56,9 @@ nav {
   padding-top: 4px;
   padding-left: 10px;
   padding-bottom: 7px;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: 60vh;
   font-size: 1.1rem;
 }
 

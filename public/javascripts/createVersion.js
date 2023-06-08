@@ -3,19 +3,54 @@ const { variantInfoGetter } = require("./carInfoAPI");
 
 exports.createVersion = async (makeId, modelId, modelYear, reqBodyVariant) => {
   const variantInfo = await variantInfoGetter(reqBodyVariant.split(",")[2]);
+  let highway;
+  let mixed;
+  let city;
   //Process fuel economy:
-  let variantEconomy;
-  if (
-    variantInfo.model_mpg_hwy &&
-    variantInfo.model_mpg_mixed &&
-    variantInfo.model_mpg_city
-  ) {
-    variantEconomy = [
-      variantInfo.model_mpg_hwy,
-      variantInfo.model_mpg_mixed,
-      variantInfo.model_mpg_city,
-    ];
-    variantEconomy.sort();
+  const variantFuelEfficiency = [];
+  if (variantInfo.model_mpg_hwy) {
+    variantFuelEfficiency.push(variantInfo.model_mpg_hwy);
+  }
+  if (variantInfo.model_mpg_mixed) {
+    variantFuelEfficiency.push(variantInfo.model_mpg_mixed);
+  }
+  if (variantInfo.model_mpg_city) {
+    variantFuelEfficiency.push(variantInfo.model_mpg_city);
+  }
+  if (variantFuelEfficiency.length == 1) {
+    if (variantInfo.model_mpg_hwy) {
+      highway = variantInfo.model_mpg_hwy;
+    }
+    if (variantInfo.model_mpg_mixed) {
+      mixed = variantInfo.model_mpg_mixed;
+    }
+    if (variantInfo.model_mpg_city) {
+      city = variantInfo.model_mpg_city;
+    }
+  }
+  mixed = variantFuelEfficiency.length;
+  if (variantFuelEfficiency.length == 2) {
+    if (!variantInfo.model_mpg_hwy) {
+      mixed = Math.max(...variantFuelEfficiency);
+      city = Math.min(...variantFuelEfficiency);
+    }
+    if (!variantInfo.model_mpg_mixed) {
+      highway = Math.max(...variantFuelEfficiency);
+      city = Math.min(...variantFuelEfficiency);
+    }
+    if (!variantInfo.model_mpg_city) {
+      highway = Math.max(...variantFuelEfficiency);
+      mixed = Math.min(...variantFuelEfficiency);
+    }
+  }
+  if (variantFuelEfficiency.length == 3) {
+    highway = Math.max(...variantFuelEfficiency);
+    city = Math.min(...variantFuelEfficiency);
+    variantFuelEfficiency.forEach((v) => {
+      if (v < highway && v > city) {
+        mixed = v;
+      }
+    });
   }
 
   //Process fuel type:
@@ -96,9 +131,9 @@ exports.createVersion = async (makeId, modelId, modelYear, reqBodyVariant) => {
     weight: variantInfo.model_weight_kg,
     fuel: fuelType,
     fuelSpecifics: variantInfo.model_engine_fuel,
-    fuelEfficiencyHgw: variantEconomy[2],
-    fuelEfficiencyMixed: variantEconomy[1],
-    fuelEfficiencyCity: variantEconomy[0],
+    fuelEfficiencyHgw: highway,
+    fuelEfficiencyMixed: mixed,
+    fuelEfficiencyCity: city,
     accel0To100: variantInfo.model_0_to_100_kph,
     maxSpeed: variantInfo.model_top_speed_kph,
     length: variantInfo.model_length_mm,
