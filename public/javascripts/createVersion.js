@@ -6,6 +6,27 @@ exports.createVersion = async (makeId, modelId, modelYear, reqBodyVariant) => {
   let highway;
   let mixed;
   let city;
+  let weight;
+  //Process weight:
+  if (variantInfo.model_weight_kg && variantInfo.mode_weight_lbs) {
+    weight = Math.min(variantInfo.model_weight_kg, variantInfo.mode_weight_lbs);
+  }
+  if (variantInfo.model_weight_kg && !variantInfo.mode_weight_lbs) {
+    if (variantInfo.model_weight_kg > 6613) {
+      weight = Math.round((variantInfo.model_weight_kg / 2.2) * 10) / 10;
+    }
+    if (variantInfo.model_weight_kg <= 6613) {
+      weight = variantInfo.model_weight_kg;
+    }
+  }
+  if (!variantInfo.model_weight_kg && variantInfo.mode_weight_lbs) {
+    if (variantInfo.mode_weight_lbs <= 6613) {
+      weight = variantInfo.model_weight_lbs;
+    }
+    if (variantInfo.model_weight_lbs > 6613) {
+      weight = Math.round((variantInfo.model_weight_lbs / 2.2) * 10) / 10;
+    }
+  }
   //Process fuel economy:
   const variantFuelEfficiency = [];
   if (variantInfo.model_mpg_hwy) {
@@ -28,7 +49,6 @@ exports.createVersion = async (makeId, modelId, modelYear, reqBodyVariant) => {
       city = variantInfo.model_mpg_city;
     }
   }
-  mixed = variantFuelEfficiency.length;
   if (variantFuelEfficiency.length == 2) {
     if (!variantInfo.model_mpg_hwy) {
       mixed = Math.max(...variantFuelEfficiency);
@@ -128,7 +148,7 @@ exports.createVersion = async (makeId, modelId, modelYear, reqBodyVariant) => {
     engineCompression: variantInfo.model_engine_compression,
     drive: variantInfo.model_drive,
     transmission: variantInfo.model_transmission_type,
-    weight: variantInfo.model_weight_kg,
+    weight: weight,
     fuel: fuelType,
     fuelSpecifics: variantInfo.model_engine_fuel,
     fuelEfficiencyHgw: highway,
