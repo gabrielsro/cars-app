@@ -40,7 +40,6 @@ nav {
   display: flex;
   justify-content: center;
   gap: 10px;
-  margin-top: 10px;
   margin-bottom: 20px;
 }
 
@@ -183,19 +182,18 @@ textarea {
 }
 
 .main-view {
-  padding-top: 7vh;
-  margin-left: min(15vw, 145px);
-  width: 88vw;
+  padding-top: 10vh;
+  margin-left: 15vw;
+  width: 85vw;
 }
 
 .side-bar {
   height: 100vh;
-  width: min(15vw, 145px);
+  width: 15vw;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   position: fixed;
-  padding-left: 15px;
   padding-top: 10vh;
   padding-bottom: 10vh;
   backdrop-filter: blur(10px);
@@ -919,7 +917,7 @@ fieldset {
   display: flex;
   padding-left: 20px;
   padding-right: 20px;
-  padding-top: 40px;
+  padding-top: 20px;
   padding-bottom: 80px;
   gap: 70px;
   flex-wrap: wrap;
@@ -1118,6 +1116,30 @@ fieldset {
 
 .unselectable {
   color: rgb(199, 198, 198);
+}
+
+.versionPageTitle {
+  margin-bottom: 20px;
+}
+
+.versionPageSection {
+  margin-bottom: 20px;
+}
+
+.versionPageSection h2 {
+  margin-bottom: 14px;
+}
+
+.versionPageSection h3 {
+  margin-bottom: 4px;
+}
+
+.versionPageSection .listFlex {
+  margin-bottom: 10px;
+}
+
+.versionPageSection .listCard {
+  margin-bottom: 5px;
 }
 
 .pageTitle {

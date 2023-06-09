@@ -1,15 +1,175 @@
 extends layout 
 block content 
- h1 Versions
- section(class='bodySection')
- h2 By Body
- h3 Automobiles 
- h3 SUVs 
- h3 Trucks
- h3 Vans 
- section(class='energySection')
- h2 By Energy
- h3 Gas 
- h3 Diesel
- h3 Hybrid
- h3 Electric
+    h1(class='versionPageTitle') Versions
+    section(class='versionPageSection')
+        h2 By Body
+        if automobiles.length > 0
+            h3 Automobiles
+            .listFlex
+                for car in automobiles 
+                    .listCard
+                        a(href=car.url) 
+                            .card-thumbnail(id='smallThumb')
+                                if undefined===car.thumbnail 
+                                    img(src='https://res.cloudinary.com/dpqwimjsm/image/upload/c_fit,w_800/iz6xc3p9434pwnxzqqjk' alt=`Unavailable car pic placeholder image` loading='lazy')
+                                else 
+                                    img(src=car.thumbnail.smallThumbSrc alt=`Vehicle image` loading='lazy')
+                            .card-info(id='cardInfoModelPage')
+                                .card-logo
+                                    img(src=car.make.logoSrc alt=`${car.make.name} logo` loading='lazy')
+                                .card-text
+                                    .title 
+                                        p $#{car.price.toLocaleString()} • #{car.status}
+                                    .subtitleModelPage 
+                                        p #{car.mileage.toLocaleString()} miles
+                                    .footer
+                                        p #{car.country ? car.country : 'Unknown location'}
+        if suvs.length > 0
+            h3 SUVs 
+            .listFlex
+                for car in suvs 
+                    .listCard
+                        a(href=car.url) 
+                            .card-thumbnail(id='smallThumb')
+                                if undefined===car.thumbnail 
+                                    img(src='https://res.cloudinary.com/dpqwimjsm/image/upload/c_fit,w_800/iz6xc3p9434pwnxzqqjk' alt=`Unavailable car pic placeholder image` loading='lazy')
+                                else 
+                                    img(src=car.thumbnail.smallThumbSrc alt=`Vehicle image` loading='lazy')
+                            .card-info(id='cardInfoModelPage')
+                                .card-logo
+                                    img(src=car.make.logoSrc alt=`${car.make.name} logo` loading='lazy')
+                                .card-text
+                                    .title 
+                                        p $#{car.price.toLocaleString()} • #{car.status}
+                                    .subtitleModelPage 
+                                        p #{car.mileage.toLocaleString()} miles
+                                    .footer
+                                        p #{car.country ? car.country : 'Unknown location'}
+        if trucks.length > 0
+            h3 Trucks
+            .listFlex
+                for car in trucks 
+                    .listCard
+                        a(href=car.url) 
+                            .card-thumbnail(id='smallThumb')
+                                if undefined===car.thumbnail 
+                                    img(src='https://res.cloudinary.com/dpqwimjsm/image/upload/c_fit,w_800/iz6xc3p9434pwnxzqqjk' alt=`Unavailable car pic placeholder image` loading='lazy')
+                                else 
+                                    img(src=car.thumbnail.smallThumbSrc alt=`Vehicle image` loading='lazy')
+                            .card-info(id='cardInfoModelPage')
+                                .card-logo
+                                    img(src=car.make.logoSrc alt=`${car.make.name} logo` loading='lazy')
+                                .card-text
+                                    .title 
+                                        p $#{car.price.toLocaleString()} • #{car.status}
+                                    .subtitleModelPage 
+                                        p #{car.mileage.toLocaleString()} miles
+                                    .footer
+                                        p #{car.country ? car.country : 'Unknown location'}
+        if vans.length > 0
+            h3 Vans
+            .listFlex
+                for car in vans 
+                    .listCard
+                        a(href=car.url) 
+                            .card-thumbnail(id='smallThumb')
+                                if undefined===car.thumbnail 
+                                    img(src='https://res.cloudinary.com/dpqwimjsm/image/upload/c_fit,w_800/iz6xc3p9434pwnxzqqjk' alt=`Unavailable car pic placeholder image` loading='lazy')
+                                else 
+                                    img(src=car.thumbnail.smallThumbSrc alt=`Vehicle image` loading='lazy')
+                            .card-info(id='cardInfoModelPage')
+                                .card-logo
+                                    img(src=car.make.logoSrc alt=`${car.make.name} logo` loading='lazy')
+                                .card-text
+                                    .title 
+                                        p $#{car.price.toLocaleString()} • #{car.status}
+                                    .subtitleModelPage 
+                                        p #{car.mileage.toLocaleString()} miles
+                                    .footer
+                                        p #{car.country ? car.country : 'Unknown location'}
+    section(class='versionPageSection')
+        h2 By Energy
+        if gasoline.length > 0
+            h3 Gasoline 
+            .listFlex
+                    for car in gasoline 
+                        .listCard
+                            a(href=car.url) 
+                                .card-thumbnail(id='smallThumb')
+                                    if undefined===car.thumbnail 
+                                        img(src='https://res.cloudinary.com/dpqwimjsm/image/upload/c_fit,w_800/iz6xc3p9434pwnxzqqjk' alt=`Unavailable car pic placeholder image` loading='lazy')
+                                    else 
+                                        img(src=car.thumbnail.smallThumbSrc alt=`Vehicle image` loading='lazy')
+                                .card-info(id='cardInfoModelPage')
+                                    .card-logo
+                                        img(src=car.make.logoSrc alt=`${car.make.name} logo` loading='lazy')
+                                    .card-text
+                                        .title 
+                                            p $#{car.price.toLocaleString()} • #{car.status}
+                                        .subtitleModelPage 
+                                            p #{car.mileage.toLocaleString()} miles
+                                        .footer
+                                            p #{car.country ? car.country : 'Unknown location'}
+        if diesel.length > 0
+            h3 Diesel
+            .listFlex
+                    for car in diesel 
+                        .listCard
+                            a(href=car.url) 
+                                .card-thumbnail(id='smallThumb')
+                                    if undefined===car.thumbnail 
+                                        img(src='https://res.cloudinary.com/dpqwimjsm/image/upload/c_fit,w_800/iz6xc3p9434pwnxzqqjk' alt=`Unavailable car pic placeholder image` loading='lazy')
+                                    else 
+                                        img(src=car.thumbnail.smallThumbSrc alt=`Vehicle image` loading='lazy')
+                                .card-info(id='cardInfoModelPage')
+                                    .card-logo
+                                        img(src=car.make.logoSrc alt=`${car.make.name} logo` loading='lazy')
+                                    .card-text
+                                        .title 
+                                            p $#{car.price.toLocaleString()} • #{car.status}
+                                        .subtitleModelPage 
+                                            p #{car.mileage.toLocaleString()} miles
+                                        .footer
+                                            p #{car.country ? car.country : 'Unknown location'}
+        if hybrid.length > 0
+            h3 Hybrid
+            .listFlex
+                    for car in hybrid 
+                        .listCard
+                            a(href=car.url) 
+                                .card-thumbnail(id='smallThumb')
+                                    if undefined===car.thumbnail 
+                                        img(src='https://res.cloudinary.com/dpqwimjsm/image/upload/c_fit,w_800/iz6xc3p9434pwnxzqqjk' alt=`Unavailable car pic placeholder image` loading='lazy')
+                                    else 
+                                        img(src=car.thumbnail.smallThumbSrc alt=`Vehicle image` loading='lazy')
+                                .card-info(id='cardInfoModelPage')
+                                    .card-logo
+                                        img(src=car.make.logoSrc alt=`${car.make.name} logo` loading='lazy')
+                                    .card-text
+                                        .title 
+                                            p $#{car.price.toLocaleString()} • #{car.status}
+                                        .subtitleModelPage 
+                                            p #{car.mileage.toLocaleString()} miles
+                                        .footer
+                                            p #{car.country ? car.country : 'Unknown location'}
+        if electric.length > 0
+            h3 Electric
+            .listFlex
+                    for car in electric 
+                        .listCard
+                            a(href=car.url) 
+                                .card-thumbnail(id='smallThumb')
+                                    if undefined===car.thumbnail 
+                                        img(src='https://res.cloudinary.com/dpqwimjsm/image/upload/c_fit,w_800/iz6xc3p9434pwnxzqqjk' alt=`Unavailable car pic placeholder image` loading='lazy')
+                                    else 
+                                        img(src=car.thumbnail.smallThumbSrc alt=`Vehicle image` loading='lazy')
+                                .card-info(id='cardInfoModelPage')
+                                    .card-logo
+                                        img(src=car.make.logoSrc alt=`${car.make.name} logo` loading='lazy')
+                                    .card-text
+                                        .title 
+                                            p $#{car.price.toLocaleString()} • #{car.status}
+                                        .subtitleModelPage 
+                                            p #{car.mileage.toLocaleString()} miles
+                                        .footer
+                                            p #{car.country ? car.country : 'Unknown location'}

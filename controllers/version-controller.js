@@ -12,8 +12,198 @@ cloudinary.config({
 
 exports.versionList = (req, res, next) => {
   Version.find()
+    .populate("cars")
     .then((versions) => {
-      res.render("version_list", { versions });
+      const promises = [];
+      versions.forEach((v) => {
+        if (v.body == "Automobile") {
+          if (v.cars.length > 0) {
+            for (let i = 0; i < Math.min(11, v.cars.length); i++) {
+              const promise = new Promise((resolve, reject) => {
+                Car.findById(v.cars[i]._id)
+                  .populate("thumbnail")
+                  .populate("make")
+                  .then((car) => resolve({ car: car, type: v.body }))
+                  .catch((err) => reject(err));
+              });
+              promises.push(promise);
+            }
+          }
+        }
+        if (v.body == "SUV") {
+          if (v.cars.length > 0) {
+            for (let i = 0; i < Math.min(11, v.cars.length); i++) {
+              const promise = new Promise((resolve, reject) => {
+                Car.findById(v.cars[i]._id)
+                  .populate("thumbnail")
+                  .populate("make")
+                  .then((car) => resolve({ car: car, type: v.body }))
+                  .catch((err) => reject(err));
+              });
+              promises.push(promise);
+            }
+          }
+        }
+        if (v.body == "Truck") {
+          if (v.cars.length > 0) {
+            console.log("im here");
+            for (let i = 0; i < Math.min(11, v.cars.length); i++) {
+              const promise = new Promise((resolve, reject) => {
+                Car.findById(v.cars[i]._id)
+                  .populate("thumbnail")
+                  .populate("make")
+                  .then((car) => resolve({ car: car, type: v.body }))
+                  .catch((err) => reject(err));
+              });
+              promises.push(promise);
+            }
+          }
+        }
+        if (v.body == "Van") {
+          if (v.cars.length > 0) {
+            for (let i = 0; i < Math.min(11, v.cars.length); i++) {
+              const promise = new Promise((resolve, reject) => {
+                Car.findById(v.cars[i]._id)
+                  .populate("thumbnail")
+                  .populate("make")
+                  .then((car) => resolve({ car: car, type: v.body }))
+                  .catch((err) => reject(err));
+              });
+              promises.push(promise);
+            }
+          }
+        }
+        if (v.fuel == "Diesel") {
+          if (v.cars.length > 0) {
+            for (let i = 0; i < Math.min(11, v.cars.length); i++) {
+              const promise = new Promise((resolve, reject) => {
+                Car.findById(v.cars[i]._id)
+                  .populate("thumbnail")
+                  .populate("make")
+                  .then((car) => resolve({ car: car, type: v.fuel }))
+                  .catch((err) => reject(err));
+              });
+              promises.push(promise);
+            }
+          }
+        }
+        if (v.fuel == "Hybrid") {
+          if (v.cars.length > 0) {
+            for (let i = 0; i < Math.min(11, v.cars.length); i++) {
+              const promise = new Promise((resolve, reject) => {
+                Car.findById(v.cars[i]._id)
+                  .populate("thumbnail")
+                  .populate("make")
+                  .then((car) => resolve({ car: car, type: v.fuel }))
+                  .catch((err) => reject(err));
+              });
+              promises.push(promise);
+            }
+          }
+        }
+        if (v.fuel == "Electric") {
+          if (v.cars.length > 0) {
+            for (let i = 0; i < Math.min(11, v.cars.length); i++) {
+              const promise = new Promise((resolve, reject) => {
+                Car.findById(v.cars[i]._id)
+                  .populate("thumbnail")
+                  .populate("make")
+                  .then((car) => resolve({ car: car, type: v.fuel }))
+                  .catch((err) => reject(err));
+              });
+              promises.push(promise);
+            }
+          }
+        }
+        if (v.fuel == "Gasoline") {
+          if (v.cars.length > 0) {
+            for (let i = 0; i < Math.min(11, v.cars.length); i++) {
+              const promise = new Promise((resolve, reject) => {
+                Car.findById(v.cars[i]._id)
+                  .populate("thumbnail")
+                  .populate("make")
+                  .then((car) => resolve({ car: car, type: v.fuel }))
+                  .catch((err) => reject(err));
+              });
+              promises.push(promise);
+            }
+          }
+        }
+      });
+      Promise.all(promises)
+        .then((results) => {
+          const automobiles = [];
+          const trucks = [];
+          const suvs = [];
+          const vans = [];
+          const gasoline = [];
+          const diesel = [];
+          const hybrid = [];
+          const electric = [];
+          results.forEach((result) => {
+            if (result.type == "Automobile") {
+              automobiles.push(result.car);
+            }
+            if (result.type == "Truck") {
+              trucks.push(result.car);
+            }
+            if (result.type == "SUV") {
+              suvs.push(result.car);
+            }
+            if (result.type == "Van") {
+              vans.push(result.car);
+            }
+            if (result.type == "Gasoline") {
+              gasoline.push(result.car);
+            }
+            if (result.type == "Diesel") {
+              diesel.push(result.car);
+            }
+            if (result.type == "Hybrid") {
+              hybrid.push(result.car);
+            }
+            if (result.type == "Electric") {
+              electric.push(result.car);
+            }
+          });
+          //Randomize arrays:
+          automobiles.sort(() => {
+            return Math.random() - 0.5;
+          });
+          trucks.sort(() => {
+            return Math.random() - 0.5;
+          });
+          suvs.sort(() => {
+            return Math.random() - 0.5;
+          });
+          vans.sort(() => {
+            return Math.random() - 0.5;
+          });
+          gasoline.sort(() => {
+            return Math.random() - 0.5;
+          });
+          diesel.sort(() => {
+            return Math.random() - 0.5;
+          });
+          hybrid.sort(() => {
+            return Math.random() - 0.5;
+          });
+          electric.sort(() => {
+            return Math.random() - 0.5;
+          });
+
+          res.render("version_list", {
+            automobiles,
+            trucks,
+            suvs,
+            vans,
+            gasoline,
+            diesel,
+            hybrid,
+            electric,
+          });
+        })
+        .catch((err) => next(err));
     })
     .catch((err) => next(err));
 };
