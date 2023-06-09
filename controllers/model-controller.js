@@ -210,7 +210,7 @@ exports.yearFormGet = (req, res, next) => {
           yearList.push(l.year);
         }
       });
-      res.render("years-grid", { yearList, list });
+      res.render("years-grid", { yearList });
     })
     .catch((err) => next(err));
 };
