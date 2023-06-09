@@ -44,8 +44,10 @@ block content
                     for country in countries 
                         option(value=country) #{country}
     .list 
+        -count = 0
         for car in cars
-                .list-card(data-body=car.car.version.body data-energy=car.car.version.fuel data-location=car.car.country data-price=car.priceRange)
+            -count ++
+                .list-card(data-body=car.car.version.body data-energy=car.car.version.fuel data-location=car.car.country data-price=car.priceRange data-number=count)
                     a(href=car.car.url) 
                         .card-thumbnail
                             if undefined===car.pic

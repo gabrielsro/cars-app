@@ -12,12 +12,210 @@ const energies = Array.from(energySelector.querySelectorAll("option"));
 const prices = Array.from(priceSelector.querySelectorAll("option"));
 const countries = Array.from(countrySelector.querySelectorAll("option"));
 
-makeSelector.addEventListener("change", (e) => handleSelectorChange(e));
-yearSelector.addEventListener("change", (e) => handleSelectorChange(e));
-bodySelector.addEventListener("change", (e) => handleSelectorChange(e));
-energySelector.addEventListener("change", (e) => handleSelectorChange(e));
-priceSelector.addEventListener("change", (e) => handleSelectorChange(e));
-countrySelector.addEventListener("change", (e) => handleSelectorChange(e));
+makeSelector.addEventListener("change", (e) => adjustFilter(e));
+yearSelector.addEventListener("change", (e) => adjustFilter(e));
+bodySelector.addEventListener("change", (e) => adjustFilter(e));
+energySelector.addEventListener("change", (e) => adjustFilter(e));
+priceSelector.addEventListener("change", (e) => adjustFilter(e));
+countrySelector.addEventListener("change", (e) => adjustFilter(e));
+
+//currentSelections
+const selections = {
+  currentMake: "all",
+  currentYear: "all",
+  currentBody: "all",
+  currentEnergy: "all",
+  currentPrice: "all",
+  currentCountry: "all",
+};
+
+function adjustFilter(e) {
+  if (e.target.getAttribute("id") == "makeSelector") {
+    selections.currentMake = e.target.value;
+  }
+  if (e.target.getAttribute("id") == "yearSelector") {
+    selections.currentYear = e.target.value;
+  }
+  if (e.target.getAttribute("id") == "bodySelector") {
+    selections.currentBody = e.target.value;
+  }
+  if (e.target.getAttribute("id") == "energySelector") {
+    selections.currentEnergy = e.target.value;
+  }
+  if (e.target.getAttribute("id") == "priceSelector") {
+    selections.currentPrice = e.target.value;
+  }
+  if (e.target.getAttribute("id") == "countrySelector") {
+    selections.currentCountry = e.target.value;
+  }
+  updateCards();
+}
+
+function updateCards() {
+  //newOptions
+  const options = {
+    newMakes: [],
+    newYears: [],
+    newBodies: [],
+    newEnergies: [],
+    newPrices: [],
+    newCountries: [],
+  };
+  for (let i = 0; i < cards.length; i++) {
+    const carTitle = cards[i].querySelector(".title p").innerText;
+    const carYear = carTitle.split(" ")[0];
+    const carMake = cards[i]
+      .querySelector(".card-logo img")
+      .getAttribute("alt")
+      .split(" ")
+      .slice(0, -1)
+      .join(" ");
+    let score = 0;
+    //Test make
+    if (selections.currentMake == "all") {
+      score += 1;
+    }
+    if (selections.currentMake !== "all") {
+      if (selections.currentMake !== carMake) {
+        cards[i].classList.add("invisible");
+        continue;
+      }
+      score += 1;
+    }
+    //Test year
+    if (selections.currentYear == "all") {
+      score += 1;
+    }
+    if (selections.currentYear !== "all") {
+      if (carYear !== selections.currentYear) {
+        cards[i].classList.add("invisible");
+        continue;
+      }
+      score += 1;
+    }
+    //Test body
+    if (selections.currentBody == "all") {
+      score += 1;
+    }
+    if (selections.currentBody !== "all") {
+      if (cards[i].dataset.body !== selections.currentBody) {
+        cards[i].classList.add("invisible");
+        continue;
+      }
+      score += 1;
+    }
+    //Test energy
+    if (selections.currentEnergy == "all") {
+      score += 1;
+    }
+    if (selections.currentEnergy !== "all") {
+      if (cards[i].dataset.energy !== selections.currentEnergy) {
+        cards[i].classList.add("invisible");
+        continue;
+      }
+      score += 1;
+    }
+    //Test price
+    if (selections.currentPrice == "all") {
+      score += 1;
+    }
+    if (selections.currentPrice !== "all") {
+      if (cards[i].dataset.price !== selections.currentPrice) {
+        cards[i].classList.add("invisible");
+        continue;
+      }
+      score += 1;
+    }
+    //Test country
+    if (selections.currentCountry == "all") {
+      score += 1;
+    }
+    if (selections.currentCountry !== "all") {
+      if (cards[i].dataset.location !== selections.currentCountry) {
+        cards[i].classList.add("invisible");
+        continue;
+      }
+      score += 1;
+    }
+    //Check if constraints are met
+    if (score == 6) {
+      cards[i].classList.remove("invisible");
+      //Get new options:
+      if (options.newMakes.every((m) => m !== carMake)) {
+        options.newMakes.push(carMake);
+      }
+      if (options.newYears.every((y) => y !== carYear)) {
+        options.newYears.push(carYear);
+      }
+      if (options.newBodies.every((b) => b !== cards[i].dataset.body)) {
+        options.newBodies.push(cards[i].dataset.body);
+      }
+      if (options.newEnergies.every((e) => e !== cards[i].dataset.energy)) {
+        options.newEnergies.push(cards[i].dataset.energy);
+      }
+      if (options.newPrices.every((p) => p !== cards[i].dataset.price)) {
+        options.newPrices.push(cards[i].dataset.price);
+      }
+      if (options.newCountries.every((c) => c !== cards[i].dataset.location)) {
+        options.newCountries.push(cards[i].dataset.location);
+      }
+      //Update options:
+      makes.forEach((m) => {
+        if (options.newMakes.some((n) => n == m.value)) {
+          m.classList.remove("invisible");
+        }
+        if (options.newMakes.every((n) => n !== m.value)) {
+          m.classList.add("invisible");
+        }
+      });
+      years.forEach((y) => {
+        if (options.newYears.some((n) => n == y.value)) {
+          y.classList.remove("invisible");
+        }
+        if (options.newYears.every((n) => n !== y.value)) {
+          y.classList.add("invisible");
+        }
+      });
+      bodies.forEach((b) => {
+        if (options.newBodies.some((n) => n == b.value)) {
+          b.classList.remove("invisible");
+        }
+        if (options.newBodies.every((n) => n !== b.value)) {
+          b.classList.add("invisible");
+        }
+      });
+      energies.forEach((e) => {
+        if (options.newEnergies.some((n) => n == e.value)) {
+          e.classList.remove("invisible");
+        }
+        if (options.newEnergies.every((n) => n !== e.value)) {
+          e.classList.add("invisible");
+        }
+      });
+      prices.forEach((p) => {
+        if (options.newPrices.some((n) => n == p.value)) {
+          p.classList.remove("invisible");
+        }
+        if (options.newPrices.every((n) => n !== p.value)) {
+          p.classList.add("invisible");
+        }
+      });
+      countries.forEach((c) => {
+        if (options.newCountries.some((n) => n == c.value)) {
+          c.classList.remove("invisible");
+        }
+        if (options.newCountries.every((n) => n !== c.value)) {
+          c.classList.add("invisible");
+        }
+      });
+    }
+  }
+}
+
+/**
+ *
+ * OLD CODE
+ */
 
 function handleSelectorChange(e) {
   //Options to be shown:
@@ -27,15 +225,23 @@ function handleSelectorChange(e) {
   const newEnergies = [];
   const newPrices = [];
   const newCountries = [];
+
   //Filter cards
   //makeSelector change?
   if (e.target.getAttribute("id") == "makeSelector") {
+    currentMake = e.target.value;
     cards.forEach((c) => {
       const carTitle = c.querySelector(".title p").innerText;
       if (!carTitle.match(e.target.value)) {
         c.classList.add("invisible");
+        if (hiddenCards.every((h) => h !== c.dataset.number)) {
+          hiddenCards.push(c.dataset.number);
+        }
       }
-      if (carTitle.match(e.target.value)) {
+      if (
+        carTitle.match(e.target.value) &&
+        hiddenCards.every((h) => h !== c.dataset.number)
+      ) {
         c.classList.remove("invisible");
         newYears.push(carTitle.split(" ")[0]);
         newBodies.push(c.dataset.body);
@@ -44,12 +250,14 @@ function handleSelectorChange(e) {
         newPrices.push(c.dataset.price);
       }
       if (e.target.value == "all") {
+        //ALLs ARE A SPECIAL CASE PENDING REVISION
         c.classList.remove("invisible");
       }
     });
   }
   //yearSelector change?
   if (e.target.getAttribute("id") == "yearSelector") {
+    currentYear = e.target.value;
     cards.forEach((c) => {
       const carTitle = c.querySelector(".title p").innerText;
       const carYear = carTitle.split(" ")[0];
@@ -61,8 +269,14 @@ function handleSelectorChange(e) {
         .join(" ");
       if (!carYear.match(e.target.value)) {
         c.classList.add("invisible");
+        if (hiddenCards.every((h) => h !== c.dataset.number)) {
+          hiddenCards.push(c.dataset.number);
+        }
       }
-      if (carYear.match(e.target.value)) {
+      if (
+        carYear.match(e.target.value) &&
+        hiddenCards.every((h) => h !== c.dataset.number)
+      ) {
         c.classList.remove("invisible");
         newBodies.push(c.dataset.body);
         newEnergies.push(c.dataset.energy);
@@ -77,6 +291,7 @@ function handleSelectorChange(e) {
   }
   //bodySelector change?
   if (e.target.getAttribute("id") == "bodySelector") {
+    currentBody = e.target.value;
     cards.forEach((c) => {
       const carMake = c
         .querySelector(".card-logo img")
@@ -104,6 +319,7 @@ function handleSelectorChange(e) {
   }
   //energySelector change?
   if (e.target.getAttribute("id") == "energySelector") {
+    currentEnergy = e.target.value;
     cards.forEach((c) => {
       const carMake = c
         .querySelector(".card-logo img")
@@ -131,6 +347,7 @@ function handleSelectorChange(e) {
   }
   //priceSelector change?
   if (e.target.getAttribute("id") == "priceSelector") {
+    currentPrice = e.target.value;
     cards.forEach((c) => {
       const carMake = c
         .querySelector(".card-logo img")
@@ -158,6 +375,7 @@ function handleSelectorChange(e) {
   }
   //countrySelector change?
   if (e.target.getAttribute("id") == "countrySelector") {
+    currentCountry = e.target.value;
     cards.forEach((c) => {
       const carMake = c
         .querySelector(".card-logo img")

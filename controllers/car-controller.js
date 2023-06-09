@@ -214,14 +214,14 @@ exports.car_list = (req, res, next) => {
       countries.sort();
       const makesLower = makes.map((m) => {
         const lowerFirst = m.makeName[0].toLowerCase();
-        const remaining = m.makeName.slice(1, m.makeName.length);
+        const remaining = m.makeName.slice(1);
         return lowerFirst.concat(remaining);
       });
       makesLower.sort();
       const makesOrdered = makesLower.map((m) => {
         const upperFirst = m[0].toUpperCase();
-        const remaining = m.slice(1, makesLower.length);
-        return upperFirst.concat(remaining);
+        const remaining = m.slice(1);
+        return upperFirst + remaining;
       });
       res.render("car_list", {
         cars,
