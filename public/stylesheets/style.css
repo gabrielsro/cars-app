@@ -300,6 +300,10 @@ textarea {
   border-radius: 5px;
 }
 
+.years-grid-content img:hover {
+  cursor: pointer;
+}
+
 .index-content {
   padding-left: 140px;
 }

@@ -216,22 +216,53 @@ exports.yearFormGet = (req, res, next) => {
 };
 
 exports.yearFormPost = [
-  body("year").trim().isLength({ min: 1 }).escape(),
+  body("year").escape(),
+  body("period").escape(),
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       res.render("yearCars", { errors: errors.array() });
       return;
     }
-    Car.find({ year: req.body.year })
+    let query = { year: req.body.year };
+    let title = `Cars of ${req.body.year}`;
+    if (!req.body.year) {
+      if (req.body.period == "60s") {
+        query = { year: { $lt: 1980 } };
+        title = "Vintage cars";
+      }
+      if (req.body.period == "80s") {
+        query = { year: { $lt: 1990, $gt: 1979 } };
+        title = "Cars of the 80s";
+      }
+      if (req.body.period == "90s") {
+        query = { year: { $lt: 2000, $gt: 1989 } };
+        title = "Cars of the 90s";
+      }
+      if (req.body.period == "2000s") {
+        query = { year: { $lt: 2010, $gt: 1999 } };
+        title = "Early 2000s";
+      }
+      if (req.body.period == "2010s") {
+        query = { year: { $lt: 2020, $gt: 2009 } };
+        title = "Cars of 2010 - 2019";
+      }
+      if (req.body.period == "2020s") {
+        query = { year: { $gt: 2019 } };
+        title = "2020 onwards";
+      }
+    }
+    Car.find(query)
       .populate("make")
+      .populate("thumbnail")
+      .sort({ year: 1 })
       .then((carResult) => {
         let picPromises = [];
         let carList = [];
         carResult.forEach((c) => {
           let picPromise = new Promise((resolve, reject) => {
-            Pic.find({ car: c._id, position: 1 }, "image")
-              .then(resolve)
+            Pic.find({ car: c._id }, "cloudinaryId")
+              .then((thumbnail) => resolve(thumbnail))
               .catch((err) => reject(err));
           });
           picPromises.push(picPromise);
@@ -249,7 +280,7 @@ exports.yearFormPost = [
               }
             });
             res.render("yearCars", {
-              year: req.body.year,
+              title: title,
               carResult,
               carList,
               makes,
