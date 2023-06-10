@@ -868,7 +868,7 @@ exports.carDetail = (req, res, next) => {
                     const typePromise = new Promise((resolve, reject) => {
                       Pic.findById(c.thumbnail._id)
                         .then((thnl) => {
-                          resolve({ car: c, pic: thnl, make: results[0].make });
+                          resolve({ car: c, pic: thnl });
                         })
                         .catch((err) => reject(err));
                     });
@@ -879,7 +879,7 @@ exports.carDetail = (req, res, next) => {
                   const typePromise = new Promise((resolve, reject) => {
                     Pic.findById(c.thumbnail._id)
                       .then((thnl) => {
-                        resolve({ car: c, pic: thnl, make: results[0].make });
+                        resolve({ car: c, pic: thnl });
                       })
                       .catch((err) => reject(err));
                   });

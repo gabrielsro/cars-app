@@ -1280,6 +1280,10 @@ fieldset {
   padding-right: 10px;
 }
 
+.car-interests {
+  padding-top: 20px;
+}
+
 .car-interests h4 {
   font-size: 1.4rem;
   margin-bottom: 10px;

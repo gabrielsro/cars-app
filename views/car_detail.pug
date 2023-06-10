@@ -6,6 +6,7 @@ block scripts
     script(src="/javascripts/layoutMenuButton.js" defer='true')
     script(src="/javascripts/specsControl.js" defer='true')
     script(src="/javascripts/logoResizer.js" defer='true')
+    script(src="/javascripts/cardTricks.js" defer='true')
 block content
     .car-title
         .car-title-info
@@ -344,7 +345,7 @@ block content
                 h4 Some other #{car.model.year} #{car.make.name}  #{car.model.name}s you might like...
                 .listFlex
                     for car in sameModel 
-                        .listCard 
+                        .list-card 
                             a(href = car.car.url)
                                 .card-thumbnail(id='smallThumb')
                                     if undefined===car.pic 
@@ -356,17 +357,17 @@ block content
                                         img(src=car.make.logoSrc alt=`${car.make.name} logo` loading='lazy')
                                     .card-text
                                         .title 
-                                            p $#{car.car.price.toLocaleString()} • #{car.car.status}
-                                        .subtitleModelPage 
-                                            p #{car.car.mileage.toLocaleString()} miles
+                                            p #{car.car.year} #{car.car.makeName} #{car.car.modelName}
+                                        .subtitle
+                                            p #{car.car.modelVariant}
                                         .footer
-                                            p #{car.car.country ? car.car.country : 'Unknown location'}
+                                            p $#{car.car.price.toLocaleString()} • #{car.car.country ? car.car.country : 'Unknown location'} • #{car.car.mileage.toLocaleString()} miles
         if type == 'powerful'
             .interest-row 
                 h4 If you're into powerful cars you might like...
                 .listFlex
                     for car in sameTypeCars 
-                        .listCard 
+                        .list-card 
                             a(href = car.car.url)
                                 .card-thumbnail(id='smallThumb')
                                     if undefined===car.pic 
@@ -374,21 +375,19 @@ block content
                                     else 
                                         img(src=car.pic.smallThumbSrc alt=`Vehicle image` loading='lazy')
                                 .card-info(id='cardInfoModelPage')
-                                    .card-logo
-                                        img(src=car.make.logoSrc alt=`${car.make.name} logo` loading='lazy')
                                     .card-text
                                         .title 
-                                            p $#{car.car.price.toLocaleString()} • #{car.car.status}
-                                        .subtitleModelPage 
-                                            p #{car.car.mileage.toLocaleString()} miles
+                                            p #{car.car.year} #{car.car.makeName} #{car.car.modelName}
+                                        .subtitle
+                                            p #{car.car.modelVariant}
                                         .footer
-                                            p #{car.car.country ? car.car.country : 'Unknown location'}
+                                            p $#{car.car.price.toLocaleString()} • #{car.car.country ? car.car.country : 'Unknown location'} • #{car.car.mileage.toLocaleString()} miles
         if type =='strong'
             .interest-row 
                 h4 If you're into strong vehicles you might like...
                 .listFlex
                     for car in sameTypeCars 
-                        .listCard 
+                        .list-Card 
                             a(href = car.car.url)
                                 .card-thumbnail(id='smallThumb')
                                     if undefined===car.pic 
@@ -396,21 +395,19 @@ block content
                                     else 
                                         img(src=car.pic.smallThumbSrc alt=`Vehicle image` loading='lazy')
                                 .card-info(id='cardInfoModelPage')
-                                    .card-logo
-                                        img(src=car.make.logoSrc alt=`${car.make.name} logo` loading='lazy')
                                     .card-text
                                         .title 
-                                            p $#{car.car.price.toLocaleString()} • #{car.car.status}
-                                        .subtitleModelPage 
-                                            p #{car.car.mileage.toLocaleString()} miles
+                                            p #{car.car.year} #{car.car.makeName} #{car.car.modelName}
+                                        .subtitle
+                                            p #{car.car.modelVariant}
                                         .footer
-                                            p #{car.car.country ? car.car.country : 'Unknown location'}
+                                            p $#{car.car.price.toLocaleString()} • #{car.car.country ? car.car.country : 'Unknown location'} • #{car.car.mileage.toLocaleString()} miles
         if type == 'fast'
             .interest-row 
                 h4 If you're into fast cars you might like...
                 .listFlex
                     for car in sameTypeCars 
-                        .listCard 
+                        .list-Card 
                             a(href = car.car.url)
                                 .card-thumbnail(id='smallThumb')
                                     if undefined===car.pic 
@@ -418,21 +415,19 @@ block content
                                     else 
                                         img(src=car.pic.smallThumbSrc alt=`Vehicle image` loading='lazy')
                                 .card-info(id='cardInfoModelPage')
-                                    .card-logo
-                                        img(src=car.make.logoSrc alt=`${car.make.name} logo` loading='lazy')
                                     .card-text
                                         .title 
-                                            p $#{car.car.price.toLocaleString()} • #{car.car.status}
-                                        .subtitleModelPage 
-                                            p #{car.car.mileage.toLocaleString()} miles
+                                            p #{car.car.year} #{car.car.makeName} #{car.car.modelName}
+                                        .subtitle
+                                            p #{car.car.modelVariant}
                                         .footer
-                                            p #{car.car.country ? car.car.country : 'Unknown location'}
+                                            p $#{car.car.price.toLocaleString()} • #{car.car.country ? car.car.country : 'Unknown location'} • #{car.car.mileage.toLocaleString()} miles
         if type == 'economy'
             .interest-row 
                 h4 Vehicles with good fuel economy
                 .listFlex
                     for car in sameTypeCars 
-                        .listCard 
+                        .list-Card 
                             a(href = car.car.url)
                                 .card-thumbnail(id='smallThumb')
                                     if undefined===car.pic 
@@ -440,15 +435,13 @@ block content
                                     else 
                                         img(src=car.pic.smallThumbSrc alt=`Vehicle image` loading='lazy')
                                 .card-info(id='cardInfoModelPage')
-                                    .card-logo
-                                        img(src=car.make.logoSrc alt=`${car.make.name} logo` loading='lazy')
                                     .card-text
                                         .title 
-                                            p $#{car.car.price.toLocaleString()} • #{car.car.status}
-                                        .subtitleModelPage 
-                                            p #{car.car.mileage.toLocaleString()} miles
+                                            p #{car.car.year} #{car.car.makeName} #{car.car.modelName}
+                                        .subtitle
+                                            p #{car.car.modelVariant}
                                         .footer
-                                            p #{car.car.country ? car.car.country : 'Unknown location'}
+                                            p $#{car.car.price.toLocaleString()} • #{car.car.country ? car.car.country : 'Unknown location'} • #{car.car.mileage.toLocaleString()} miles
 
         
 
