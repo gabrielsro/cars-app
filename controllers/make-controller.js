@@ -103,7 +103,7 @@ exports.makeDetail = (req, res, next) => {
       .populate("version", "energy year")
       .populate("thumbnail"),
   ])
-    .then((results) => {
+    .then(async (results) => {
       let modelsList = results[1];
       let modelsListComplete = [];
       let modelsUniqueList;
@@ -130,11 +130,16 @@ exports.makeDetail = (req, res, next) => {
           pic: cars[i].thumbnail ? cars[i].thumbnail.thumbnailSrc : undefined,
         });
       }
+      const sameOriginMakes = await Make.find({
+        country: results[0].country,
+        name: { $ne: results[0].name },
+      });
       res.render("make_detail", {
         make: results[0],
         list: modelsListComplete,
         makeId: req.params.id,
         cars: carList,
+        sameOriginMakes,
       });
     })
     .catch((err) => next(err));

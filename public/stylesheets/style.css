@@ -972,6 +972,14 @@ fieldset {
   display: inline;
 }
 
+.otherMakes {
+  padding-top: 70px;
+}
+
+.otherMakes h2 {
+  margin-bottom: 20px;
+}
+
 .list,
 .version-cars-container,
 .cars-container {
@@ -1281,12 +1289,12 @@ fieldset {
 }
 
 .car-interests {
-  padding-top: 20px;
+  padding-top: 40px;
 }
 
 .car-interests h4 {
   font-size: 1.4rem;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .car-interests .interest-row {

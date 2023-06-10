@@ -52,7 +52,15 @@ block content
                                         p $#{car.car.price.toLocaleString()} • #{car.car.status}
     else 
         h3 #{`We don't have ${make.name} models at the moment.`}
-                    
+    if sameOriginMakes.length > 0
+        .otherMakes
+            h2 Other #{make.demonym} makes:
+            .makeContainer
+                    for other in sameOriginMakes 
+                        .makeCard
+                            a(href=other.url) 
+                                img(src=`${other.logoSrc}` alt=`${other.name} logo` loading='lazy')
+                        
     
     
 
