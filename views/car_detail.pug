@@ -318,15 +318,16 @@ block content
                 h4 
                     - typeLowerCase = ''
                     - body==='SUVs' ? typeLowerCase='SUV' : typeLowerCase = body.toLowerCase()
-                    a(href='') #{car.make.demonym} #{typeLowerCase}
+                    a(href='') #{car.make.demonym} #{typeLowerCase}s
                 h4 
-                    a(href='') #{car.version.fuel} #{typeLowerCase}
-                h4
-                    a(href='') #{car.version.body}s by #{car.make.name}
-                h4 
-                    a(href='') #{car.make.demonym} #{car.version.body}s
-                h4  
-                    a(href='') #{car.version.fuel} #{car.version.body}s
+                    a(href='') #{car.version.fuel} #{typeLowerCase}s
+                if car.version.body !== 'Unspecified'
+                    h4
+                        a(href='') #{car.version.body}s by #{car.make.name}
+                    h4 
+                        a(href='') #{car.make.demonym} #{car.version.body}#{car.version.body[car.version.body.length - 1] == 's' ? '' : 's'}
+                    h4  
+                        a(href='') #{car.version.fuel} #{car.version.body}s
             else 
                 h4 
                     a(href='') #{car.make.demonym} cars
