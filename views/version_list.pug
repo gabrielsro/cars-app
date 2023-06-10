@@ -1,4 +1,9 @@
 extends layout 
+block scripts 
+    script(src="/javascripts/layoutSearch.js" defer='true')
+    script(src="/javascripts/layoutModes.js" defer='true')
+    script(src="/javascripts/layoutMenuButton.js" defer='true')
+    script(src="/javascripts/logoResizer.js" defer='true')
 block content 
     h1(class='versionPageTitle') Versions
     section(class='versionPageSection')

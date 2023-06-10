@@ -424,6 +424,23 @@ textarea {
   color: black;
 }
 
+.autoScroll:hover {
+  animation: scrollText 7s linear infinite;
+}
+
+.autoScrollOnce {
+  animation: scrollText 10s linear infinite;
+}
+
+@keyframes scrollText {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
 .form label {
   white-space: nowrap;
 }
