@@ -186,12 +186,12 @@ textarea {
   padding-left: 20px;
   padding-right: 20px;
   margin-left: 115px;
-  width: calc(100vw - 115px);
+  width: calc(100vw - 125px);
 }
 
 .side-bar {
   height: 100vh;
-  width: 115px;
+  width: 125px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -204,6 +204,10 @@ textarea {
 
 .side-bar a {
   font-size: 1.5em;
+}
+
+.side-bar a:hover {
+  font-weight: bold;
 }
 
 .top {
@@ -973,7 +977,7 @@ fieldset {
 .cars-container {
   display: grid;
   row-gap: 30px;
-  column-gap: 13px;
+  column-gap: 17px;
   grid-template-columns: repeat(auto-fill, minmax(100px, 359.98px));
   place-content: center;
 }
@@ -1276,16 +1280,24 @@ fieldset {
   padding-right: 10px;
 }
 
-.car-interests > h4 {
+.car-interests h4 {
   font-size: 1.4rem;
   margin-bottom: 10px;
 }
 
+.car-interests .interest-row {
+  margin-bottom: 40px;
+}
+
+.interest-links {
+  margin-bottom: 30px;
+}
+
 .car-links {
   display: flex;
-  gap: 30px;
-  justify-content: space-around;
-  padding-bottom: 30px;
+  column-gap: 30px;
+  row-gap: 15px;
+  padding-bottom: 3px;
   flex-wrap: wrap;
   padding-left: 10px;
   padding-right: 10px;

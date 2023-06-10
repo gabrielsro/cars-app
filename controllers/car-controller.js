@@ -756,25 +756,154 @@ exports.add_car_variants_submit = [
 ];
 
 exports.carDetail = (req, res, next) => {
-  Car.findById(req.params.id)
-    .populate("make")
-    .populate("model")
-    .populate("version")
-    .populate("pics")
-    .then((car) => {
-      const pics = [];
-      if (car.pics.length > 0) {
-        car.pics.forEach((p) => {
-          pics.push({
-            full: p.originalSrc,
-            mid: p.midsizeSrc,
-            mini: p.miniSrc,
-          });
+  Promise.all([
+    Model.findById(req.params.modelId)
+      .populate("cars")
+      .limit(12)
+      .populate("make"),
+    Car.findById(req.params.id)
+      .populate("make")
+      .populate("model")
+      .populate("version")
+      .populate("pics"),
+  ]).then((results) => {
+    //Get cars of the same model and set up a prom. array to find their pics
+    const modelCars = results[0].cars;
+    const promises = [];
+    modelCars.forEach((c) => {
+      if (c._id != req.params.id) {
+        const promise = new Promise((resolve, reject) => {
+          Pic.findById(c.thumbnail._id)
+            .then((thumb) =>
+              resolve({ car: c, pic: thumb, make: results[0].make })
+            )
+            .catch((err) => reject(err));
+        });
+        promises.push(promise);
+      }
+    });
+    //Setup promise to find versions that meet the type criteria
+    const car = results[1];
+    const body = results[1].version.body;
+    const speed = results[1].version.maxSpeed;
+    const power = results[1].version.enginePower;
+    const torque = results[1].version.engineTorqueNm;
+    const fuelEco = results[1].version.fuelEfficiencyHgw;
+    let type;
+    let versionsPromise;
+    if (fuelEco > 31) {
+      type = "economy";
+      versionsPromise = new Promise((resolve, reject) => {
+        Version.find({ fuelEfficiencyHgw: { $gt: 32 } })
+          .populate("cars")
+          .then((vList) => {
+            resolve({ type, vList });
+          })
+          .catch((err) => reject(err));
+      });
+    }
+    if (body == "Truck" || body == "SUV") {
+      if (torque > 430) {
+        type = "strong";
+        versionsPromise = new Promise((resolve, reject) => {
+          Version.find({ engineTorqueNm: { $gt: 430 } })
+            .populate("cars")
+            .then((vList) => {
+              resolve({ type, vList });
+            })
+            .catch((err) => reject(err));
         });
       }
-      res.render("car_detail", { car, pics });
-    })
-    .catch((err) => next(err));
+    }
+    if (power > 259) {
+      type = "powerful";
+      versionsPromise = new Promise((resolve, reject) => {
+        Version.find({ enginePower: { $gt: 260 } })
+          .populate("cars")
+          .then((vList) => {
+            resolve({ type, vList });
+          })
+          .catch((err) => reject(err));
+      });
+    }
+    if (speed > 240) {
+      type = "fast";
+      versionsPromise = new Promise((resolve, reject) => {
+        Version.find({ maxSpeed: { $gt: 240 } })
+          .populate("cars")
+          .then((vList) => {
+            resolve({ type, vList });
+          })
+          .catch((err) => reject(err));
+      });
+    }
+    const pics = [];
+    if (results[1].pics.length > 0) {
+      results[1].pics.forEach((p) => {
+        pics.push({
+          full: p.originalSrc,
+          mid: p.midsizeSrc,
+          mini: p.miniSrc,
+        });
+      });
+    }
+    //Push versions promise to array of promises:
+    promises.push(versionsPromise);
+    //Run promises:
+    Promise.all(promises)
+      .then((resultados) => {
+        //Take same model cars and set them apart:
+        const sameModel = resultados.slice(0, resultados.length - 1);
+        //Take found versions and prepare them to get cars and pics out of them
+        const foundVersions = resultados.slice(-1)[0];
+        //res.send(foundVersions);
+        //res.send(sameModel);
+        const sameTypePromises = [];
+        if (foundVersions && foundVersions.vList.length > 0) {
+          foundVersions.vList.forEach((v) => {
+            v.cars.forEach((c) => {
+              if (c._id != req.params.id) {
+                if (foundVersions.type == "strong") {
+                  if (c.body == "Truck" || c.body == "SUV") {
+                    const typePromise = new Promise((resolve, reject) => {
+                      Pic.findById(c.thumbnail._id)
+                        .then((thnl) => {
+                          resolve({ car: c, pic: thnl, make: results[0].make });
+                        })
+                        .catch((err) => reject(err));
+                    });
+                    sameTypePromises.push(typePromise);
+                  }
+                }
+                if (foundVersions.type !== "strong") {
+                  const typePromise = new Promise((resolve, reject) => {
+                    Pic.findById(c.thumbnail._id)
+                      .then((thnl) => {
+                        resolve({ car: c, pic: thnl, make: results[0].make });
+                      })
+                      .catch((err) => reject(err));
+                  });
+                  sameTypePromises.push(typePromise);
+                }
+              }
+            });
+          });
+        }
+        Promise.all(sameTypePromises)
+          .then((sameTypeCars) => {
+            sameTypeCars.sort(() => Math.random() - 0.5);
+            res.render("car_detail", {
+              car,
+              pics,
+              sameModel,
+              type,
+              sameTypeCars,
+            });
+          })
+          .catch((err) => next(err));
+      })
+      .catch((err) => next(err));
+  });
 };
 
 exports.carAndVersionUpdate = (req, res, next) => {

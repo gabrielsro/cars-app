@@ -79,7 +79,7 @@ router.post("/add-car/form-submission", carController.add_car_variants_submit);
 router.get("/car/:id/update/:from", carController.carUpdate);
 router.get("/car/:id/delete", carController.carDelete);
 router.get("/cars", carController.car_list);
-router.get("/car/:id", carController.carDetail);
+router.get("/car/:id/page/:modelId", carController.carDetail);
 router.post(
   "/car_version_update/:carId/:versionId/:carChange/:versionChange",
   carController.carAndVersionUpdate

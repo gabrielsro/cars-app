@@ -49,7 +49,7 @@ block content
         for car in cars
             -count ++
                 .list-card(data-body=car.car.version.body data-energy=car.car.version.fuel data-location=car.car.country data-price=car.priceRange data-number=count)
-                    a(href=car.car.url) 
+                    a(href=`${car.car.url}`) 
                         .card-thumbnail
                             if undefined===car.pic
                                 img(src='https://res.cloudinary.com/dpqwimjsm/image/upload/c_fit,w_800,e_sharpen/iz6xc3p9434pwnxzqqjk' alt=`Unavailable car pic placeholder image` loading='lazy')

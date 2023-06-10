@@ -54,7 +54,7 @@ const CarSchema = new Schema(
 );
 
 CarSchema.virtual("url").get(function () {
-  return `/inventory/car/${this._id}`;
+  return `/inventory/car/${this._id}/page/${this.model._id}`;
 });
 
 module.exports = mongoose.model("Car", CarSchema);

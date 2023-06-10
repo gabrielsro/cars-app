@@ -5,6 +5,7 @@ block scripts
     script(src="/javascripts/layoutModes.js" defer='true')
     script(src="/javascripts/layoutMenuButton.js" defer='true')
     script(src="/javascripts/specsControl.js" defer='true')
+    script(src="/javascripts/logoResizer.js" defer='true')
 block content
     .car-title
         .car-title-info
@@ -306,31 +307,150 @@ block content
                         button(type='submit') Send
     .car-description 
         p= car.description
-    .car-interests 
-        h4 You might be interested in... 
-        .car-links
-            if car.version.versionBodyType !== null 
-                - body = /s$/.test(car.version.versionBodyType) ? car.version.versionBodyType : `${car.version.versionBodyType}s`
-                h4 
-                    a(href='') #{body}
-                h4 
-                    a(href='') #{body} by #{car.make.name}
-                h4 
-                    - typeLowerCase = ''
-                    - body==='SUVs' ? typeLowerCase='SUV' : typeLowerCase = body.toLowerCase()
-                    a(href='') #{car.make.demonym} #{typeLowerCase}s
-                h4 
-                    a(href='') #{car.version.fuel} #{typeLowerCase}s
-                if car.version.body !== 'Unspecified'
-                    h4
-                        a(href='') #{car.version.body}s by #{car.make.name}
+    .car-interests
+        .interest-links 
+            h4 You might be interested in... 
+            .car-links
+                if car.version.versionBodyType !== null 
+                    - body = /s$/.test(car.version.versionBodyType) ? car.version.versionBodyType : `${car.version.versionBodyType}s`
                     h4 
-                        a(href='') #{car.make.demonym} #{car.version.body}#{car.version.body[car.version.body.length - 1] == 's' ? '' : 's'}
-                    h4  
-                        a(href='') #{car.version.fuel} #{car.version.body}s
-            else 
-                h4 
-                    a(href='') #{car.make.demonym} cars
+                        a(href='') #{body}
+                    h4 
+                        a(href='') #{body} by #{car.make.name}
+                    h4 
+                        - typeLowerCase = ''
+                        - body==='SUVs' ? typeLowerCase='SUV' : typeLowerCase = body.toLowerCase()
+                        if typeLowerCase.slice(-1)[0] == 's'
+                            a(href='') #{car.make.demonym} #{typeLowerCase}
+                        if typeLowerCase.slice(-1)[0] !== 's'
+                            a(href='') #{car.make.demonym} #{typeLowerCase}
+                    h4 
+                        if typeLowerCase.slice(-1)[0] == 's'
+                            a(href='') #{car.version.fuel} #{typeLowerCase}
+                        if typeLowerCase.slice(-1)[0] !== 's'
+                            a(href='') #{car.version.fuel} #{typeLowerCase}s
+                    if car.version.body !== 'Unspecified'
+                        h4
+                            a(href='') #{car.version.body}s by #{car.make.name}
+                        h4 
+                            a(href='') #{car.make.demonym} #{car.version.body}s
+                        h4  
+                            a(href='') #{car.version.fuel} #{car.version.body}s
+                else 
+                    h4 
+                        a(href='') #{car.make.demonym} cars
+        if sameModel.length > 0
+            .interest-row 
+                h4 Some other #{car.model.year} #{car.make.name}  #{car.model.name}s you might like...
+                .listFlex
+                    for car in sameModel 
+                        .listCard 
+                            a(href = car.car.url)
+                                .card-thumbnail(id='smallThumb')
+                                    if undefined===car.pic 
+                                        img(src='https://res.cloudinary.com/dpqwimjsm/image/upload/c_fit,w_800/iz6xc3p9434pwnxzqqjk' alt=`Unavailable car pic placeholder image` loading='lazy')
+                                    else 
+                                        img(src=car.pic.smallThumbSrc alt=`Vehicle image` loading='lazy')
+                                .card-info(id='cardInfoModelPage')
+                                    .card-logo
+                                        img(src=car.make.logoSrc alt=`${car.make.name} logo` loading='lazy')
+                                    .card-text
+                                        .title 
+                                            p $#{car.car.price.toLocaleString()} • #{car.car.status}
+                                        .subtitleModelPage 
+                                            p #{car.car.mileage.toLocaleString()} miles
+                                        .footer
+                                            p #{car.car.country ? car.car.country : 'Unknown location'}
+        if type == 'powerful'
+            .interest-row 
+                h4 If you're into powerful cars you might like...
+                .listFlex
+                    for car in sameTypeCars 
+                        .listCard 
+                            a(href = car.car.url)
+                                .card-thumbnail(id='smallThumb')
+                                    if undefined===car.pic 
+                                        img(src='https://res.cloudinary.com/dpqwimjsm/image/upload/c_fit,w_800/iz6xc3p9434pwnxzqqjk' alt=`Unavailable car pic placeholder image` loading='lazy')
+                                    else 
+                                        img(src=car.pic.smallThumbSrc alt=`Vehicle image` loading='lazy')
+                                .card-info(id='cardInfoModelPage')
+                                    .card-logo
+                                        img(src=car.make.logoSrc alt=`${car.make.name} logo` loading='lazy')
+                                    .card-text
+                                        .title 
+                                            p $#{car.car.price.toLocaleString()} • #{car.car.status}
+                                        .subtitleModelPage 
+                                            p #{car.car.mileage.toLocaleString()} miles
+                                        .footer
+                                            p #{car.car.country ? car.car.country : 'Unknown location'}
+        if type =='strong'
+            .interest-row 
+                h4 If you're into strong vehicles you might like...
+                .listFlex
+                    for car in sameTypeCars 
+                        .listCard 
+                            a(href = car.car.url)
+                                .card-thumbnail(id='smallThumb')
+                                    if undefined===car.pic 
+                                        img(src='https://res.cloudinary.com/dpqwimjsm/image/upload/c_fit,w_800/iz6xc3p9434pwnxzqqjk' alt=`Unavailable car pic placeholder image` loading='lazy')
+                                    else 
+                                        img(src=car.pic.smallThumbSrc alt=`Vehicle image` loading='lazy')
+                                .card-info(id='cardInfoModelPage')
+                                    .card-logo
+                                        img(src=car.make.logoSrc alt=`${car.make.name} logo` loading='lazy')
+                                    .card-text
+                                        .title 
+                                            p $#{car.car.price.toLocaleString()} • #{car.car.status}
+                                        .subtitleModelPage 
+                                            p #{car.car.mileage.toLocaleString()} miles
+                                        .footer
+                                            p #{car.car.country ? car.car.country : 'Unknown location'}
+        if type == 'fast'
+            .interest-row 
+                h4 If you're into fast cars you might like...
+                .listFlex
+                    for car in sameTypeCars 
+                        .listCard 
+                            a(href = car.car.url)
+                                .card-thumbnail(id='smallThumb')
+                                    if undefined===car.pic 
+                                        img(src='https://res.cloudinary.com/dpqwimjsm/image/upload/c_fit,w_800/iz6xc3p9434pwnxzqqjk' alt=`Unavailable car pic placeholder image` loading='lazy')
+                                    else 
+                                        img(src=car.pic.smallThumbSrc alt=`Vehicle image` loading='lazy')
+                                .card-info(id='cardInfoModelPage')
+                                    .card-logo
+                                        img(src=car.make.logoSrc alt=`${car.make.name} logo` loading='lazy')
+                                    .card-text
+                                        .title 
+                                            p $#{car.car.price.toLocaleString()} • #{car.car.status}
+                                        .subtitleModelPage 
+                                            p #{car.car.mileage.toLocaleString()} miles
+                                        .footer
+                                            p #{car.car.country ? car.car.country : 'Unknown location'}
+        if type == 'economy'
+            .interest-row 
+                h4 Vehicles with good fuel economy
+                .listFlex
+                    for car in sameTypeCars 
+                        .listCard 
+                            a(href = car.car.url)
+                                .card-thumbnail(id='smallThumb')
+                                    if undefined===car.pic 
+                                        img(src='https://res.cloudinary.com/dpqwimjsm/image/upload/c_fit,w_800/iz6xc3p9434pwnxzqqjk' alt=`Unavailable car pic placeholder image` loading='lazy')
+                                    else 
+                                        img(src=car.pic.smallThumbSrc alt=`Vehicle image` loading='lazy')
+                                .card-info(id='cardInfoModelPage')
+                                    .card-logo
+                                        img(src=car.make.logoSrc alt=`${car.make.name} logo` loading='lazy')
+                                    .card-text
+                                        .title 
+                                            p $#{car.car.price.toLocaleString()} • #{car.car.status}
+                                        .subtitleModelPage 
+                                            p #{car.car.mileage.toLocaleString()} miles
+                                        .footer
+                                            p #{car.car.country ? car.car.country : 'Unknown location'}
+
+        
 
         
 
