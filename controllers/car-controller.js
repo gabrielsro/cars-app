@@ -42,6 +42,89 @@ exports.index = (req, res, next) => {
     .catch((err) => next(err));
 };
 
+exports.car_link = (req, res, next) => {
+  let bodyType;
+  let make;
+  let country;
+  let fuel;
+  let body;
+  if (req.params.bodytype !== "unspecified") {
+    bodyType = req.params.bodytype.split("_").join(" ");
+  }
+  if (req.params.make !== "unspecified") {
+    make = req.params.make.split("_").join(" ");
+  }
+  if (req.params.country !== "unspecified") {
+    country = req.params.country.split("_").join(" ");
+  }
+  if (req.params.fuel !== "unspecified") {
+    fuel = req.params.fuel.split("_").join(" ");
+  }
+  if (req.params.body !== "unspecified") {
+    body = req.params.body.split("_").join(" ");
+  }
+  //User wants the bodyType:
+  if (bodyType && !make && !country && !fuel && !body) {
+    Version.find({ versionBodyType: bodyType }, "cars")
+      .populate("cars")
+      .then((versions) => {
+        const promises = [];
+        versions.forEach((v) => {
+          v.cars.forEach((c) => {
+            const promise = new Promise((resolve, reject) => {
+              //Get thumbnail and make logo of each car
+              const picPromise = new Promise((resolvePic, rejectPic) => {
+                Pic.findById(c.thumbnail._id)
+                  .then(resolvePic)
+                  .catch((err) => rejectPic(err));
+              });
+              const makePromise = new Promise((resolveMake, rejectMake) => {
+                Make.findById(c.make._id)
+                  .then(resolveMake)
+                  .catch((err) => rejectMake(err));
+              });
+              const carPromises = [picPromise, makePromise];
+              Promise.all(carPromises)
+                .then((carAssets) => {
+                  resolve({
+                    car: c,
+                    thumbnail: carAssets[0],
+                    make: carAssets[1],
+                  });
+                })
+                .catch((err) => reject(err));
+            });
+            promises.push(promise);
+          });
+        });
+        //Run promises to get all cars and their assets
+        Promise.all(promises)
+          .then((cars) => {
+            res.render("queryList", { title: bodyType, cars });
+          })
+          .catch((err) => next(err));
+      });
+  }
+  //User wants the bodyType and the make:
+  if (bodyType && !make && !country && !fuel && !body) {
+  }
+  //User wants the bodyType and the country:
+  if (bodyType && !make && !country && !fuel && !body) {
+  }
+  //User wants the bodyType and the fuel:
+  if (bodyType && !make && !country && !fuel && !body) {
+  }
+  //User wants the body and the make:
+  if (bodyType && !make && !country && !fuel && !body) {
+  }
+  //User wants the body and the country:
+  if (bodyType && !make && !country && !fuel && !body) {
+  }
+  //User wants the body and the fuel:
+  if (bodyType && !make && !country && !fuel && !body) {
+  }
+};
+
 exports.car_list = (req, res, next) => {
   Car.find({}, "make model status price version modelVariant country year")
     .populate("make", "name")

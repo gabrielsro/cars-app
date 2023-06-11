@@ -314,32 +314,35 @@ block content
             .car-links
                 if car.version.versionBodyType !== null 
                     - body = /s$/.test(car.version.versionBodyType) ? car.version.versionBodyType : `${car.version.versionBodyType}s`
+                    - bodyTypeFormatted = car.version.versionBodyType.split(' ').join("_") 
+                    - makeFormatted = car.make.name.split(" ").join('_')
+                    - countryFormatted = car.make.country.split(' ').join('_')
                     h4 
-                        a(href='') #{body}
+                        a(href=`/inventory/cars/${bodyTypeFormatted}/unspecified/unspecified/unspecified/unspecified`) #{body}
                     h4 
-                        a(href='') #{body} by #{car.make.name}
+                        a(href=`/inventory/cars/${bodyTypeFormatted}/${makeFormatted}/unspecified/unspecified/unspecified`) #{body} by #{car.make.name}
                     h4 
                         - typeLowerCase = ''
                         - body==='SUVs' ? typeLowerCase='SUV' : typeLowerCase = body.toLowerCase()
                         if typeLowerCase.slice(-1)[0] == 's'
-                            a(href='') #{car.make.demonym} #{typeLowerCase}
+                            a(href=`/inventory/cars/${bodyTypeFormatted}/unspecified/${countryFormatted}/unspecified/unspecified`) #{car.make.demonym} #{typeLowerCase}
                         if typeLowerCase.slice(-1)[0] !== 's'
-                            a(href='') #{car.make.demonym} #{typeLowerCase}
+                            a(href=`/inventory/cars/${bodyTypeFormatted}/unspecified/${countryFormatted}/unspecified/unspecified`) #{car.make.demonym} #{typeLowerCase}
                     h4 
                         if typeLowerCase.slice(-1)[0] == 's'
-                            a(href='') #{car.version.fuel} #{typeLowerCase}
+                            a(href=`/inventory/cars/${bodyTypeFormatted}/unspecified/unspecified/${car.version.fuel}/unspecified`) #{car.version.fuel} #{typeLowerCase}
                         if typeLowerCase.slice(-1)[0] !== 's'
-                            a(href='') #{car.version.fuel} #{typeLowerCase}s
+                            a(href=`/inventory/cars/${bodyTypeFormatted}/unspecified/unspecified/${car.version.fuel}/unspecified`) #{car.version.fuel} #{typeLowerCase}s
                     if car.version.body !== 'Unspecified'
                         h4
-                            a(href='') #{car.version.body}s by #{car.make.name}
+                            a(href=`/inventory/cars/unspecified/${makeFormatted}/unspecified/unspecified/${car.version.body}`) #{car.version.body}s by #{car.make.name}
                         h4 
-                            a(href='') #{car.make.demonym} #{car.version.body}s
+                            a(href=`/inventory/cars/unspecified/unspecified/${countryFormatted}/unspecified/${car.version.body}`) #{car.make.demonym} #{car.version.body}s
                         h4  
-                            a(href='') #{car.version.fuel} #{car.version.body}s
+                            a(href=`/inventory/cars/unspecified/unspecified/unspecified/${car.version.fuel}/${car.version.body}`) #{car.version.fuel} #{car.version.body}s
                 else 
                     h4 
-                        a(href='') #{car.make.demonym} cars
+                        a(href=`/inventory/cars/bodytype/make/country/fuel/body`) #{car.make.demonym} cars
         if sameModel.length > 0
             .interest-row 
                 h4 Some other #{car.model.year} #{car.make.name}  #{car.model.name}s you might like...

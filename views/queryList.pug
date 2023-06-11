@@ -1,0 +1,27 @@
+extends layout 
+block content 
+    - titleFixed = title.slice(-1)[0] == 's' ? title : title = title + 's'
+    h1= titleFixed
+    .list 
+        for car in cars 
+            .list-card(data-body=car.car.version.body data-energy=car.car.version.fuel data-location=car.car.country data-price=car.priceRange data-number=count)
+                    a(href=`${car.car.url}`) 
+                        .card-thumbnail
+                            if undefined===car.thumbnail
+                                img(src='https://res.cloudinary.com/dpqwimjsm/image/upload/c_fit,w_800,e_sharpen/iz6xc3p9434pwnxzqqjk' alt=`Unavailable car pic placeholder image` loading='lazy')
+                            else 
+                                img(src=`${car.thumbnail.thumbnailSrc}` alt=`Vehicle image` loading='lazy')
+                            
+                        .card-info
+                            .card-logo
+                                img(src=car.make.logoSrc alt=`${car.make.name} logo`)
+                            .card-text
+                                .title 
+                                    p #{car.car.version.year} #{car.car.make.name} #{car.car.model.name}
+                                .subtitle 
+                                    p #{car.car.modelVariant}
+                                .footer
+                                    p $#{car.car.price.toLocaleString()} • #{car.car.status} • #{car.car.country}
+        
+
+    
