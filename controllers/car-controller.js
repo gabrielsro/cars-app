@@ -123,15 +123,113 @@ exports.car_link = (req, res, next) => {
           title: `${make} ${bodyType}`,
           cars: carsReady,
         });
-        res.send(carsOfBodyType);
       })
       .catch((err) => next(err));
   }
   //User wants the bodyType and the country:
-  if (bodyType && !make && !country && !fuel && !body) {
+  if (bodyType && !make && country && !fuel && !body) {
+    //Get versions of the bodyType
+    Version.find({ versionBodyType: bodyType })
+      .populate("make")
+      .populate("cars")
+      .then((versions) => {
+        //Get only those of the requested country
+        const versionsOfMake = versions.filter((v) => {
+          return v.make.country == country;
+        });
+        const cars = versionsOfMake.map((v) => v.cars);
+        const unpackedCars = [];
+        cars.forEach((c) => unpackedCars.push(...c));
+        //Set up promises to get each car's thumbnail and make
+        const promises = unpackedCars.map((u) => {
+          return new Promise((resolve, reject) => {
+            const carAssetsPromises = [];
+            //thumb promise
+            const thumbPromise = new Promise((resolveThumb, rejectThumb) => {
+              Pic.findById(u.thumbnail._id)
+                .then(resolveThumb)
+                .catch((err) => rejectThumb(err));
+            });
+            carAssetsPromises.push(thumbPromise);
+            //make promise
+            const makePromise = new Promise((resolveMake, rejectMake) => {
+              Make.findById(u.make._id)
+                .then(resolveMake)
+                .catch((err) => rejectMake(err));
+            });
+            carAssetsPromises.push(makePromise);
+            //Get car assets:
+            Promise.all(carAssetsPromises)
+              .then((carAssets) => {
+                resolve({
+                  car: u,
+                  thumbnail: carAssets[0],
+                  make: carAssets[1],
+                });
+              })
+              .catch((err) => reject(err));
+          });
+        });
+        //Run all the cars promises
+        Promise.all(promises)
+          .then((carsReady) => {
+            res.render("queryList", {
+              title: `${carsReady[0].make.demonym} ${bodyType}`,
+              cars: carsReady,
+            });
+          })
+          .catch((err) => next(err));
+      })
+      .catch((err) => next(err));
   }
   //User wants the bodyType and the fuel:
-  if (bodyType && !make && !country && !fuel && !body) {
+  if (bodyType && !make && !country && fuel && !body) {
+    Version.find({ versionBodyType: bodyType, fuel: fuel })
+      .populate("cars")
+      .then((versions) => {
+        //Extract cars from all versions
+        const cars = versions.map((v) => v.cars);
+        const carsUnpacked = [];
+        cars.forEach((c) => carsUnpacked.push(...c));
+        //Setup an array of promises to get each car's thumbnail and make
+        const promises = carsUnpacked.map((c) => {
+          return new Promise((resolve, reject) => {
+            const carAssetsPromises = [];
+            //Promise for getting thumbnail
+            const thumbnailPromise = new Promise(
+              (resolveThumb, rejectThumb) => {
+                Pic.findById(c.thumbnail._id)
+                  .then(resolveThumb)
+                  .catch((err) => rejectThumb(err));
+              }
+            );
+            carAssetsPromises.push(thumbnailPromise);
+            //Promise for gettind make
+            const makePromise = new Promise((resolveMake, rejectMake) => {
+              Make.findById(c.make._id)
+                .then(resolveMake)
+                .catch((err) => rejectMake(err));
+            });
+            carAssetsPromises.push(makePromise);
+            //Run both asset promises to get car assets
+            Promise.all(carAssetsPromises)
+              .then((assets) => {
+                resolve({ car: c, thumbnail: assets[0], make: assets[1] });
+              })
+              .catch((err) => reject(err));
+          });
+        });
+        //Run all the cars promises
+        Promise.all(promises)
+          .then((result) => {
+            res.render("queryList", {
+              title: `${fuel} ${bodyType}`,
+              cars: result,
+            });
+          })
+          .catch((err) => next(err));
+      })
+      .catch((err) => next(err));
   }
   //User wants the body and the make:
   if (bodyType && !make && !country && !fuel && !body) {

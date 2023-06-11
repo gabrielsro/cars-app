@@ -432,7 +432,7 @@ textarea {
 }
 
 .autoScrollOnce {
-  animation: scrollText 30s linear infinite running;
+  animation: scrollText 5s linear infinite running;
 }
 
 @keyframes scrollText {
@@ -440,7 +440,7 @@ textarea {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-400%);
+    transform: translateX(-50%);
   }
 }
 
