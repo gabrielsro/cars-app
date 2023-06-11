@@ -100,6 +100,7 @@ exports.car_link = (req, res, next) => {
         //Run promises to get all cars and their assets
         Promise.all(promises)
           .then((cars) => {
+            cars.sort(() => Math.random() - 0.5);
             res.render("queryList", { title: bodyType, cars });
           })
           .catch((err) => next(err));
@@ -119,6 +120,7 @@ exports.car_link = (req, res, next) => {
         const carsReady = carsOfBodyType.map((c) => {
           return { car: c, thumbnail: c.thumbnail, make: c.make };
         });
+        carsReady.sort(() => Math.random() - 0.5);
         res.render("queryList", {
           title: `${make} ${bodyType}`,
           cars: carsReady,
@@ -173,6 +175,7 @@ exports.car_link = (req, res, next) => {
         //Run all the cars promises
         Promise.all(promises)
           .then((carsReady) => {
+            carsReady.sort(() => Math.random() - 0.5);
             res.render("queryList", {
               title: `${carsReady[0].make.demonym} ${bodyType}`,
               cars: carsReady,
@@ -222,6 +225,7 @@ exports.car_link = (req, res, next) => {
         //Run all the cars promises
         Promise.all(promises)
           .then((result) => {
+            result.sort(() => Math.random() - 0.5);
             res.render("queryList", {
               title: `${fuel} ${bodyType}`,
               cars: result,
@@ -232,13 +236,121 @@ exports.car_link = (req, res, next) => {
       .catch((err) => next(err));
   }
   //User wants the body and the make:
-  if (bodyType && !make && !country && !fuel && !body) {
+  if (!bodyType && make && !country && !fuel && body) {
+    //Find make
+    Make.find({ name: make })
+      .then((makeFound) => {
+        //Find versions that has required make and body
+        Version.find({ make: makeFound[0]._id, body: body })
+          .populate("cars")
+          .then((versions) => {
+            //Extract vehicles from found versions
+            const cars = versions.map((v) => v.cars);
+            const carsUnpacked = [];
+            cars.forEach((c) => carsUnpacked.push(...c));
+            //Set up promises to get each car's thumbnail
+            const promises = carsUnpacked.map((u) => {
+              return new Promise((resolve, reject) => {
+                Pic.findById(u.thumbnail._id)
+                  .then((thumb) =>
+                    resolve({ car: u, thumbnail: thumb, make: makeFound[0] })
+                  )
+                  .catch((err) => reject(err));
+              });
+            });
+            //Run promises to get array of car objects
+            Promise.all(promises)
+              .then((carsReady) => {
+                carsReady.sort(() => Math.random() - 0.5);
+                res.render("queryList", {
+                  title: `${make} ${body}`,
+                  cars: carsReady,
+                });
+              })
+              .catch((err) => next(err));
+          })
+          .catch((err) => next(err));
+      })
+      .catch((err) => next(err));
   }
   //User wants the body and the country:
-  if (bodyType && !make && !country && !fuel && !body) {
+  if (!bodyType && !make && country && !fuel && body) {
+    //Find versions that match the body requirement
+    Version.find({ body: body })
+      .populate("make")
+      .populate("cars")
+      .then((versions) => {
+        //Extract versions whose make is from the required country
+        const versionsCountry = versions.filter(
+          (v) => v.make.country == country
+        );
+        //Extract cars from filtered versions
+        const versionCars = versionsCountry.map((v) => {
+          return { cars: v.cars, make: v.make };
+        });
+        const unpacked = [];
+        versionCars.forEach((v) => {
+          const carList = [];
+          v.cars.forEach((c) => {
+            carList.push({ car: c, make: v.make });
+          });
+          unpacked.push(...carList);
+        });
+        //Get each car's pic
+        const promises = unpacked.map((u) => {
+          return new Promise((resolve, reject) => {
+            Pic.findById(u.car.thumbnail._id)
+              .then((pic) => {
+                resolve({ car: u.car, thumbnail: pic, make: u.make });
+              })
+              .catch((err) => reject(err));
+          });
+        });
+        Promise.all(promises)
+          .then((carsReady) => {
+            res.render("queryList", {
+              title: `${carsReady[0].make.demonym} ${body}`,
+              cars: carsReady,
+            });
+          })
+          .catch((err) => next(err));
+      })
+      .catch((err) => next(err));
   }
   //User wants the body and the fuel:
-  if (bodyType && !make && !country && !fuel && !body) {
+  if (!bodyType && !make && !country && fuel && body) {
+    Version.find({ body: body, fuel: fuel })
+      .populate("cars")
+      .populate("make")
+      .then((versions) => {
+        //Extract cars from found versions
+        const cars = [];
+        versions.forEach((v) => {
+          v.cars.forEach((c) => {
+            cars.push({ car: c, make: v.make });
+          });
+        });
+        //Get each car's pic
+        const promises = cars.map((c) => {
+          return new Promise((resolve, reject) => {
+            Pic.findById(c.car.thumbnail._id)
+              .then((pic) => {
+                resolve({ car: c.car, thumbnail: pic, make: c.make });
+              })
+              .catch((err) => reject(err));
+          });
+        });
+        //Run promises and send cars to template
+        Promise.all(promises)
+          .then((carsReady) => {
+            res.render("queryList", {
+              title: `${fuel} ${body}`,
+              cars: carsReady,
+            });
+          })
+          .catch((err) => next(err));
+      })
+      .catch((err) => next(err));
   }
 };
 
