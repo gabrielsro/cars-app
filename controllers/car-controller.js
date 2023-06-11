@@ -106,7 +106,26 @@ exports.car_link = (req, res, next) => {
       });
   }
   //User wants the bodyType and the make:
-  if (bodyType && !make && !country && !fuel && !body) {
+  if (bodyType && make && !country && !fuel && !body) {
+    //Get cars of the make
+    Car.find({ makeName: make })
+      .populate("version")
+      .populate("thumbnail")
+      .populate("make")
+      .then((cars) => {
+        const carsOfBodyType = cars.filter((c) => {
+          return c.version.versionBodyType == bodyType;
+        });
+        const carsReady = carsOfBodyType.map((c) => {
+          return { car: c, thumbnail: c.thumbnail, make: c.make };
+        });
+        res.render("queryList", {
+          title: `${make} ${bodyType}`,
+          cars: carsReady,
+        });
+        res.send(carsOfBodyType);
+      })
+      .catch((err) => next(err));
   }
   //User wants the bodyType and the country:
   if (bodyType && !make && !country && !fuel && !body) {
