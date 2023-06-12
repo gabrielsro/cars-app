@@ -63,6 +63,48 @@ exports.car_link = (req, res, next) => {
   if (req.params.body !== "unspecified") {
     body = req.params.body.split("_").join(" ");
   }
+  //User wants a specific fuel:
+  if (!bodyType && !make && !country && fuel && !body) {
+    Version.find({ fuel: fuel })
+      .populate("cars")
+      .populate("make")
+      .then((versions) => {
+        //Extract cars and makes from found versions
+        const cars = [];
+        versions.forEach((v) => {
+          v.cars.forEach((c) => {
+            cars.push({ car: c, thumb: c.thumbnail, make: v.make });
+          });
+        });
+        //Get each car's pic
+        const promises = cars.map((c) => {
+          return new Promise((resolve, reject) => {
+            if (c.thumb) {
+              Pic.findById(c.thumb._id)
+                .then((pic) => {
+                  resolve({ car: c.car, thumbnail: pic, make: c.make });
+                })
+                .catch((err) => reject(err));
+            }
+            if (!c.thumb) {
+              resolve({ car: c.car, make: c.make });
+            }
+          });
+        });
+        //Run promises to get all cars with their pics and send list to the template
+        Promise.all(promises)
+          .then((carsReady) => {
+            res.render("queryList", {
+              title: `${fuel} Cars`,
+              cars: carsReady,
+              fuelOnlyQuery: fuel,
+            });
+          })
+          .catch((err) => next(err));
+      })
+      .catch((err) => next(err));
+  }
+
   //User wants the bodyType:
   if (bodyType && !make && !country && !fuel && !body) {
     Version.find({ versionBodyType: bodyType }, "cars")
@@ -74,9 +116,14 @@ exports.car_link = (req, res, next) => {
             const promise = new Promise((resolve, reject) => {
               //Get thumbnail and make logo of each car
               const picPromise = new Promise((resolvePic, rejectPic) => {
-                Pic.findById(c.thumbnail._id)
-                  .then(resolvePic)
-                  .catch((err) => rejectPic(err));
+                if (c.thumbnail) {
+                  Pic.findById(c.thumbnail._id)
+                    .then(resolvePic)
+                    .catch((err) => rejectPic(err));
+                }
+                if (!c.thumbnail) {
+                  resolvePic(undefined);
+                }
               });
               const makePromise = new Promise((resolveMake, rejectMake) => {
                 Make.findById(c.make._id)
@@ -148,9 +195,14 @@ exports.car_link = (req, res, next) => {
             const carAssetsPromises = [];
             //thumb promise
             const thumbPromise = new Promise((resolveThumb, rejectThumb) => {
-              Pic.findById(u.thumbnail._id)
-                .then(resolveThumb)
-                .catch((err) => rejectThumb(err));
+              if (u.thumbnail) {
+                Pic.findById(u.thumbnail._id)
+                  .then(resolveThumb)
+                  .catch((err) => rejectThumb(err));
+              }
+              if (!u.thumbnail) {
+                resolveThumb(undefined);
+              }
             });
             carAssetsPromises.push(thumbPromise);
             //make promise
@@ -201,9 +253,14 @@ exports.car_link = (req, res, next) => {
             //Promise for getting thumbnail
             const thumbnailPromise = new Promise(
               (resolveThumb, rejectThumb) => {
-                Pic.findById(c.thumbnail._id)
-                  .then(resolveThumb)
-                  .catch((err) => rejectThumb(err));
+                if (c.thumbnail) {
+                  Pic.findById(c.thumbnail._id)
+                    .then(resolveThumb)
+                    .catch((err) => rejectThumb(err));
+                }
+                if (!c.thumbnail) {
+                  resolveThumb(undefined);
+                }
               }
             );
             carAssetsPromises.push(thumbnailPromise);
@@ -251,11 +308,16 @@ exports.car_link = (req, res, next) => {
             //Set up promises to get each car's thumbnail
             const promises = carsUnpacked.map((u) => {
               return new Promise((resolve, reject) => {
-                Pic.findById(u.thumbnail._id)
-                  .then((thumb) =>
-                    resolve({ car: u, thumbnail: thumb, make: makeFound[0] })
-                  )
-                  .catch((err) => reject(err));
+                if (u.thumbnail) {
+                  Pic.findById(u.thumbnail._id)
+                    .then((thumb) =>
+                      resolve({ car: u, thumbnail: thumb, make: makeFound[0] })
+                    )
+                    .catch((err) => reject(err));
+                }
+                if (!u.thumbnail) {
+                  resolve({ car: u, make: makeFound[0] });
+                }
               });
             });
             //Run promises to get array of car objects
@@ -299,11 +361,16 @@ exports.car_link = (req, res, next) => {
         //Get each car's pic
         const promises = unpacked.map((u) => {
           return new Promise((resolve, reject) => {
-            Pic.findById(u.car.thumbnail._id)
-              .then((pic) => {
-                resolve({ car: u.car, thumbnail: pic, make: u.make });
-              })
-              .catch((err) => reject(err));
+            if (u.car.thumbnail) {
+              Pic.findById(u.car.thumbnail._id)
+                .then((pic) => {
+                  resolve({ car: u.car, thumbnail: pic, make: u.make });
+                })
+                .catch((err) => reject(err));
+            }
+            if (!u.car.thumbnail) {
+              resolve({ car: u.car, make: u.make });
+            }
           });
         });
         Promise.all(promises)
@@ -333,11 +400,16 @@ exports.car_link = (req, res, next) => {
         //Get each car's pic
         const promises = cars.map((c) => {
           return new Promise((resolve, reject) => {
-            Pic.findById(c.car.thumbnail._id)
-              .then((pic) => {
-                resolve({ car: c.car, thumbnail: pic, make: c.make });
-              })
-              .catch((err) => reject(err));
+            if (c.car.thumbnail) {
+              Pic.findById(c.car.thumbnail._id)
+                .then((pic) => {
+                  resolve({ car: c.car, thumbnail: pic, make: c.make });
+                })
+                .catch((err) => reject(err));
+            }
+            if (!c.car.thumbnail) {
+              resolve({ car: c.car, make: c.make });
+            }
           });
         });
         //Run promises and send cars to template
@@ -535,6 +607,7 @@ exports.car_list = (req, res, next) => {
         const remaining = m.slice(1);
         return upperFirst + remaining;
       });
+      cars.sort(() => Math.random() - 0.5);
       res.render("car_list", {
         cars,
         makesOrdered,
@@ -1085,11 +1158,16 @@ exports.carDetail = (req, res, next) => {
     modelCars.forEach((c) => {
       if (c._id != req.params.id) {
         const promise = new Promise((resolve, reject) => {
-          Pic.findById(c.thumbnail._id)
-            .then((thumb) =>
-              resolve({ car: c, pic: thumb, make: results[0].make })
-            )
-            .catch((err) => reject(err));
+          if (c.thumbnail) {
+            Pic.findById(c.thumbnail._id)
+              .then((thumb) =>
+                resolve({ car: c, pic: thumb, make: results[0].make })
+              )
+              .catch((err) => reject(err));
+          }
+          if (!c.thumbnail) {
+            resolve({ car: c, make: results[0].make });
+          }
         });
         promises.push(promise);
       }
@@ -1178,22 +1256,32 @@ exports.carDetail = (req, res, next) => {
                 if (foundVersions.type == "strong") {
                   if (c.body == "Truck" || c.body == "SUV") {
                     const typePromise = new Promise((resolve, reject) => {
-                      Pic.findById(c.thumbnail._id)
-                        .then((thnl) => {
-                          resolve({ car: c, pic: thnl });
-                        })
-                        .catch((err) => reject(err));
+                      if (c.thumbnail) {
+                        Pic.findById(c.thumbnail._id)
+                          .then((thnl) => {
+                            resolve({ car: c, pic: thnl });
+                          })
+                          .catch((err) => reject(err));
+                      }
+                      if (!c.thumbnail) {
+                        resolve({ car: c });
+                      }
                     });
                     sameTypePromises.push(typePromise);
                   }
                 }
                 if (foundVersions.type !== "strong") {
                   const typePromise = new Promise((resolve, reject) => {
-                    Pic.findById(c.thumbnail._id)
-                      .then((thnl) => {
-                        resolve({ car: c, pic: thnl });
-                      })
-                      .catch((err) => reject(err));
+                    if (c.thumbnail) {
+                      Pic.findById(c.thumbnail._id)
+                        .then((thnl) => {
+                          resolve({ car: c, pic: thnl });
+                        })
+                        .catch((err) => reject(err));
+                    }
+                    if (!c.thumbnail) {
+                      resolve({ car: c });
+                    }
                   });
                   sameTypePromises.push(typePromise);
                 }

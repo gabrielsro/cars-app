@@ -21,6 +21,10 @@ const whiteIcons = document.querySelectorAll(".white");
 const sidebar = document.querySelector(".side-bar");
 const topBar = document.querySelector(".top");
 const fzySearch = document.querySelector(".searchFuzzyResults");
+const gasoline = document.getElementById("gasoline");
+const diesel = document.getElementById("diesel");
+const hybrid = document.getElementById("hybrid");
+const electric = document.getElementById("electric");
 
 function setMode() {
   let mode = localStorage.getItem("mode");
@@ -58,6 +62,10 @@ function setMode() {
     }
     fzySearch.classList.remove("frozenBlack");
     fzySearch.classList.add("frozenWhite");
+    //////////////////////////////////////////////////////////////////////////////////
+    if (gasoline) {
+      console.log(gasoline);
+    }
   }
   if (mode) {
     if (mode == "dark") {
@@ -103,6 +111,48 @@ function setMode() {
       }
       fzySearch.classList.remove("frozenWhite");
       fzySearch.classList.add("frozenBlack");
+      if (gasoline) {
+        if (gasoline.firstChild) {
+          gasoline.removeChild(gasoline.firstChild);
+        }
+        const pic = document.createElement("picture");
+        const img = document.createElement("img");
+        img.setAttribute(
+          "src",
+          "https://res.cloudinary.com/dpqwimjsm/image/upload/f_auto,q_auto,w_1000/lcybcqj5vilkzctxjgal"
+        );
+        img.setAttribute("alt", "Gasoline engine");
+        pic.appendChild(img);
+        pic.style.opacity = "0.4";
+        pic.style.marginLeft = "28%";
+        if (window.innerWidth < 650) {
+          pic.style.marginLeft = "-11%";
+        }
+        if (window.innerWidth < 387) {
+          pic.style.marginLeft = "-24%";
+        }
+        gasoline.appendChild(pic);
+      }
+      if (diesel) {
+        if (diesel.firstChild) {
+          diesel.removeChild(diesel.firstChild);
+        }
+        const pic = document.createElement("picture");
+        const img = document.createElement("img");
+        img.setAttribute(
+          "src",
+          "https://res.cloudinary.com/dpqwimjsm/image/upload/f_auto,q_auto,w_1000/gytcrryh0fwkkl5a5hy7.jpg"
+        );
+        img.setAttribute("alt", "Diesel engine");
+        pic.appendChild(img);
+        pic.style.opacity = "0.33";
+        pic.style.marginTop = "3%";
+        pic.style.marginLeft = "5%";
+        if (window.innerWidth < 500) {
+          pic.style.marginLeft = "-35%";
+        }
+        diesel.appendChild(pic);
+      }
     }
     if (mode == "light") {
       all.classList.remove("dark");
@@ -147,6 +197,60 @@ function setMode() {
       }
       fzySearch.classList.remove("frozenBlack");
       fzySearch.classList.add("frozenWhite");
+      if (gasoline) {
+        if (gasoline.firstChild) {
+          gasoline.removeChild(gasoline.firstChild);
+        }
+        const pic = document.createElement("picture");
+        const img = document.createElement("img");
+        img.setAttribute(
+          "src",
+          "https://res.cloudinary.com/dpqwimjsm/image/upload/f_auto,q_auto,w_1000/bteftcfuj9tscnktl9io"
+        );
+        img.setAttribute("alt", "Gasoline engine");
+        pic.appendChild(img);
+        pic.style.opacity = "0.23";
+        pic.style.marginTop = "1%";
+        pic.style.marginLeft = "25%";
+        if (window.innerWidth < 650) {
+          pic.style.marginLeft = "-8%";
+        }
+        gasoline.appendChild(pic);
+      }
+      if (diesel) {
+        if (diesel.firstChild) {
+          diesel.removeChild(diesel.firstChild);
+        }
+        const pic = document.createElement("picture");
+        const img = document.createElement("img");
+        img.setAttribute(
+          "src",
+          "https://res.cloudinary.com/dpqwimjsm/image/upload/f_auto,q_auto,w_800/kwdwlszzmexw2qmfwesq"
+        );
+        img.setAttribute("alt", "Diesel engine");
+        pic.appendChild(img);
+        pic.style.opacity = "0.2";
+        pic.style.marginTop = "2%";
+        pic.style.marginLeft = "35%";
+        if (window.innerWidth < 400) {
+          pic.style.marginLeft = "0";
+        }
+        diesel.appendChild(pic);
+      }
+      if (electric) {
+        if (electric.firstChild) {
+          electric.removeChild(electric.firstChild);
+        }
+        const pic = document.createElement("picture");
+        const img = document.createElement("img");
+        img.setAttribute(
+          "src",
+          "https://res.cloudinary.com/dpqwimjsm/image/upload/f_auto,q_auto,w_800/kwdwlszzmexw2qmfwesq"
+        );
+        img.setAttribute("alt", "Electric engine");
+        pic.appendChild(img);
+        electric.appendChild(pic);
+      }
     }
   }
 }

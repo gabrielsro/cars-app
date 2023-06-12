@@ -282,7 +282,7 @@ block content
                         a(href=car.make.url) #{car.make.name}
                     if car.version.fuel 
                         h3 Energy:
-                            a(href='')  #{car.version.fuel}
+                            a(href=`/inventory/cars/unspecified/unspecified/unspecified/${car.version.fuel}/unspecified`)  #{car.version.fuel}
                     h3 Mileage: #{car.mileage.toLocaleString()} miles
                     h3 Color: #{car.color}
         .car-basic-info-section2
@@ -385,7 +385,7 @@ block content
                                             p #{car.car.modelVariant}
                                         .footer
                                             p $#{car.car.price.toLocaleString()} • #{car.car.country ? car.car.country : 'Unknown location'} • #{car.car.mileage.toLocaleString()} miles
-        if type =='strong'
+        if type =='strong' && sameTypeCars.length>0
             .interest-row 
                 h4 If you're into strong vehicles you might like...
                 .listFlex
@@ -405,7 +405,7 @@ block content
                                             p #{car.car.modelVariant}
                                         .footer
                                             p $#{car.car.price.toLocaleString()} • #{car.car.country ? car.car.country : 'Unknown location'} • #{car.car.mileage.toLocaleString()} miles
-        if type == 'fast'
+        if type == 'fast' && sameTypeCars.length>0
             .interest-row 
                 h4 If you're into fast cars you might like...
                 .listFlex
@@ -425,7 +425,7 @@ block content
                                             p #{car.car.modelVariant}
                                         .footer
                                             p $#{car.car.price.toLocaleString()} • #{car.car.country ? car.car.country : 'Unknown location'} • #{car.car.mileage.toLocaleString()} miles
-        if type == 'economy'
+        if type == 'economy' && sameTypeCars.length>0
             .interest-row 
                 h4 Vehicles with good fuel economy
                 .listFlex
