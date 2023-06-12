@@ -18,7 +18,7 @@ html
           .searchBarContainer
             input(type="text" id='mainSearchBar' name='searchText')
             .searchFuzzyResults(class='invisible')
-          .searchIcon(id='mainSearchIcon') 
+          .searchIcon(id='mainSearchIcon' class='searchTop') 
             img(src="/images/icons/searchIcons/searchBlack.svg" alt='Search icon' id='searchBlack')
             img(src="/images/icons/searchIcons/searchWhite.svg" alt='Search icon' class='invisible' id='searchWhite')
           .searchControls(class='invisible')
@@ -53,30 +53,9 @@ html
       .menu 
         img(src='/images/icons/menuIcons/menuWhite2.svg' alt='Menu icon' class='white')
         img(src='/images/icons/menuIcons/menuBlack.svg' alt='Menu icon' class='black')
-      .searchOptions
-        div(class='option')
-          select(id='makeOption' name='makeOption')
-            option(value='' hidden='true' selected='true') Make
-        div(class='option')
-          select(id='yearOption' name='yearOption')
-            option(value='' hidden='true' selected='true') Year
-        div(class='option')
-          select(id='bodyOption' name='bodyOption')
-            option(value='' hidden='true' selected='true') Body
-        div(class='option')
-          select(id='energyOption' name='energyOption')
-            option(value='' hidden='true' selected='true') Energy  
-        div(class='option')
-          select(id='priceOption' name='priceOption')
-            option(value='' hidden='true' selected='true') Price
-        div(class='option') 
-          select(id='locationOption' name='locationOption')
-            option(value='' hidden='true' selected='true') Location
-      .searchIcon(class='invisible') 
-        img(src="/images/icons/searchIcons/searchBlack.svg" alt='Search icon' id='searchBlack')
-        img(src="/images/icons/searchIcons/searchWhite.svg" alt='Search icon' class='invisible' id='searchWhite')
-
-
+      .searchIcon(class='invisible' class='searchIconBottom') 
+        img(src="/images/icons/searchIcons/searchBlack.svg" alt='Search icon' id='searchBlack' class='black')
+        img(src="/images/icons/searchIcons/searchWhite.svg" alt='Search icon' id='searchWhite' class='white')
     .content-wrapper
       .main-view
         block content
