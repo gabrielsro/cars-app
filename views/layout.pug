@@ -7,6 +7,7 @@ html
       script(src="/javascripts/layoutSearch.js" defer='true')
       script(src="/javascripts/layoutModes.js" defer='true')
       script(src="/javascripts/layoutMenuButton.js" defer='true')
+      script(src="/javascripts/bottomSearchReacher.js" defer='true')
   body
     .top 
       .logo
@@ -54,8 +55,8 @@ html
         img(src='/images/icons/menuIcons/menuWhite2.svg' alt='Menu icon' class='white')
         img(src='/images/icons/menuIcons/menuBlack.svg' alt='Menu icon' class='black')
       .searchIcon(class='invisible' class='searchIconBottom') 
-        img(src="/images/icons/searchIcons/searchBlack.svg" alt='Search icon' id='searchBlack' class='black')
-        img(src="/images/icons/searchIcons/searchWhite.svg" alt='Search icon' id='searchWhite' class='white')
+        img(src="/images/icons/searchIcons/searchBlack.svg" alt='Search icon' id='searchBlack' class='black' class='reacher')
+        img(src="/images/icons/searchIcons/searchWhite.svg" alt='Search icon' id='searchWhite' class='white' class='reacher')
     .content-wrapper
       .main-view
         block content

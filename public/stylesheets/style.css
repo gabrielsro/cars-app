@@ -1493,6 +1493,19 @@ fieldset {
 }
 
 @media only screen and (max-width: 945px) {
+  .modelMakeLogo {
+    display: grid;
+    place-content: center;
+  }
+
+  .modelMakeLogo img {
+    max-width: 95vw;
+  }
+
+  .top {
+    padding-right: 5px;
+  }
+
   .form-add-car {
     width: 100%;
   }

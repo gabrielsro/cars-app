@@ -1,4 +1,3 @@
-//https://vehapi.com/img/car-logos/${splitHyphens.join("_")}.png
 const selectMake = document.getElementById("makeName");
 const logoContainer = document.querySelector(".logoContainer");
 selectMake.addEventListener("change", (e) => {
