@@ -1,15 +1,22 @@
 extends layout 
+block scripts
+    script(src="/javascripts/layoutSearch.js" defer='true')
+    script(src="/javascripts/layoutModes.js" defer='true')
+    script(src="/javascripts/layoutMenuButton.js" defer='true')
+    script(src="/javascripts/makeFormInteraction.js" defer='true')
 block content 
     h1= title
-    form(method='POST', action='', class='form-add-make')
-        .form-content
-            label(for='makeName') Make: 
-            select(id='makeName', name='make')
-                option(value='', hidden='true', disabled='true', selected='true') -- Select -- 
-                for make in makesList 
-                    option(value=`${make.name},${make.makeId},${make.makeCountry}`) #{make.name}
-        .form-button-container
-            button(type='submit') Add Make
+    .logoContainer
+    .formAddMakeContainer
+        form(method='POST', action='', class='form-add-make')
+            .form-content-make
+                label(for='makeName') Make: 
+                select(id='makeName', name='make' required='true')
+                    option(value='', hidden='true', disabled='true', selected='true') -- Select -- 
+                    for make in makesList 
+                        option(value=`${make.name},${make.makeId},${make.makeCountry}`) #{make.name}
+            .form-button-container-make
+                button(type='submit') Add Make
     if errors 
         ul 
             for error in errors 
