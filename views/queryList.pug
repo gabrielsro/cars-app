@@ -1,4 +1,9 @@
 extends layout 
+block scripts
+    script(src="/javascripts/layoutSearch.js" defer='true')
+    script(src="/javascripts/layoutModes.js" defer='true')
+    script(src="/javascripts/layoutMenuButton.js" defer='true')
+    script(src="/javascripts/cardTricks.js" defer='true')
 block content
     if fuelOnlyQuery == 'Gasoline'
         .fuelImage(id='gasoline')
@@ -16,85 +21,99 @@ block content
                 .fuelDescription  
                     if fuelOnlyQuery == 'Gasoline'
                         p Gasoline engines have several advantages over other engine types, here are some of the most important ones:
-                        .descriptionRow
-                            p(class='descriptionTitle') Lower Initial Cost
-                            p Gasoline cars generally have a lower purchase price compared to diesel cars. The manufacturing and technology costs for gasoline engines are often lower, making gasoline cars more affordable for many consumers.
-                        .descriptionRow                    
-                            p(class='descriptionTitle') Reliable in Cold Weather
-                            p Gasoline engines tend to perform better in cold weather conditions. Gasoline fuel has better cold-start capabilities, which means gasoline cars are typically easier to start and warm up in cold climates.
-                        .descriptionRow
-                            p(class='descriptionTitle') Smaller and Lighter
-                            p Gasoline engines are generally smaller and lighter compared to diesel engines with similar power output. This characteristic can contribute to better handling and maneuverability, especially in smaller and compact car models.
-                        .descriptionRow
-                            p(class='descriptionTitle') Performance
-                            p Gasoline engines are often known for their ability to rev higher and provide quicker acceleration. They can deliver power more rapidly, which can be desirable for sporty or performance-oriented driving experiences.
-                        p Interested in Gasoline cars? Here at CarFast we have a wide selection of gas vehicles for you to find the one that fits you best.
+                        .descriptionContainer
+                            .descriptionRow
+                                p(class='descriptionTitle') Lower Initial Cost
+                                p Gasoline cars generally have a lower purchase price compared to diesel cars. The manufacturing and technology costs for gasoline engines are often lower, making gasoline cars more affordable for many consumers.
+                            .descriptionRow                    
+                                p(class='descriptionTitle') Reliable in Cold Weather
+                                p Gasoline engines tend to perform better in cold weather conditions. Gasoline fuel has better cold-start capabilities, which means gasoline cars are typically easier to start and warm up in cold climates.
+                            .descriptionRow
+                                p(class='descriptionTitle') Smaller and Lighter
+                                p Gasoline engines are generally smaller and lighter compared to diesel engines with similar power output. This characteristic can contribute to better handling and maneuverability, especially in smaller and compact car models.
+                            .descriptionRow
+                                p(class='descriptionTitle') Performance
+                                p Gasoline engines are often known for their ability to rev higher and provide quicker acceleration. They can deliver power more rapidly, which can be desirable for sporty or performance-oriented driving experiences.
                     if fuelOnlyQuery == 'Diesel'
                         p Diesel engines have several advantages over other engine types, here are some of the most important ones:
-                        .descriptionRow
-                            p(class='descriptionTitle') Durability and Longevity
-                            p Diesel engines are generally built to withstand higher compression ratios and have stronger internal components. As a result, diesel cars tend to have a longer lifespan and higher durability compared to gasoline cars. Well-maintained diesel engines can often reach higher mileage before requiring major overhauls.
-                        .descriptionRow
-                            p(class='descriptionTitle') Resale Value
-                            p Due to their reputation for longevity and durability, diesel cars often have higher resale values compared to gasoline cars. This can be advantageous for owners who plan to sell or trade their vehicles in the future.
-                        .descriptionRow
-                            p(class='descriptionTitle') Fuel Efficiency
-                            p Diesel engines are known for their higher fuel efficiency compared to gasoline engines. Diesel fuel contains more energy per gallon, resulting in greater mileage per gallon of fuel consumed. This can translate to lower fuel costs and longer driving ranges for diesel car owners.
-                        .descriptionRow
-                            p(class='descriptionTitle') Performance
-                            p Diesel engines typically generate higher torque, which is beneficial for towing heavy loads or carrying heavier payloads. The torque output of diesel engines allows for better low-end power delivery and increased pulling capacity, making diesel cars suitable for towing trailers, boats, or other heavy equipment.
-                            p Being good at delivering power at low RPMs, Diesel engines are known for their high-speed performance on highways. They provide strong acceleration and passing power, which can be beneficial for long-distance driving or highway cruising.
-                        p Interested in Diesel cars? Here at CarFast we have a wide selection of diesel vehicles for you to find the one that fits you best.
+                        .descriptionContainer
+                            .descriptionRow
+                                p(class='descriptionTitle') Durability and Longevity
+                                p Diesel engines are generally built to withstand higher compression ratios and have stronger internal components. As a result, diesel cars tend to have a longer lifespan and higher durability compared to gasoline cars. Well-maintained diesel engines can often reach higher mileage before requiring major overhauls.
+                            .descriptionRow
+                                p(class='descriptionTitle') Resale Value
+                                p Due to their reputation for longevity and durability, diesel cars often have higher resale values compared to gasoline cars. This can be advantageous for owners who plan to sell or trade their vehicles in the future.
+                            .descriptionRow
+                                p(class='descriptionTitle') Fuel Efficiency
+                                p Diesel engines are known for their higher fuel efficiency compared to gasoline engines. Diesel fuel contains more energy per gallon, resulting in greater mileage per gallon of fuel consumed. This can translate to lower fuel costs and longer driving ranges for diesel car owners.
+                            .descriptionRow
+                                p(class='descriptionTitle') Performance
+                                p Diesel engines typically generate higher torque, which is beneficial for towing heavy loads or carrying heavier payloads. The torque output of diesel engines allows for better low-end power delivery and increased pulling capacity, making diesel cars suitable for towing trailers, boats, or other heavy equipment.
                     if fuelOnlyQuery == 'Hybrid'
                         p Hybrid vehicles have several advantages over other vehicle types, here are some of the most important ones:
-                        .descriptionRow
-                            p(class='descriptionTitle') Fuel Efficiency
-                            p Hybrid vehicles combine the use of an internal combustion engine with an electric motor and battery. The hybrid system optimizes fuel efficiency by utilizing the electric motor during low-speed or stop-and-go driving conditions, reducing reliance on the gasoline or diesel engine. This leads to improved fuel economy and reduced fuel consumption compared to conventional vehicles.
-                        .descriptionRow
-                            p(class='descriptionTitle') Flexibility and Range
-                            p Hybrid vehicles offer the flexibility of using both the internal combustion engine and electric motor. They have a longer driving range compared to fully electric vehicles, as they can rely on the combustion engine for extended trips where charging infrastructure may be limited.
-                        .descriptionRow
-                            p(class='descriptionTitle') Incentives and Tax Benefits
-                            p In many countries, hybrid vehicles are eligible for government incentives, tax credits, or lower vehicle registration fees. These incentives aim to promote the adoption of more environmentally friendly transportation options and can make hybrid vehicles more cost-effective for consumers.
-                        .descriptionRow
-                            p(class='descriptionTitle') Performance
-                            p Hybrid vehicles often offer improved performance compared to conventional vehicles, especially in terms of acceleration and torque. The combination of the electric motor and internal combustion engine allows for instant torque delivery, resulting in responsive and smooth acceleration.
-                        p Interested in Hybrid cars? Here at CarFast we have a wide selection of hybrid vehicles for you to find the one that fits you best.
+                        .descriptionContainer
+                            .descriptionRow
+                                p(class='descriptionTitle') Fuel Efficiency
+                                p Hybrid vehicles combine the use of an internal combustion engine with an electric motor and battery. The hybrid system optimizes fuel efficiency by utilizing the electric motor during low-speed or stop-and-go driving conditions, reducing reliance on the gasoline or diesel engine. This leads to improved fuel economy and reduced fuel consumption compared to conventional vehicles.
+                            .descriptionRow
+                                p(class='descriptionTitle') Flexibility and Range
+                                p Hybrid vehicles offer the flexibility of using both the internal combustion engine and electric motor. They have a longer driving range compared to fully electric vehicles, as they can rely on the combustion engine for extended trips where charging infrastructure may be limited.
+                            .descriptionRow
+                                p(class='descriptionTitle') Incentives and Tax Benefits
+                                p In many countries, hybrid vehicles are eligible for government incentives, tax credits, or lower vehicle registration fees. These incentives aim to promote the adoption of more environmentally friendly transportation options and can make hybrid vehicles more cost-effective for consumers.
+                            .descriptionRow
+                                p(class='descriptionTitle') Performance
+                                p Hybrid vehicles often offer improved performance compared to conventional vehicles, especially in terms of acceleration and torque. The combination of the electric motor and internal combustion engine allows for instant torque delivery, resulting in responsive and smooth acceleration.
                     if fuelOnlyQuery == 'Electric'
                         p Electric engines have several advantages over other engine types, hera are some of the most important ones:
-                        .descriptionRow
-                            p(class='descriptionTitle') Reduced Operating Costs
-                            p Electric vehicles have lower operating costs compared to ICE vehicles. Electricity is generally cheaper than gasoline or diesel fuel, resulting in lower fueling costs. Additionally, electric vehicles have fewer moving parts, reducing maintenance and repair expenses over time.
-                        .descriptionRow
-                            p(class='descriptionTitle') Regenerative Breaking
-                            p Electric vehicles often employ regenerative braking systems that convert kinetic energy during deceleration and braking into electrical energy. This captured energy is fed back into the battery, increasing overall efficiency and extending the vehicle's range.
-                        .descriptionRow
-                            p(class='descriptionTitle') Quieter Operation
-                            p Electric engines operate quietly compared to the noisy combustion engines of ICE vehicles. The absence of engine noise provides a smoother and more peaceful driving experience for occupants and reduces noise pollution in urban areas.
-                        .descriptionRow
-                            p(class='descriptionTitle') Performance      
-                            p Electric engines deliver instant torque, providing quick acceleration and responsive performance. The electric motor's high torque output from the moment the accelerator is pressed results in swift and smooth acceleration, enhancing the driving experience.              
-                        p Interested in Electric cars? Here at CarFast we have a wide selection of electric vehicles for you to find the one that fits you best.
-    .list 
-        for car in cars 
-            .list-card(data-body=car.car.version.body data-energy=car.car.version.fuel data-location=car.car.country data-price=car.priceRange data-number=count)
-                    a(href=`${car.car.url}`) 
-                        .card-thumbnail
-                            if undefined===car.thumbnail
-                                img(src='https://res.cloudinary.com/dpqwimjsm/image/upload/c_fit,w_800,e_sharpen/iz6xc3p9434pwnxzqqjk' alt=`Unavailable car pic placeholder image` loading='lazy')
-                            else 
-                                img(src=`${car.thumbnail.thumbnailSrc}` alt=`Vehicle image` loading='lazy')
-                            
-                        .card-info
-                            .card-logo
-                                img(src=car.make.logoSrc alt=`${car.make.name} logo`)
-                            .card-text
-                                .title 
-                                    p #{car.car.year} #{car.car.makeName} #{car.car.modelName}
-                                .subtitle 
-                                    p #{car.car.modelVariant}
-                                .footer
-                                    p $#{car.car.price.toLocaleString()} • #{car.car.status} • #{car.car.country ? car.car.country : 'Unknown Location'}
-        
+                        .descriptionContainer
+                            .descriptionRow
+                                p(class='descriptionTitle') Reduced Operating Costs
+                                p Electric vehicles have lower operating costs compared to ICE vehicles. Electricity is generally cheaper than gasoline or diesel fuel, resulting in lower fueling costs. Additionally, electric vehicles have fewer moving parts, reducing maintenance and repair expenses over time.
+                            .descriptionRow
+                                p(class='descriptionTitle') Regenerative Breaking
+                                p Electric vehicles often employ regenerative braking systems that convert kinetic energy during deceleration and braking into electrical energy. This captured energy is fed back into the battery, increasing overall efficiency and extending the vehicle's range.
+                            .descriptionRow
+                                p(class='descriptionTitle') Quieter Operation
+                                p Electric engines operate quietly compared to the noisy combustion engines of ICE vehicles. The absence of engine noise provides a smoother and more peaceful driving experience for occupants and reduces noise pollution in urban areas.
+                            .descriptionRow
+                                p(class='descriptionTitle') Performance      
+                                p Electric engines deliver instant torque, providing quick acceleration and responsive performance. The electric motor's high torque output from the moment the accelerator is pressed results in swift and smooth acceleration, enhancing the driving experience.              
+    .energyAlternatives 
+        h2 #{`Not into ${fuelOnlyQuery}? You might want to take a look at these options:`}
+        .energyLinks 
+            if fuelOnlyQuery !== 'Gasoline'
+                a(href='/inventory/cars/unspecified/unspecified/unspecified/Gasoline/unspecified') Gasoline
+            if fuelOnlyQuery !== 'Diesel'
+                a(href='/inventory/cars/unspecified/unspecified/unspecified/Diesel/unspecified') Diesel
+            if fuelOnlyQuery !== 'Hybrid'
+                a(href='/inventory/cars/unspecified/unspecified/unspecified/Hybrid/unspecified') Hybrid
+            if fuelOnlyQuery !== 'Electric'
+                a(href='/inventory/cars/unspecified/unspecified/unspecified/Electric/unspecified') Electric
+    if cars.length < 1
+        h2 #{`We don't have ${titleFixed} at the moment`}
+    if cars.length > 0
+        h2(class='energyList') #{`Here are some ${titleFixed} for you to choose from:`}
+        .list 
+            for car in cars 
+                .list-card(data-body=car.car.version.body data-energy=car.car.version.fuel data-location=car.car.country data-price=car.priceRange data-number=count)
+                        a(href=`${car.car.url}`) 
+                            .card-thumbnail
+                                if undefined===car.thumbnail
+                                    img(src='https://res.cloudinary.com/dpqwimjsm/image/upload/c_fit,w_800,e_sharpen/iz6xc3p9434pwnxzqqjk' alt=`Unavailable car pic placeholder image` loading='lazy')
+                                else 
+                                    img(src=`${car.thumbnail.thumbnailSrc}` alt=`Vehicle image` loading='lazy')
+                                
+                            .card-info
+                                .card-logo
+                                    img(src=car.make.logoSrc alt=`${car.make.name} logo`)
+                                .card-text
+                                    .title 
+                                        p #{car.car.year} #{car.car.makeName} #{car.car.modelName}
+                                    .subtitle 
+                                        p #{car.car.modelVariant}
+                                    .footer
+                                        p $#{car.car.price.toLocaleString()} • #{car.car.status} • #{car.car.country ? car.car.country : 'Unknown Location'}
+            
 
-    
+        

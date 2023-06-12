@@ -379,8 +379,8 @@ textarea {
 }
 
 .card-thumbnail img {
-  height: 203px;
-  width: 360px;
+  max-height: 203px;
+  max-width: 360px;
   border-radius: 9px;
 }
 
@@ -908,6 +908,28 @@ fieldset {
   font-size: 1.8rem;
 }
 
+.energyAlternatives h2 {
+  font-size: 1.2rem;
+}
+
+.energyLinks {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 10vw;
+}
+
+.energyList {
+  margin-bottom: 30px;
+}
+
+.energyLinks a {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
 .fuelImage picture {
   position: fixed;
   z-index: -1;
@@ -915,22 +937,31 @@ fieldset {
 
 .fuelDescription {
   padding-top: 14px;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 
 .fuelDescription > p {
-  margin-bottom: 10px;
+  font-size: 1.3rem;
+  margin-bottom: 30px;
 }
 
-.descriptionRow {
+.descriptionRow > p:nth-child(2) {
   margin-bottom: 20px;
   text-align: justify;
+  font-weight: 500;
+  font-size: 1.2rem;
+}
+
+.descriptionContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 600px));
+  place-content: center;
+  column-gap: 40px;
+  row-gap: 20px;
 }
 
 .queryDescription {
   height: auto;
-  padding-left: 10px;
-  padding-right: 60px;
 }
 
 .fuelTypeImg {

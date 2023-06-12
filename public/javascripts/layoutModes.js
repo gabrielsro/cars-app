@@ -62,10 +62,6 @@ function setMode() {
     }
     fzySearch.classList.remove("frozenBlack");
     fzySearch.classList.add("frozenWhite");
-    //////////////////////////////////////////////////////////////////////////////////
-    if (gasoline) {
-      console.log(gasoline);
-    }
   }
   if (mode) {
     if (mode == "dark") {
@@ -152,6 +148,51 @@ function setMode() {
           pic.style.marginLeft = "-35%";
         }
         diesel.appendChild(pic);
+      }
+      if (electric) {
+        if (electric.firstChild) {
+          electric.removeChild(electric.firstChild);
+        }
+        const pic = document.createElement("picture");
+        const img = document.createElement("img");
+        img.setAttribute(
+          "src",
+          "https://res.cloudinary.com/dpqwimjsm/image/upload/f_auto,q_auto,w_900/jduwcb79dwev973nac6f"
+        );
+        img.setAttribute("alt", "Electric engine");
+        pic.appendChild(img);
+        pic.style.opacity = "0.4";
+        pic.style.marginLeft = "25%";
+        pic.style.marginTop = "2%";
+        if (window.innerWidth < 400) {
+          pic.style.marginLeft = "0";
+        }
+        electric.appendChild(pic);
+      }
+      if (hybrid) {
+        if (hybrid.firstChild) {
+          hybrid.removeChild(hybrid.firstChild);
+        }
+        const pic = document.createElement("picture");
+        const img = document.createElement("img");
+        img.setAttribute(
+          "src",
+          "https://res.cloudinary.com/dpqwimjsm/image/upload/f_auto,q_auto,w_900/htashfbndvia2vm64xse"
+        );
+        img.setAttribute("alt", "Hybrid engine");
+        pic.appendChild(img);
+        pic.style.opacity = "0.4";
+        pic.style.marginLeft = "25%";
+        pic.style.marginTop = "2%";
+        if (window.innerWidth < 400) {
+          img.setAttribute(
+            "src",
+            "https://res.cloudinary.com/dpqwimjsm/image/upload/f_auto,q_auto,w_600/htashfbndvia2vm64xse"
+          );
+          pic.style.marginLeft = "-10%";
+          pic.style.marginTop = "15%";
+        }
+        hybrid.appendChild(pic);
       }
     }
     if (mode == "light") {
@@ -245,11 +286,38 @@ function setMode() {
         const img = document.createElement("img");
         img.setAttribute(
           "src",
-          "https://res.cloudinary.com/dpqwimjsm/image/upload/f_auto,q_auto,w_800/kwdwlszzmexw2qmfwesq"
+          "https://res.cloudinary.com/dpqwimjsm/image/upload/f_auto,q_auto,w_1000/rgqgbupyeu0zixxkebzc"
         );
         img.setAttribute("alt", "Electric engine");
         pic.appendChild(img);
+        pic.style.opacity = "0.3";
+        pic.style.marginLeft = "25%";
         electric.appendChild(pic);
+      }
+      if (hybrid) {
+        if (hybrid.firstChild) {
+          hybrid.removeChild(hybrid.firstChild);
+        }
+        const pic = document.createElement("picture");
+        const img = document.createElement("img");
+        img.setAttribute(
+          "src",
+          "https://res.cloudinary.com/dpqwimjsm/image/upload/f_auto,q_auto,w_900/k4rqqogqlh9qq4udv1kz"
+        );
+        img.setAttribute("alt", "Hybrid engine");
+        pic.appendChild(img);
+        pic.style.opacity = "0.2";
+        pic.style.marginLeft = "25%";
+        pic.style.marginTop = "2%";
+        if (window.innerWidth < 400) {
+          img.setAttribute(
+            "src",
+            "https://res.cloudinary.com/dpqwimjsm/image/upload/f_auto,q_auto,w_600/k4rqqogqlh9qq4udv1kz"
+          );
+          pic.style.marginLeft = "-10%";
+          pic.style.marginTop = "15%";
+        }
+        hybrid.appendChild(pic);
       }
     }
   }
