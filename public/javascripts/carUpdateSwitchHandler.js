@@ -15,7 +15,7 @@ const currentVersion = document.querySelector(".formChangesOptions div>p");
 const form = document.getElementById("formUpdateCar");
 
 looksGood.addEventListener("click", () => {
-  window.location.href = `/inventory/car/${looksGood.dataset.id}`;
+  window.location.href = `/inventory/car/${looksGood.dataset.id}/page/${looksGood.dataset.model}`;
 });
 
 changesConfirmation.style.display = "none";

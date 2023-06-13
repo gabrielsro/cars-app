@@ -19,8 +19,8 @@ block content
             h4 SUVs: !{cars.filter(c=>c.version.body == 'SUV').length} 
             p (Available: !{cars.filter(c=>c.version.body == 'SUV' && c.status == 'Available').length}  Sold: !{cars.filter(c=>c.version.body == 'SUV' && c.status == 'Sold').length})
           li 
-            h4 Trucks: !{cars.filter(c=>c.version.type == 'Truck').length} 
-            p (Available: !{cars.filter(c=>c.version.type == 'Truck' && c.status == 'Available').length}  Sold: !{cars.filter(c=>c.version.type == 'Truck' && c.status == 'Sold').length})
+            h4 Trucks: !{cars.filter(c=>c.version.body == 'Truck').length} 
+            p (Available: !{cars.filter(c=>c.version.body == 'Truck' && c.status == 'Available').length}  Sold: !{cars.filter(c=>c.version.body == 'Truck' && c.status == 'Sold').length})
           li 
             h4 Vans: !{cars.filter(c=>c.version.body == 'Van').length} 
             p (Available: !{cars.filter(c=>c.version.body == 'Van' && c.status == 'Available').length}  Sold: !{cars.filter(c=>c.version.body == 'Van' && c.status == 'Sold').length})

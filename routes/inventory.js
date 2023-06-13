@@ -76,7 +76,7 @@ router.post(
 );
 router.post("/add-car/get-variants", carController.add_car_get_variants_post);
 router.post("/add-car/form-submission", carController.add_car_variants_submit);
-router.get("/car/:id/update/:from", carController.carUpdate);
+router.get("/car/:id/page/:modelId/update/:from", carController.carUpdate);
 router.get("/car/:id/delete", carController.carDelete);
 router.get(
   "/cars/:bodytype/:make/:country/:fuel/:body",

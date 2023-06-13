@@ -1518,6 +1518,7 @@ exports.carAndVersionUpdate = (req, res, next) => {
 exports.carUpdate = (req, res, next) => {
   Car.findById(req.params.id)
     .populate("version")
+    .populate("model")
     .then((car) => {
       const formTitle =
         req.params.from == "old"
@@ -1561,6 +1562,7 @@ exports.carUpdate = (req, res, next) => {
         height: car.version.height,
         id: car._id,
         versionId: car.version._id,
+        modelId: car.model._id,
       });
     });
 };
