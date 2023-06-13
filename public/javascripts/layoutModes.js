@@ -60,6 +60,9 @@ function setMode() {
     if (window.innerWidth < 945) {
       topBar.style.background = "white";
     }
+    if (window.innerWidth >= 945) {
+      topBar.style.background = "white";
+    }
     fzySearch.classList.remove("frozenBlack");
     fzySearch.classList.add("frozenWhite");
   }
@@ -103,6 +106,9 @@ function setMode() {
       blackIcons.forEach((b) => (b.style.display = "none"));
       whiteIcons.forEach((w) => (w.style.display = "block"));
       if (window.innerWidth < 945) {
+        topBar.style.background = "black";
+      }
+      if (window.innerWidth >= 945) {
         topBar.style.background = "black";
       }
       fzySearch.classList.remove("frozenWhite");
@@ -196,6 +202,12 @@ function setMode() {
       }
     }
     if (mode == "light") {
+      if (window.innerWidth < 945) {
+        topBar.style.background = "white";
+      }
+      if (window.innerWidth >= 945) {
+        topBar.style.background = "white";
+      }
       all.classList.remove("dark");
       nav.classList.remove("dark");
       highBeamBlack.classList.remove("invisible");
