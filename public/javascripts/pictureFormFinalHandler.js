@@ -3,6 +3,16 @@ const api_key = "839832329988942";
 const cloud_name = "dpqwimjsm";
 
 finalForm.addEventListener("submit", async (event) => {
+  //Take care of "Other model" possibility:
+  if (newModelInput && newModelInput.value) {
+    newModelInput.setAttribute("name", "model");
+    modelSelector.setAttribute("name", "");
+  }
+  if (modelSelector.value !== "Other") {
+    newModelInpt.setAttribute("name", "");
+    modelSelector.setAttribute("name", "model");
+  }
+
   event.preventDefault();
   //Detect pic inputs to modify
   const picInputs = Array.from(document.querySelectorAll("input[type=file]"));

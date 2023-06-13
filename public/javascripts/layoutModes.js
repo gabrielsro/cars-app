@@ -35,7 +35,6 @@ function setMode() {
     cardFooter.forEach((p) => (p.style.color = "black"));
     search.style.background = "white";
     search.style.color = "black";
-    options.forEach((o) => (o.style.background = "grey"));
     if (carTitle) {
       carTitle.style.background = "#eee";
       carBasicInfo.style.background = "#eee";

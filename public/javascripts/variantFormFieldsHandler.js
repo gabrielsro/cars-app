@@ -14,9 +14,10 @@ const variantLabel = document.querySelector(".variantLabel");
 const variantSelect = document.getElementById("carVariants");
 const lastBtn = document.getElementById("lastBtn");
 
+/*
 lastBtn.addEventListener("click", (e) => {
   e.preventDefault();
-  if (newModelInput.value) {
+  if (newModelInput && newModelInput.value) {
     newModelInput.setAttribute("name", "model");
     modelSelector.setAttribute("name", "");
   }
@@ -26,6 +27,7 @@ lastBtn.addEventListener("click", (e) => {
   }
   carForm.submit();
 });
+*/
 
 //Listen for changes on Model select element
 modelField.addEventListener("change", () => {

@@ -24,6 +24,9 @@ block content
           li 
             h4 Vans: !{cars.filter(c=>c.version.body == 'Van').length} 
             p (Available: !{cars.filter(c=>c.version.body == 'Van' && c.status == 'Available').length}  Sold: !{cars.filter(c=>c.version.body == 'Van' && c.status == 'Sold').length})
+          li 
+            h4 Unspecified: !{cars.filter(c=>c.version.body == 'Unspecified').length} 
+            p (Available: !{cars.filter(c=>c.version.body == 'Unspecified' && c.status == 'Available').length}  Sold: !{cars.filter(c=>c.version.body == 'Unspecified' && c.status == 'Sold').length})
       .inventory-make(class='inventorySection')
         .inventorySectionTitle
           img(src='/images/icons/Index/make1.svg', alt='Make category icon' id = 'makeIcon')
