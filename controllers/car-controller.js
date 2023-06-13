@@ -839,10 +839,16 @@ exports.add_car_get_variants_post_modelChange = async (req, res, next) => {
           makeSelection: req.params.make,
           year: req.params.year,
           models: results[1],
-          mileage: req.params.mileage,
-          price: req.params.price,
-          color: req.params.color,
-          status: req.params.status,
+          mileage:
+            req.params.mileage == "unspecified"
+              ? undefined
+              : req.params.mileage,
+          price:
+            req.params.price == "unspecified" ? undefined : req.params.price,
+          color:
+            req.params.color == "unspecified" ? undefined : req.params.color,
+          status:
+            req.params.status == "unspecified" ? undefined : req.params.status,
           description: null,
           makesList: results[0],
           variantsList: [],
@@ -1470,7 +1476,11 @@ exports.carAndVersionUpdate = (req, res, next) => {
         email: req.body.email,
         phone: req.body.phone,
       }),
-    ]).then(res.redirect(res.redirect(`/inventory/car/${req.params.carId}`)));
+    ]).then((car) => {
+      res.redirect(
+        res.redirect(`/inventory/car/${req.params.carId}/page/${car.model._id}`)
+      );
+    });
   }
   if (req.params.carChange == "false" && req.params.versionChange == "true") {
     //Version must be updated
@@ -1494,7 +1504,11 @@ exports.carAndVersionUpdate = (req, res, next) => {
       length: req.body.length,
       width: req.body.width,
       height: req.body.height,
-    }).then(res.redirect(`/inventory/car/${req.params.carId}`));
+    }).then((version) => {
+      res.redirect(
+        `/inventory/car/${req.params.carId}/page/${version.model._id}`
+      );
+    });
   }
   if (req.params.carChange == "true" && req.params.versionChange == "false") {
     //Car must be updated
@@ -1509,7 +1523,7 @@ exports.carAndVersionUpdate = (req, res, next) => {
       phone: req.body.phone,
     })
       .then((car) => {
-        res.redirect(`/inventory/car/${car.id}`);
+        res.redirect(`/inventory/car/${car.id}/page/${car.model._id}`);
       })
       .catch((err) => next(err));
   }

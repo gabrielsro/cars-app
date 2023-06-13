@@ -22,9 +22,17 @@ changesConfirmation.style.display = "none";
 
 restore.addEventListener("click", () => location.reload());
 save.addEventListener("click", () => {
-  savingOptions.classList.remove("invisible");
-  changesConfirmation.style.display = "none";
-  changesConfirmation.setAttribute("data-modification", "true");
+  if (allVersions.getAttribute("data-versionChange")) {
+    savingOptions.classList.remove("invisible");
+    changesConfirmation.style.display = "none";
+    changesConfirmation.setAttribute("data-modification", "true");
+  } else {
+    form.setAttribute(
+      "action",
+      `/inventory/car_version_update/${allVersions.dataset.car}/${allVersions.dataset.version}/true/false`
+    );
+    form.submit();
+  }
 });
 
 inputs.forEach((i) =>
@@ -91,6 +99,7 @@ currentVersion.addEventListener("click", () => {
   }
   if (currentVersion.getAttribute("data-carChange")) {
     //Car was changed. Update car
+    return;
   }
 });
 

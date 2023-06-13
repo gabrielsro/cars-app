@@ -1492,6 +1492,7 @@ fieldset {
 
 #formUpdateCar {
   margin-left: 0;
+  padding-bottom: 40px;
 }
 
 #formUpdateCar fieldset {
@@ -1549,6 +1550,53 @@ fieldset {
 }
 
 @media only screen and (max-width: 945px) {
+  .card-technical-rows {
+    flex-direction: column;
+  }
+
+  .formChangesConfirmation p {
+    text-align: center;
+  }
+
+  .formOption {
+    text-align: center;
+  }
+
+  .formChangesOptions > p {
+    margin-bottom: 10px;
+  }
+
+  #formUpdateCar fieldset {
+    margin-top: 20px;
+    margin-bottom: 5vh;
+  }
+
+  .form-content-text-new input,
+  .form-content-text-new select {
+    font-size: 1rem;
+  }
+
+  .form-content-text-new {
+    grid-template-columns: 29% 51% 18%;
+    width: 100%;
+    column-gap: 3px;
+  }
+
+  .form-content-text-new label,
+  .form-content-text-new p {
+    overflow: hidden;
+    font-size: 0.8rem;
+    text-align: end;
+  }
+
+  .form-content-text-new .carUpdateSwitch {
+    text-align: left;
+  }
+
+  .formTitle {
+    margin-bottom: 10px;
+  }
+
   .inventory-categories {
     grid-template-rows: repeat(8, 330px);
   }
@@ -1763,19 +1811,44 @@ fieldset {
 }
 
 @media only screen and (max-width: 508px) {
+  .form-progress {
+    margin-bottom: 60px;
+    margin-top: 30px;
+  }
+
+  .index-content h1 {
+    margin-bottom: 20px;
+  }
+
   .inventory-categories {
     grid-template-rows: repeat(8, 270px);
     row-gap: 25px;
+  }
+
+  .car-basic-info-section1 {
+    padding-left: 0;
+    width: 100%;
+    justify-content: space-around;
+  }
+
+  .car-basic-info-section2 {
+    padding-left: 0;
+  }
+
+  .car-basic-info-section3 {
+    gap: 0;
+  }
+
+  .car-basic-info {
+    padding-left: 0;
+    gap: 15px;
+    justify-content: center;
   }
 }
 
 @media only screen and (max-width: 400px) {
   .car-basic-info-section3 p {
     white-space: normal;
-  }
-  .car-basic-info-section1,
-  .car-basic-info-section2 {
-    padding-left: 10px;
   }
   .search form input {
     padding-left: 12px;

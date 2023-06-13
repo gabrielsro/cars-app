@@ -19,19 +19,17 @@ modelField.addEventListener("change", () => {
     yearField.value &&
     yearField.value > 1950 &&
     yearField.value < 3000 &&
-    modelField.value &&
-    mileageField.value &&
-    priceField.value &&
-    colorField.value &&
-    statusField.value
+    modelField.value
   ) {
+    const colorVal = colorField.value ? colorField.value : "unspecified";
+    const statusVal = statusField.value ? statusField.value : "unspecified";
+    const priceVal = priceField.value ? priceField.value : "unspecified";
+    const mileageVal = mileageField.value ? mileageField.value : "unspecified";
     lastMandatoryForm.setAttribute(
       "action",
       `/inventory/add-car/get-models-model-change/${yearField.value}/${
         makeField.value.split(",")[1]
-      }/${modelField.value}/${mileageField.value}/${priceField.value}/${
-        colorField.value
-      }/${statusField.value}`
+      }/${modelField.value}/${mileageVal}/${priceVal}/${colorVal}/${statusVal}`
     );
     lastMandatoryForm.submit();
   }
