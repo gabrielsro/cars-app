@@ -13,17 +13,17 @@ block content
           h3 By Body Type:
         ul 
           li 
-            h4 Automobiles: !{cars.filter(c=>c.version.type == 'Automobile').length} 
-            p (Available: !{cars.filter(c=>c.version.type == 'Automobile' && c.status == 'Available').length}  Sold: !{cars.filter(c=>c.version.type == 'Automobile' && c.status == 'Sold').length})
+            h4 Automobiles: !{cars.filter(c=>c.version.body == 'Automobile').length} 
+            p (Available: !{cars.filter(c=>c.version.body == 'Automobile' && c.status == 'Available').length}  Sold: !{cars.filter(c=>c.version.body == 'Automobile' && c.status == 'Sold').length})
           li 
-            h4 SUVs: !{cars.filter(c=>c.version.type == 'SUV').length} 
-            p (Available: !{cars.filter(c=>c.version.type == 'SUV' && c.status == 'Available').length}  Sold: !{cars.filter(c=>c.version.type == 'SUV' && c.status == 'Sold').length})
+            h4 SUVs: !{cars.filter(c=>c.version.body == 'SUV').length} 
+            p (Available: !{cars.filter(c=>c.version.body == 'SUV' && c.status == 'Available').length}  Sold: !{cars.filter(c=>c.version.body == 'SUV' && c.status == 'Sold').length})
           li 
             h4 Trucks: !{cars.filter(c=>c.version.type == 'Truck').length} 
             p (Available: !{cars.filter(c=>c.version.type == 'Truck' && c.status == 'Available').length}  Sold: !{cars.filter(c=>c.version.type == 'Truck' && c.status == 'Sold').length})
           li 
-            h4 Vans: !{cars.filter(c=>c.version.type == 'Van').length} 
-            p (Available: !{cars.filter(c=>c.version.type == 'Van' && c.status == 'Available').length}  Sold: !{cars.filter(c=>c.version.type == 'Van' && c.status == 'Sold').length})
+            h4 Vans: !{cars.filter(c=>c.version.body == 'Van').length} 
+            p (Available: !{cars.filter(c=>c.version.body == 'Van' && c.status == 'Available').length}  Sold: !{cars.filter(c=>c.version.body == 'Van' && c.status == 'Sold').length})
       .inventory-make(class='inventorySection')
         .inventorySectionTitle
           img(src='/images/icons/Index/make1.svg', alt='Make category icon' id = 'makeIcon')
