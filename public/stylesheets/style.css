@@ -257,7 +257,6 @@ textarea {
 
 .index-content {
   height: 100%;
-  padding-top: 40px;
 }
 
 #versionsTitle {
@@ -342,17 +341,12 @@ textarea {
   margin-left: 10px;
 }
 
-.index-content h3 {
-  margin-bottom: 10px;
-}
-
 .index-content ul {
   list-style-type: none;
 }
 
 .index-content li {
   margin-bottom: 10px;
-  margin-left: 30px;
 }
 
 .index-content p {
@@ -367,9 +361,39 @@ textarea {
 }
 
 .inventory-categories {
-  padding-left: 30px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 300px));
+  gap: 25px;
+  place-content: center;
+  width: 100%;
+}
+
+.inventorySectionTitle {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.inventorySectionTitle img {
+  max-width: 50px;
+}
+
+.inventorySectionTitle #bodyIcon {
+  max-width: 80px;
+}
+
+.inventorySection {
+  min-width: 200px;
+  height: 330px;
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+.inventorySection ul {
+  min-width: 100%;
+  height: 300px;
+  overflow: hidden;
+  overflow-y: auto;
 }
 
 .groupCardsContainer {

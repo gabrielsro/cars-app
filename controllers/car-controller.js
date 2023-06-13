@@ -26,18 +26,137 @@ cloudinary.config({
 });
 
 exports.index = (req, res, next) => {
-  Car.find({}, "make version status price")
-    .populate("version", "type")
-    .populate("make", "name")
+  Car.find(
+    {},
+    "make version status price country year createdAt makeName modelName"
+  )
+    .sort({ createdAt: 1 })
+    .populate("version")
+    .populate("make")
+    .populate("model")
     .then((result) => {
-      let makes = [];
+      const makes = [];
+      const makeOrigins = [];
+      const oldest = [];
+      const fuel = {
+        Gasoline: { qty: 0, available: 0, sold: 0 },
+        Diesel: { qty: 0, available: 0, sold: 0 },
+        Hybrid: { qty: 0, available: 0, sold: 0 },
+        Electric: { qty: 0, available: 0, sold: 0 },
+      };
+      const year = {
+        vintage: { qty: 0, available: 0, sold: 0 },
+        eighties: { qty: 0, available: 0, sold: 0 },
+        nineties: { qty: 0, available: 0, sold: 0 },
+        twothousands: { qty: 0, available: 0, sold: 0 },
+        firstDecade: { qty: 0, available: 0, sold: 0 },
+        secondDecade: { qty: 0, available: 0, sold: 0 },
+      };
+      const carLocation = [];
       result.forEach((c) => {
         if (makes.every((m) => m != c.make.name)) {
           makes.push(c.make.name);
         }
         makes.sort();
+        //Get info for fuel card:
+        fuel[c.version.fuel].qty++;
+        c.status == "Available"
+          ? fuel[c.version.fuel].available++
+          : fuel[c.version.fuel].sold++;
+        //Get info for vehicle location card:
+        if (carLocation.every((l) => l.country !== c.country)) {
+          carLocation.push({
+            country: c.country,
+            qty: 1,
+            sold: c.status == "Sold" ? 1 : 0,
+            available: c.status == "Available" ? 1 : 0,
+          });
+        } else {
+          let country = carLocation.filter((l) => l.country == c.country);
+          country[0].qty++;
+          if (c.status == "Available") {
+            country[0].available++;
+          } else {
+            country[0].sold++;
+          }
+        }
+        carLocation.sort((a, b) => {
+          if (a.country < b.country) {
+            return -1;
+          }
+          if (a.country > b.country) {
+            return 1;
+          } else {
+            return 0;
+          }
+        });
+        //Get info for year card:
+        if (c.year < 1980) {
+          year.vintage.qty++;
+          c.status == "Available"
+            ? year.vintage.available++
+            : year.vintage.sold++;
+        }
+        if (c.year >= 1980 && c.year < 1990) {
+          year.eighties.qty++;
+          c.status == "Available"
+            ? year.eighties.available++
+            : year.eighties.sold++;
+        }
+        if (c.year >= 1990 && c.year < 2000) {
+          year.nineties.qty++;
+          c.status == "Available"
+            ? year.nineties.available++
+            : year.nineties.sold++;
+        }
+        if (c.year >= 2000 && c.year < 2010) {
+          year.twothousands.qty++;
+          c.status == "Available"
+            ? year.twothousands.available++
+            : year.twothousands.sold++;
+        }
+        if (c.year >= 2010 && c.year < 2020) {
+          year.firstDecade.qty++;
+          c.status == "Available"
+            ? year.firstDecade.available++
+            : year.firstDecade.sold++;
+        }
+        if (c.year >= 2020) {
+          year.secondDecade.qty++;
+          c.status == "Available"
+            ? year.secondDecade.available++
+            : year.secondDecade.sold++;
+        }
+        //Get info for make's origin card
+        if (makeOrigins.every((m) => m.demonym !== c.make.demonym)) {
+          makeOrigins.push({
+            demonym: c.make.demonym,
+            qty: 1,
+            available: c.status == "Available" ? 1 : 0,
+            sold: c.status == "Sold" ? 1 : 0,
+          });
+        } else {
+          let origin = makeOrigins.filter((m) => m.demonym == c.make.demonym);
+          origin[0].qty++;
+          c.status == "Available" ? origin[0].available++ : origin[0].sold++;
+        }
+        //Get info for oldests card
+        oldest.push({
+          name: `${c.year} ${c.makeName} ${c.modelName}`,
+          date: `${c.createdAt.toLocaleDateString()}`,
+          status: `${c.status}`,
+          url: `${c.url}`,
+        });
       });
-      res.render("index", { cars: result, makes });
+      res.render("index", {
+        cars: result,
+        makes,
+        fuel,
+        carLocation,
+        year,
+        makeOrigins,
+        oldest,
+      });
     })
     .catch((err) => next(err));
 };

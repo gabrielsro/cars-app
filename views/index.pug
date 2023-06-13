@@ -7,15 +7,14 @@ block content
       h2 Cars: !{cars.length} 
       p (Available: !{cars.filter(c=>c.status=='Available').length}, Sold: !{cars.filter(c=>c.status=='Sold').length})
     .inventory-categories
-      .inventory-type 
-        h3 By Type:
+      .inventory-type(class='inventorySection') 
+        .inventorySectionTitle
+          img(src='/images/icons/Index/body1.svg', alt='Body category icon' id='bodyIcon')
+          h3 By Body Type:
         ul 
           li 
             h4 Automobiles: !{cars.filter(c=>c.version.type == 'Automobile').length} 
             p (Available: !{cars.filter(c=>c.version.type == 'Automobile' && c.status == 'Available').length}  Sold: !{cars.filter(c=>c.version.type == 'Automobile' && c.status == 'Sold').length})
-          li 
-            h4 Motorcycles: !{cars.filter(c=>c.version.type == 'Motorcycle').length} 
-            p (Available: !{cars.filter(c=>c.version.type == 'Motorcycle' && c.status == 'Available').length}  Sold: !{cars.filter(c=>c.version.type == 'Motorcycle' && c.status == 'Sold').length})
           li 
             h4 SUVs: !{cars.filter(c=>c.version.type == 'SUV').length} 
             p (Available: !{cars.filter(c=>c.version.type == 'SUV' && c.status == 'Available').length}  Sold: !{cars.filter(c=>c.version.type == 'SUV' && c.status == 'Sold').length})
@@ -25,37 +24,118 @@ block content
           li 
             h4 Vans: !{cars.filter(c=>c.version.type == 'Van').length} 
             p (Available: !{cars.filter(c=>c.version.type == 'Van' && c.status == 'Available').length}  Sold: !{cars.filter(c=>c.version.type == 'Van' && c.status == 'Sold').length})
-      .inventory-make
-        h3 By Make: 
+      .inventory-make(class='inventorySection')
+        .inventorySectionTitle
+          img(src='/images/icons/Index/make1.svg', alt='Make category icon')
+          h3 By Make: 
         ul 
           for make in makes 
             li 
               h4 !{make}: !{cars.filter(c=>c.make.name==make).length} 
               p (Available: !{cars.filter(c=>c.make.name==make && c.status == 'Available').length}, Sold: !{cars.filter(c=>c.make.name==make && c.status == 'Sold').length})
-      .inventory-price 
-        h3 By Price Range:
+      .inventory-price(class='inventorySection') 
+        .inventorySectionTitle
+          img(src='/images/icons/Index/price1.svg', alt='Make category icon')
+          h3 By Price Range:
         ul 
           li 
-            h4 Less than 5.000: !{cars.filter(c=>c.price<5000).length}
+            h4 Less than 10.000: !{cars.filter(c=>c.price<5000).length}
             p (Available: !{cars.filter(c=>c.price<5000 && c.status=='Available').length}, Sold: !{cars.filter(c=>c.price<5000 && c.status=='Sold').length})
           li 
-            h4 Between 5.000 and 10.000: !{cars.filter(c=>c.price>=5000 && c.price<10000).length}
+            h4 10.000 to 20.000: !{cars.filter(c=>c.price>=5000 && c.price<10000).length}
             p (Available: !{cars.filter(c=>c.price<5000 && c.status=='Available').length}, Sold: !{cars.filter(c=>c.price<5000 && c.status=='Available').length})
           li 
-            h4 Between 10.000 and 20.000: !{cars.filter(c=>c.price>=10000 && c.price<20000).length}
+            h4 20.000 to 30.000: !{cars.filter(c=>c.price>=10000 && c.price<20000).length}
             p (Available: !{cars.filter(c=>c.price<5000 && c.status=='Available').length}, Sold: !{cars.filter(c=>c.price<5000 && c.status=='Available').length})
           li 
-            h4 Between 20.000 and 40.000: !{cars.filter(c=>c.price>=20000 && c.price<40000).length}
+            h4 30.000 to 40.000: !{cars.filter(c=>c.price>=20000 && c.price<40000).length}
             p (Available: !{cars.filter(c=>c.price<5000 && c.status=='Available').length}, Sold: !{cars.filter(c=>c.price<5000 && c.status=='Available').length})
           li 
-            h4 Between 40.000 and 60.000: !{cars.filter(c=>c.price>=40000 && c.price<60000).length}
+            h4 40.000 to 60.000: !{cars.filter(c=>c.price>=40000 && c.price<60000).length}
             p (Available: !{cars.filter(c=>c.price<5000 && c.status=='Available').length}, Sold: !{cars.filter(c=>c.price<5000 && c.status=='Available').length})
           li 
-            h4 Between 60.000 and 100.000: !{cars.filter(c=>c.price>=60000 && c.price<100000).length}
+            h4 60.000 to 80.000: !{cars.filter(c=>c.price>=60000 && c.price<100000).length}
             p (Available: !{cars.filter(c=>c.price>=60000 && c.price<100000 && c.status=='Available').length}, Sold: !{cars.filter(c=>c.price>=60000 && c.price<100000 && c.status=='Sold').length})
           li 
-            h4 Greater than 100.000: !{cars.filter(c=>c.price>100000).length}
+            h4 80.000 to 100.000: !{cars.filter(c=>c.price>100000).length}
             p (Available: !{cars.filter(c=>c.price>100000 && c.status=='Available').length}, Sold: !{cars.filter(c=>c.price>100000 && c.status=='Available').length})
-
-    
-
+          li 
+            h4 100.000 to 150.000: !{cars.filter(c=>c.price>100000).length}
+            p (Available: !{cars.filter(c=>c.price>100000 && c.status=='Available').length}, Sold: !{cars.filter(c=>c.price>100000 && c.status=='Available').length})
+          li 
+            h4 150.000 to 200.000: !{cars.filter(c=>c.price>100000).length}
+            p (Available: !{cars.filter(c=>c.price>100000 && c.status=='Available').length}, Sold: !{cars.filter(c=>c.price>100000 && c.status=='Available').length})
+          li 
+            h4 200.000 to 250.000: !{cars.filter(c=>c.price>100000).length}
+            p (Available: !{cars.filter(c=>c.price>100000 && c.status=='Available').length}, Sold: !{cars.filter(c=>c.price>100000 && c.status=='Available').length})
+          li 
+            h4 More than 250.000: !{cars.filter(c=>c.price>100000).length}
+            p (Available: !{cars.filter(c=>c.price>100000 && c.status=='Available').length}, Sold: !{cars.filter(c=>c.price>100000 && c.status=='Available').length})
+      .inventory-fuel(class='inventorySection')
+        .inventorySectionTitle
+          img(src='/images/icons/Index/fuel1.svg', alt='Make category icon')
+          h3 By Fuel Type:  
+        ul
+          li 
+            h4 Gasoline: !{fuel.Gasoline.qty} 
+            p (Available: !{fuel.Gasoline.available}, Sold: !{fuel.Gasoline.sold})
+          li 
+            h4 Diesel: !{fuel.Diesel.qty} 
+            p (Available: !{fuel.Diesel.available}, Sold: !{fuel.Diesel.sold})
+          li 
+            h4 Hybrid: !{fuel.Hybrid.qty} 
+            p (Available: !{fuel.Hybrid.available}, Sold: !{fuel.Hybrid.sold})
+          li 
+            h4 Electric: !{fuel.Electric.qty} 
+            p (Available: !{fuel.Electric.available}, Sold: !{fuel.Electric.sold})
+      .inventory-seller-country(class='inventorySection')
+        .inventorySectionTitle
+          img(src='/images/icons/Index/map1.svg', alt='Make category icon')
+          h3 By Vehicle's Location:
+        ul
+          for location in carLocation 
+            li 
+              h4 !{location.country === '' ? 'Unknown Location' : location.country}: !{location.qty}
+              p (Available: !{location.available}, Sold: !{location.sold})
+      .inventory-year(class='inventorySection')
+        .inventorySectionTitle
+          img(src='/images/icons/Index/year1.svg', alt='Make category icon')
+          h3 By Year: 
+        ul
+          li 
+            h4 1979 and below: !{year.vintage.qty} 
+            p (Available: !{year.vintage.available}, Sold: !{year.vintage.sold})
+          li 
+            h4 1980 - 1989: !{year.eighties.qty} 
+            p (Available: !{year.eighties.available}, Sold: !{year.eighties.sold})
+          li 
+            h4 1990 - 1999: !{year.nineties.qty} 
+            p (Available: !{year.nineties.available}, Sold: !{year.nineties.sold})
+          li 
+            h4 2000 - 2009: !{year.twothousands.qty} 
+            p (Available: !{year.twothousands.available}, Sold: !{year.twothousands.sold})
+          li 
+            h4 2010 - 2019: !{year.firstDecade.qty} 
+            p (Available: !{year.firstDecade.available}, Sold: !{year.firstDecade.sold})
+          li 
+            h4 2020 - present: !{year.secondDecade.qty} 
+            p (Available: !{year.secondDecade.available}, Sold: !{year.secondDecade.sold})
+      .inventory-make-country(class='inventorySection')
+        .inventorySectionTitle
+          img(src='/images/icons/Index/world1.svg', alt='Make-origin category icon')
+          h3 By Make's Origin: 
+        ul 
+          for origin in makeOrigins 
+            li 
+              h4 !{origin.demonym}: !{origin.qty}
+              p (Available: !{origin.available}, Sold: !{origin.sold})
+      .inventory-oldest(class='inventorySection')
+        .inventorySectionTitle
+          img(src='/images/icons/Index/time1.svg', alt='Make category icon')
+          h3 Oldest to Newest in Stock: 
+        ul 
+          for old in oldest 
+            li 
+              h4
+                a(href=`${old.url}`) !{old.name}
+              p (!{old.date} • !{old.status})
