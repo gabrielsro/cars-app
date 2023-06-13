@@ -45,7 +45,6 @@ nav {
   margin-bottom: 20px;
   padding-top: 10px;
   padding-bottom: 10px;
-  overflow-y: hidden;
   overflow-y: auto;
 }
 
@@ -1811,6 +1810,10 @@ fieldset {
 }
 
 @media only screen and (max-width: 508px) {
+  .searchOptionsList {
+    justify-content: flex-start;
+  }
+
   .form-progress {
     margin-bottom: 60px;
     margin-top: 30px;

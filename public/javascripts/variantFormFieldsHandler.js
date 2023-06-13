@@ -12,6 +12,20 @@ const newVariantLbl = document.getElementById("labelForNewVariant");
 const newVariantInpt = document.getElementById("newVariantFromVariantForm");
 const variantLabel = document.querySelector(".variantLabel");
 const variantSelect = document.getElementById("carVariants");
+const lastBtn = document.getElementById("lastBtn");
+
+lastBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  if (newModelInput.value) {
+    newModelInput.setAttribute("name", "model");
+    modelSelector.setAttribute("name", "");
+  }
+  if (modelSelector.value !== "Other") {
+    newModelInpt.setAttribute("name", "");
+    modelSelector.setAttribute("name", "model");
+  }
+  carForm.submit();
+});
 
 //Listen for changes on Model select element
 modelField.addEventListener("change", () => {

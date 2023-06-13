@@ -2,6 +2,38 @@ const Version = require("../../models/version");
 const { variantInfoGetter } = require("./carInfoAPI");
 
 exports.createVersion = async (makeId, modelId, modelYear, reqBodyVariant) => {
+  if (/,/.test(reqBodyVariant) == false) {
+    return new Version({
+      name: reqBodyVariant,
+      model: modelId,
+      make: makeId,
+      year: modelYear,
+      versionNumber: 0,
+      body: "Unspecified",
+      versionBodyType: "Sedan",
+      enginePosition: "front",
+      engineCC: 2000,
+      engineCyl: 4,
+      engineType: "Inline",
+      engineTorqueNm: 200,
+      enginePower: 120,
+      engineCompression: "9:1",
+      drive: "FWD",
+      transmission: "Automatic",
+      weight: 5000,
+      fuel: "Gasoline",
+      fuelSpecifics: "Gasoline",
+      fuelEfficiencyHgw: 20,
+      fuelEfficiencyMixed: 16,
+      fuelEfficiencyCity: 13,
+      accel0To100: 10,
+      maxSpeed: 180,
+      length: 3000,
+      width: 1900,
+      height: 1300,
+      cars: [],
+    });
+  }
   const variantInfo = await variantInfoGetter(reqBodyVariant.split(",")[2]);
   let highway;
   let mixed;

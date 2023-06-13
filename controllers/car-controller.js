@@ -982,7 +982,9 @@ exports.add_car_variants_submit = [
     }
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      res.send(`La cagamos ${errors[0]}, ${Object.entries(errors)}`);
+      res.send(
+        `La cagamos ${errors.errors[0].path}, variant: ${req.body.variant[0]}`
+      );
       return;
     }
     Make.find({ name: req.body.make.split(",")[0] })

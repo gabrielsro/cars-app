@@ -54,7 +54,7 @@ block content
                             option(value=`${(variantsList[0].model_name ? variantsList[0].model_name : 'Default')},${(variantsList[0].model_trim ? variantsList[0].model_trim : 'Default version')},${(variantsList[0].model_id ? variantsList[0].model_id : '')}`, selected='true') #{variantsList[0].model_trim}                      
                 if variantsList.length < 1
                     label(for='newVariant' id='newVariantLabel' class='invisible') Variant name:
-                    input(id='newVariant', type='text', name='newVariant', placeholder="Enter variant's name" value=variant class='invisible')
+                    input(id='newVariant', type='text', name='variant', placeholder="Enter variant's name" value=variant class='invisible')
                 label(id='labelForNewModel' for='newModelFromVariantForm' class='invisible') Model name: 
                 input(id='newModelFromVariantForm' type="text" name='newModelFromVariantForm' placeholder="Enter model's name" class='invisible')
                 label(id='labelForNewVariant' for='newVariantFromVariantForm' class='invisible') Variant name: 
@@ -141,7 +141,7 @@ block content
                         input(type='hidden', name='picId5', class='picId')
                 .optional-fieldset-buttons 
                     button(type='button' id='morePrevious') Previous
-                    button(type='submit') Add car
+                    button(type='submit' id='lastBtn') Add car
         
 
     
