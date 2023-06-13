@@ -38,6 +38,19 @@ exports.index = (req, res, next) => {
       const makes = [];
       const makeOrigins = [];
       const oldest = [];
+      const prices = [
+        { qty: 0, available: 0, sold: 0 },
+        { qty: 0, available: 0, sold: 0 },
+        { qty: 0, available: 0, sold: 0 },
+        { qty: 0, available: 0, sold: 0 },
+        { qty: 0, available: 0, sold: 0 },
+        { qty: 0, available: 0, sold: 0 },
+        { qty: 0, available: 0, sold: 0 },
+        { qty: 0, available: 0, sold: 0 },
+        { qty: 0, available: 0, sold: 0 },
+        { qty: 0, available: 0, sold: 0 },
+        { qty: 0, available: 0, sold: 0 },
+      ];
       const fuel = {
         Gasoline: { qty: 0, available: 0, sold: 0 },
         Diesel: { qty: 0, available: 0, sold: 0 },
@@ -58,6 +71,52 @@ exports.index = (req, res, next) => {
           makes.push(c.make.name);
         }
         makes.sort();
+        //Get info for price card:
+        if (c.price < 10000) {
+          prices[0].qty++;
+          c.status == "Available" ? prices[0].available++ : prices[0].sold++;
+        }
+        if (c.price >= 10000 && c.price < 20000) {
+          prices[1].qty++;
+          c.status == "Available" ? prices[1].available++ : prices[1].sold++;
+        }
+        if (c.price >= 20000 && c.price < 30000) {
+          prices[2].qty++;
+          c.status == "Available" ? prices[2].available++ : prices[2].sold++;
+        }
+        if (c.price >= 30000 && c.price < 40000) {
+          prices[3].qty++;
+          c.status == "Available" ? prices[3].available++ : prices[3].sold++;
+        }
+        if (c.price >= 40000 && c.price < 60000) {
+          prices[4].qty++;
+          c.status == "Available" ? prices[4].available++ : prices[4].sold++;
+        }
+        if (c.price >= 60000 && c.price < 80000) {
+          prices[5].qty++;
+          c.status == "Available" ? prices[5].available++ : prices[5].sold++;
+        }
+        if (c.price >= 80000 && c.price < 100000) {
+          prices[6].qty++;
+          c.status == "Available" ? prices[6].available++ : prices[6].sold++;
+        }
+        if (c.price >= 100000 && c.price < 150000) {
+          prices[7].qty++;
+          c.status == "Available" ? prices[7].available++ : prices[7].sold++;
+        }
+        if (c.price >= 150000 && c.price < 200000) {
+          prices[8].qty++;
+          c.status == "Available" ? prices[8].available++ : prices[8].sold++;
+        }
+        if (c.price >= 200000 && c.price < 250000) {
+          prices[9].qty++;
+          c.status == "Available" ? prices[9].available++ : prices[9].sold++;
+        }
+        if (c.price >= 250000) {
+          prices[10].qty++;
+          c.status == "Available" ? prices[10].available++ : prices[10].sold++;
+        }
+
         //Get info for fuel card:
         fuel[c.version.fuel].qty++;
         c.status == "Available"
@@ -156,6 +215,7 @@ exports.index = (req, res, next) => {
         year,
         makeOrigins,
         oldest,
+        prices,
       });
     })
     .catch((err) => next(err));

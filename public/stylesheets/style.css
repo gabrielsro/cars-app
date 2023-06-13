@@ -423,7 +423,7 @@ textarea {
 
 .inventorySection ul {
   max-width: 100%;
-  height: 100%;
+  height: calc(100% - 77px);
   overflow: hidden;
   overflow-y: auto;
 }

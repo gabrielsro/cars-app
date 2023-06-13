@@ -97,7 +97,7 @@ block content
                         .card-technical-row(id='metricWeight' class='invisible')
                             img(src='/images/icons/weightIcons/weightBlack1.svg' alt='Weight Icon' id='weightIcon' class='black')
                             img(src='/images/icons/weightIcons/weightWhite1.svg' alt='Weight Icon' id='weightIcon' class='white')
-                            h5 #{car.version.weight} kg
+                            h5 #{car.version.weight.toLocaleString()} kg
                     if !car.version.length && !car.version.width && !car.version.height
                         .card-technical-row(id='imperialDimensions')
                             img(src='/images/icons/dimensionsIcons/dimensionsBlack1.svg' alt='Dimensions Icon' id='dimensionsIcon' class='black')
