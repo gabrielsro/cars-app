@@ -26,7 +26,7 @@ block content
             p (Available: !{cars.filter(c=>c.version.type == 'Van' && c.status == 'Available').length}  Sold: !{cars.filter(c=>c.version.type == 'Van' && c.status == 'Sold').length})
       .inventory-make(class='inventorySection')
         .inventorySectionTitle
-          img(src='/images/icons/Index/make1.svg', alt='Make category icon')
+          img(src='/images/icons/Index/make1.svg', alt='Make category icon' id = 'makeIcon')
           h3 By Make: 
         ul 
           for make in makes 
@@ -35,7 +35,7 @@ block content
               p (Available: !{cars.filter(c=>c.make.name==make && c.status == 'Available').length}, Sold: !{cars.filter(c=>c.make.name==make && c.status == 'Sold').length})
       .inventory-price(class='inventorySection') 
         .inventorySectionTitle
-          img(src='/images/icons/Index/price1.svg', alt='Make category icon')
+          img(src='/images/icons/Index/price1.svg', alt='Make category icon' id='priceIcon')
           h3 By Price Range:
         ul 
           li 
@@ -73,7 +73,7 @@ block content
             p (Available: !{cars.filter(c=>c.price>100000 && c.status=='Available').length}, Sold: !{cars.filter(c=>c.price>100000 && c.status=='Available').length})
       .inventory-fuel(class='inventorySection')
         .inventorySectionTitle
-          img(src='/images/icons/Index/fuel1.svg', alt='Make category icon')
+          img(src='/images/icons/Index/fuel1.svg', alt='Make category icon' id='fuelIcon')
           h3 By Fuel Type:  
         ul
           li 
@@ -99,7 +99,7 @@ block content
               p (Available: !{location.available}, Sold: !{location.sold})
       .inventory-year(class='inventorySection')
         .inventorySectionTitle
-          img(src='/images/icons/Index/year1.svg', alt='Make category icon')
+          img(src='/images/icons/Index/year1.svg', alt='Make category icon' id='yearIcon')
           h3 By Year: 
         ul
           li 
@@ -122,7 +122,7 @@ block content
             p (Available: !{year.secondDecade.available}, Sold: !{year.secondDecade.sold})
       .inventory-make-country(class='inventorySection')
         .inventorySectionTitle
-          img(src='/images/icons/Index/world1.svg', alt='Make-origin category icon')
+          img(src='/images/icons/Index/world1.svg', alt='Make-origin category icon' id='originIcon')
           h3 By Make's Origin: 
         ul 
           for origin in makeOrigins 
@@ -131,8 +131,10 @@ block content
               p (Available: !{origin.available}, Sold: !{origin.sold})
       .inventory-oldest(class='inventorySection')
         .inventorySectionTitle
-          img(src='/images/icons/Index/time1.svg', alt='Make category icon')
-          h3 Oldest to Newest in Stock: 
+          img(src='/images/icons/Index/time1.svg', alt='Make category icon' id='oldestIcon')
+          .inventorySectionTitleContainer
+            h3 Date Added: 
+            p (Oldest to Newest)
         ul 
           for old in oldest 
             li 

@@ -203,6 +203,7 @@ textarea {
   padding-right: 20px;
   margin-left: 115px;
   width: calc(100vw - 125px);
+  height: 100vh;
 }
 
 .side-bar {
@@ -257,6 +258,10 @@ textarea {
 
 .index-content {
   height: 100%;
+}
+
+.index-content h1 {
+  font-size: 2.5rem;
 }
 
 #versionsTitle {
@@ -362,8 +367,10 @@ textarea {
 
 .inventory-categories {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 300px));
-  gap: 25px;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 230px));
+  grid-template-rows: repeat(3, 330px);
+  column-gap: 5vw;
+  row-gap: 2.5vw;
   place-content: center;
   width: 100%;
 }
@@ -372,6 +379,7 @@ textarea {
   display: flex;
   gap: 5px;
   align-items: center;
+  min-height: 77px;
 }
 
 .inventorySectionTitle img {
@@ -379,19 +387,43 @@ textarea {
 }
 
 .inventorySectionTitle #bodyIcon {
-  max-width: 80px;
+  max-width: 75px;
+}
+
+.inventorySectionTitle #priceIcon {
+  max-width: 44px;
+}
+
+.inventorySectionTitle #makeIcon {
+  max-width: 44px;
+}
+
+.inventorySectionTitle #fuelIcon {
+  max-width: 42px;
+}
+
+.inventorySectionTitle #yearIcon {
+  max-width: 38px;
+}
+
+.inventorySectionTitle #originIcon {
+  max-width: 42px;
+}
+
+.inventorySectionTitle #oldestIcon {
+  max-width: 39px;
 }
 
 .inventorySection {
-  min-width: 200px;
-  height: 330px;
+  max-width: 100%;
+  height: 100%;
   overflow: hidden;
   border-radius: 5px;
 }
 
 .inventorySection ul {
-  min-width: 100%;
-  height: 300px;
+  max-width: 100%;
+  height: 100%;
   overflow: hidden;
   overflow-y: auto;
 }
@@ -1517,6 +1549,10 @@ fieldset {
 }
 
 @media only screen and (max-width: 945px) {
+  .inventory-categories {
+    grid-template-rows: repeat(8, 330px);
+  }
+
   .modelMakeLogo {
     display: grid;
     place-content: center;
@@ -1723,6 +1759,13 @@ fieldset {
 
   .car-links {
     row-gap: 0;
+  }
+}
+
+@media only screen and (max-width: 508px) {
+  .inventory-categories {
+    grid-template-rows: repeat(8, 270px);
+    row-gap: 25px;
   }
 }
 
