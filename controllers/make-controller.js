@@ -221,7 +221,9 @@ exports.makeDelete = (req, res, next) => {
             ...picPromises,
           ])
         )
-        .then(res.redirect("/inventory/"))
+        .then((answer) => {
+          res.redirect("/inventory/");
+        })
         .catch((err) => next(err));
     })
     .catch((err) => next(err));

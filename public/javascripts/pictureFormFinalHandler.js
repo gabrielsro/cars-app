@@ -3,6 +3,8 @@ const api_key = "839832329988942";
 const cloud_name = "dpqwimjsm";
 
 finalForm.addEventListener("submit", async (event) => {
+  lastBtn.style.color = "grey";
+  lastBtn.setAttribute("inert", "true");
   //Take care of "Other model" possibility:
   if (newModelInput && newModelInput.value) {
     newModelInput.setAttribute("name", "model");

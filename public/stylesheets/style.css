@@ -26,7 +26,7 @@ nav {
   width: 100vw;
   display: flex;
   justify-content: space-between;
-  z-index: 2;
+  z-index: 5;
   bottom: 0;
   padding-right: 5px;
   padding-left: 3px;
@@ -609,7 +609,19 @@ fieldset {
 
 .form-add-make {
   display: flex;
+  width: 100%;
+  align-items: center;
   gap: 10px;
+}
+
+.form-add-make label,
+.form-add-make select,
+.form-add-make button {
+  font-size: 1rem;
+}
+
+.form-add-make label {
+  font-size: 1.3rem;
 }
 
 .form-add-model {
@@ -1180,6 +1192,28 @@ fieldset {
   width: 100%;
 }
 
+dialog {
+  z-index: 4;
+  margin-left: 50%;
+  padding: 5px;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 5px;
+}
+
+#deleteCarDialog {
+  margin-top: 10vh;
+}
+
+dialog button {
+  margin-top: 10px;
+  font-size: 1.1rem;
+}
+
+dialog button:hover {
+  cursor: pointer;
+}
+
 .car-title-controls {
   display: flex;
   flex-direction: column;
@@ -1188,6 +1222,11 @@ fieldset {
   font-weight: bold;
   padding-top: 5px;
   padding-bottom: 5px;
+  color: #00b7ff;
+}
+
+.car-title-controls:hover {
+  cursor: pointer;
 }
 
 .car-info-container {
@@ -1673,6 +1712,7 @@ fieldset {
   .side-bar {
     display: none;
     width: max(15vw, 150px);
+    z-index: 3;
   }
 
   .top {
@@ -1740,13 +1780,15 @@ fieldset {
     grid-template-rows: calc(100vw / 1.3) auto;
   }
   .car-technical {
-    grid-column: 1/3;
+    grid-column: 1/2;
     grid-row: 2/3;
+    overflow: hidden;
   }
 
   .car-media .side-imgs {
     grid-template-columns: 15% 15% 15% 15% 15%;
     height: 100%;
+    gap: 10px;
   }
 
   .car-media .side-imgs img {
@@ -1815,6 +1857,19 @@ fieldset {
 }
 
 @media only screen and (max-width: 508px) {
+  .makeMainLogoContainer {
+    display: grid;
+    place-content: center;
+  }
+
+  .version-header {
+    flex-direction: column;
+  }
+
+  .version-title {
+    flex-direction: column;
+  }
+
   .searchOptionsList {
     justify-content: flex-start;
   }
@@ -1822,6 +1877,8 @@ fieldset {
   .form-progress {
     margin-bottom: 60px;
     margin-top: 30px;
+    text-align: center;
+    border-radius: 0;
   }
 
   .index-content h1 {
@@ -1851,15 +1908,39 @@ fieldset {
     padding-left: 0;
     gap: 15px;
     justify-content: center;
+    overflow: hidden;
   }
 }
 
+.dialogButtons {
+  display: flex;
+  place-self: end;
+  gap: 10px;
+  margin-left: 70%;
+}
+
 @media only screen and (max-width: 400px) {
+  .dialogButtons {
+    margin-left: 60%;
+  }
+
+  #deleteCarDialog {
+    margin-top: 20vh;
+    margin-left: 0;
+  }
   .car-basic-info-section3 p {
     white-space: normal;
   }
   .search form input {
     padding-left: 12px;
+  }
+
+  .logoContainer img {
+    max-width: 97vw;
+  }
+
+  .logoContainer {
+    height: 50vh;
   }
 }
 

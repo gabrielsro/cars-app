@@ -13,7 +13,7 @@ block content
             .make-sub-info
                 h2= make.country
         .make-options 
-            a(href=make.url+'/update') Update
+            a(href='') Update
             a(id='delete-option') Delete
     .delete-warning(class='invisible') 
         .delete-warning-msg
@@ -22,7 +22,8 @@ block content
         .delete-warning-controls
             a(id='btn-delete-no') No, return
             a(id='btn-delete-yes', href=make.url+'/delete') Yes, delete
-    img(src=make.logoSrc, atl=`${make.name} logo` id='makeMainLogo')
+    .makeMainLogoContainer
+        img(src=make.logoSrc, atl=`${make.name} logo` id='makeMainLogo')
     .make-more
     if list && list.length > 0
         h2(class='subtitle') Models

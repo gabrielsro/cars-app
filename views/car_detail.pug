@@ -16,8 +16,12 @@ block content
         .car-title-controls
             p 
                 a(href=`/inventory/car/${car._id}/update/old`) Update
-            p2
-                a(href=`/inventory/car/${car._id}/delete`) Delete
+            p Delete
+        dialog(id='deleteCarDialog') 
+            p This car will be permanently deleted. Do you wish to proceed?
+            .dialogButtons 
+                button(data-car=`${car._id}`) Yes, delete 
+                button No
     .car-info-container
         .car-media
             if pics.length > 0

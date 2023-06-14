@@ -32,6 +32,27 @@ const imperialSpeed = document.getElementById("imperialSpeed");
 const metricSpeed = document.getElementById("metricSpeed");
 const imperialDimensions = document.getElementById("imperialDimensions");
 const metricDimensions = document.getElementById("metricDimensions");
+const deleteCar = document.querySelector(".car-title-controls>p:nth-child(2)");
+const deleteModal = document.getElementById("deleteCarDialog");
+
+//Handle delete option:
+deleteCar.addEventListener("click", () => {
+  deleteModal.open ? deleteModal.close() : deleteModal.show();
+  if (deleteModal.open) {
+    const deleteYes = document.querySelector(
+      "#deleteCarDialog .dialogButtons > button"
+    );
+    const deleteNo = document.querySelector(
+      "#deleteCarDialog .dialogButtons > button:nth-child(2)"
+    );
+    deleteYes.addEventListener("click", () => {
+      window.location.href = `/inventory/car/${deleteYes.dataset.car}/delete`;
+    });
+    deleteNo.addEventListener("click", () => {
+      deleteModal.close();
+    });
+  }
+});
 
 metricB.addEventListener("click", () => {
   if (!metricB.classList.contains("selectedText")) {
