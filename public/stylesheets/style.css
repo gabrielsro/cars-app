@@ -1720,7 +1720,6 @@ fieldset {
   }
   .main-view {
     overflow: auto;
-    margin-bottom: 11vh;
     padding-top: 8vh;
     margin-left: 0px;
     width: 100vw;
@@ -1876,6 +1875,12 @@ fieldset {
 }
 
 @media only screen and (max-width: 508px) {
+  .makeDescriptionContainer,
+  .fuelDescription {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
   .makeMainLogoContainer {
     display: grid;
     place-content: center;
