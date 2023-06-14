@@ -16,9 +16,10 @@ block content
         .version-control    
             a(href='') Update    
             a(id='delete-option') Delete
-    .delete-warning(class='invisible') 
+    .delete-warning(class='invisible' id='version-delete-warning') 
         .delete-warning-msg
-            img(src='/images/icons/warningIcons/warning1.svg', alt='warningIcon')
+            img(src='/images/icons/warningIcons/warning1.svg', alt='warningIcon' class='black')
+            img(src='/images/icons/warningIcons/warning1white.svg', alt='warningIcon' class='white')
             p #{`This version and all its associated vehicles will be permanently deleted. Do you wish to proceed?`}
         .delete-warning-controls
             a(id='btn-delete-no', href='') No, return

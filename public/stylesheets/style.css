@@ -909,6 +909,10 @@ fieldset {
   margin-bottom: 10px;
 }
 
+.version-control a:hover {
+  cursor: pointer;
+}
+
 .version-cars {
   padding-top: 15px;
 }
@@ -1963,7 +1967,11 @@ fieldset {
 }
 
 @media only screen and (max-width: 400px) {
-  .model-delete-warning {
+  #version-delete-warning {
+    margin-left: 3px;
+  }
+
+  .delete-warning {
     width: 90vw;
   }
 

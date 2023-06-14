@@ -27,7 +27,7 @@ const hybrid = document.getElementById("hybrid");
 const electric = document.getElementById("electric");
 const dialogs = document.querySelectorAll("dialog");
 const buttons = document.querySelectorAll("button");
-const deleteWarnings = document.querySelectorAll(".model-delete-warning");
+const deleteWarnings = document.querySelectorAll(".delete-warning");
 
 function setMode() {
   let mode = localStorage.getItem("mode");
