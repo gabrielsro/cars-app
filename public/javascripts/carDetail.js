@@ -1,3 +1,4 @@
+const body = document.querySelector("body");
 const mainImg = document.getElementById("main-img");
 const firstSideImg = document.querySelector(".side-imgs>img");
 const sideImgs = document.querySelectorAll(".side-imgs img");
@@ -5,7 +6,6 @@ const controlNext = document.querySelector(".next-control img");
 const controlPrevious = document.querySelector(".previous-control img");
 const contactIcon = document.querySelector(".car-contact img");
 const contactLink = document.querySelector(".car-contact div:first-child a");
-const contactWindow = document.querySelector(".car-contact div:nth-child(2)");
 const imperialE = document.querySelector(
   "#measurementEfficiency>p:first-child"
 );
@@ -34,6 +34,85 @@ const imperialDimensions = document.getElementById("imperialDimensions");
 const metricDimensions = document.getElementById("metricDimensions");
 const deleteCar = document.querySelector(".car-title-controls>p:nth-child(2)");
 const deleteModal = document.getElementById("deleteCarDialog");
+const contactDialog = document.getElementById("contactDialog");
+const messageText = document.querySelector("#contactDialog input");
+const sendIcon = document.querySelector("#contactDialog img");
+const sendIcon1 = document.getElementById("sendIcon1");
+const sendIcon2 = document.getElementById("sendIcon2");
+const messageContainer = document.querySelector("#contactDialog div");
+
+//Handle contact option:
+contactIcon.addEventListener("click", handleContactClick);
+contactLink.addEventListener("click", handleContactClick);
+
+function handleContactClick() {
+  contactDialog.open ? contactDialog.close() : contactDialog.showModal();
+  if (contactDialog.open) {
+    sendIcon.classList.remove("sendIconAnimation");
+    sendIcon2.classList.remove("sendIconAnimation");
+    sendIcon.addEventListener("animationend", () => {
+      sendIcon.classList.remove("sendIconAnimation");
+    });
+    sendIcon2.addEventListener("animationend", () => {
+      sendIcon2.classList.remove("sendIconAnimation");
+    });
+    sendIcon.addEventListener("click", () => {
+      if (messageText.value) {
+        messageText.style.color = "#00b7ff";
+        messageText.style.fontWeight = "bold";
+        messageText.value = "Your message was sent!";
+        sendIcon.classList.add("sendIconAnimation");
+        setTimeout(() => {
+          messageText.value = "";
+          messageText.style.fontWeight = "normal";
+          messageText.style.color = "black";
+          contactDialog.close();
+        }, 1200);
+      }
+    });
+    sendIcon2.addEventListener("click", () => {
+      if (messageText.value) {
+        messageText.style.color = "#00b7ff";
+        messageText.style.fontWeight = "bold";
+        messageText.value = "Your message was sent!";
+        sendIcon2.classList.add("sendIconAnimation");
+        setTimeout(() => {
+          messageText.value = "";
+          messageText.style.fontWeight = "normal";
+          messageText.style.color = "black";
+          contactDialog.close();
+        }, 1200);
+      }
+    });
+    messageText.addEventListener("keydown", (e) => {
+      if (e.keyCode == 13) {
+        const clickIconEvent = new Event("click");
+        if (messageText.value) {
+          if (window.getComputedStyle(sendIcon) == "none") {
+            sendIcon.classList.add("sendIconAnimation");
+          }
+          if (window.getComputedStyle(sendIcon2) == "none") {
+            sendIcon2.classList.add("sendIconAnimation");
+          }
+          sendIcon.dispatchEvent(clickIconEvent);
+          sendIcon2.dispatchEvent(clickIconEvent);
+        }
+      }
+    });
+  }
+}
+
+contactDialog.addEventListener("click", (e) => {
+  const dialogDimensions = contactDialog.getBoundingClientRect();
+  if (
+    e.clientX < dialogDimensions.left ||
+    e.clientX > dialogDimensions.right ||
+    e.clientY < dialogDimensions.top ||
+    e.clientY > dialogDimensions.bottom
+  ) {
+    contactDialog.close();
+  }
+});
 
 //Handle delete option:
 deleteCar.addEventListener("click", () => {
@@ -129,22 +208,6 @@ imperialE.addEventListener("click", () => {
   metricMixed.classList.add("invisible");
   metricCity.classList.add("invisible");
 });
-
-let showingContactWindow = false;
-
-contactIcon.addEventListener("click", handleContactClick);
-
-contactLink.addEventListener("click", handleContactClick);
-
-function handleContactClick() {
-  if (!showingContactWindow) {
-    contactWindow.classList.remove("invisible");
-  }
-  if (showingContactWindow) {
-    contactWindow.classList.add("invisible");
-  }
-  showingContactWindow = !showingContactWindow;
-}
 
 if (firstSideImg) {
   firstSideImg.classList.add("selected");

@@ -205,7 +205,9 @@ function setMode() {
       dialogs.forEach((d) => {
         d.style.backgroundColor = "black";
         const text = d.querySelector("p");
-        text.style.color = "white";
+        if (text) {
+          text.style.color = "white";
+        }
       });
       buttons.forEach((b) => {
         b.style.backgroundColor = "black";
@@ -348,8 +350,11 @@ function setMode() {
       dialogs.forEach((d) => {
         d.style.backgroundColor = "white";
         const text = d.querySelector("p");
-        text.style.color = "black";
+        if (text) {
+          text.style.color = "black";
+        }
       });
+
       buttons.forEach((b) => {
         b.style.backgroundColor = "white";
         b.style.color = "black";

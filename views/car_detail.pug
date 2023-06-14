@@ -312,10 +312,11 @@ block content
                 div
                     img(src='/images/icons/contactIcons/contact1.svg' alt='Car contact icon')
                     a Contact Seller
-                div(class='invisible')
-                    form 
-                        input(type='text' resize='none' id='msgToSeller' placeholder='Type your message...' required='true')
-                        button(type='submit') Send
+    dialog(id='contactDialog')
+        div 
+            input(type='text' placeholder='Type your message...')
+            img(src='/images/icons/contactIcons/send1white.svg' alt='Send message icon' class='white' class='sendIcon' id='sendIcon1')
+            img(src='/images/icons/contactIcons/send1black.svg' alt='Send message icon' class='black' class='sendIcon' id='sendIcon2')
     .car-description 
         p= car.description
     .car-interests

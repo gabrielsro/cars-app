@@ -689,8 +689,7 @@ fieldset {
 }
 
 .car-contact img {
-  width: 25px;
-  margin-right: 3px;
+  width: 30px;
 }
 
 .car-contact div:first-child > a:hover,
@@ -1202,7 +1201,7 @@ fieldset {
 
 dialog {
   z-index: 4;
-  margin-left: 42.5%;
+  margin-left: 20vw;
   padding: 5px;
   font-size: 1.2rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -1966,7 +1965,50 @@ fieldset {
   cursor: pointer;
 }
 
+.sendIconAnimation {
+  animation: throwPlane 1.7s linear 1;
+}
+
+@keyframes throwPlane {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(1500%, -1500%);
+  }
+}
+
+#contactDialog {
+  padding-right: 5px;
+  top: 40vh;
+  width: calc(60vw + 40px);
+}
+
+#contactDialog div {
+  display: flex;
+  gap: 3px;
+  width: auto;
+}
+
+#contactDialog input {
+  width: 60vw;
+}
+
+#contactDialog img {
+  width: 35px;
+  z-index: 7;
+}
+
 @media only screen and (max-width: 400px) {
+  dialog {
+    margin-left: 10vw;
+  }
+
+  .version-control {
+    gap: 10px;
+    align-items: end;
+  }
+
   #version-delete-warning {
     margin-left: 3px;
   }
