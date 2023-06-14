@@ -1,6 +1,9 @@
 {
   "name": "cars-app",
   "version": "0.0.0",
+  "engines": {
+    "node": ">=18.13.0"
+  },
   "private": true,
   "scripts": {
     "start": "DEBUG=cars-app:* nodemon  ./bin/www"
