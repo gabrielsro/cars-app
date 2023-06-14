@@ -1725,6 +1725,7 @@ fieldset {
     width: 100vw;
     padding-left: 3px;
     padding-right: 3px;
+    margin-bottom: 45px;
   }
 
   .side-bar {
