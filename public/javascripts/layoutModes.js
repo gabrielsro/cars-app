@@ -25,6 +25,8 @@ const gasoline = document.getElementById("gasoline");
 const diesel = document.getElementById("diesel");
 const hybrid = document.getElementById("hybrid");
 const electric = document.getElementById("electric");
+const dialogs = document.querySelectorAll("dialog");
+const buttons = document.querySelectorAll("button");
 
 function setMode() {
   let mode = localStorage.getItem("mode");
@@ -199,6 +201,15 @@ function setMode() {
         }
         hybrid.appendChild(pic);
       }
+      dialogs.forEach((d) => {
+        d.style.backgroundColor = "black";
+        const text = d.querySelector("p");
+        text.style.color = "white";
+      });
+      buttons.forEach((b) => {
+        b.style.backgroundColor = "black";
+        b.style.color = "white";
+      });
     }
     if (mode == "light") {
       if (window.innerWidth < 945) {
@@ -330,6 +341,15 @@ function setMode() {
         }
         hybrid.appendChild(pic);
       }
+      dialogs.forEach((d) => {
+        d.style.backgroundColor = "white";
+        const text = d.querySelector("p");
+        text.style.color = "black";
+      });
+      buttons.forEach((b) => {
+        b.style.backgroundColor = "white";
+        b.style.color = "black";
+      });
     }
   }
 }

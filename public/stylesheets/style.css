@@ -1194,23 +1194,35 @@ fieldset {
 
 dialog {
   z-index: 4;
-  margin-left: 50%;
+  margin-left: 42.5%;
   padding: 5px;
   font-size: 1.2rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border-radius: 5px;
+  border: 0;
 }
 
-#deleteCarDialog {
+#deleteCarDialog,
+#deleteMakeDialog {
   margin-top: 10vh;
 }
 
 dialog button {
   margin-top: 10px;
   font-size: 1.1rem;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 dialog button:hover {
+  cursor: pointer;
+}
+
+.make-options {
+  color: #00b7ff;
+}
+
+.make-options p:hover {
   cursor: pointer;
 }
 
@@ -1919,12 +1931,50 @@ fieldset {
   margin-left: 70%;
 }
 
+.dialogInfo {
+  padding-top: 25px;
+  padding-bottom: 3px;
+}
+
+.dialogMessage {
+  display: flex;
+  gap: 10px;
+}
+
+.dialogContents {
+  display: flex;
+  align-items: center;
+}
+
+.dialogContents img {
+  width: 80px;
+}
+
 @media only screen and (max-width: 400px) {
-  .dialogButtons {
-    margin-left: 60%;
+  #deleteMakeDialog .dialogButtons {
+    margin-left: 20%;
   }
 
-  #deleteCarDialog {
+  .dialogInfo {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  dialog {
+    width: 96vw;
+  }
+
+  .dialogContents img {
+    width: 60px;
+    align-self: flex-start;
+  }
+
+  .dialogButtons {
+    margin-left: 40%;
+  }
+
+  #deleteCarDialog,
+  #deleteMakeDialog {
     margin-top: 20vh;
     margin-left: 0;
   }

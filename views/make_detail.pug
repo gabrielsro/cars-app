@@ -14,7 +14,17 @@ block content
                 h2= make.country
         .make-options 
             a(href='') Update
-            a(id='delete-option') Delete
+            p Delete
+        dialog(id='deleteMakeDialog')
+            .dialogContents 
+                img(src='/images/icons/warningIcons/warning1.svg', alt='warningIcon' class='black')
+                img(src='/images/icons/warningIcons/warning1white.svg', alt='warningIcon' class='white')
+                .dialogInfo
+                    .dialogMessage 
+                        p This make and all its vehicles will be permanently deleted. Do you wish to proceed?
+                    .dialogButtons 
+                        button(data-url=`${make.url}/delete`) Yes, delete 
+                        button No
     .delete-warning(class='invisible') 
         .delete-warning-msg
             img(src='/images/icons/warningIcons/warning1.svg', alt='warningIcon')

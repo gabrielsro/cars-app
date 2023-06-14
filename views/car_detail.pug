@@ -17,11 +17,16 @@ block content
             p 
                 a(href=`/inventory/car/${car._id}/update/old`) Update
             p Delete
-        dialog(id='deleteCarDialog') 
-            p This car will be permanently deleted. Do you wish to proceed?
-            .dialogButtons 
-                button(data-car=`${car._id}`) Yes, delete 
-                button No
+        dialog(id='deleteCarDialog')
+            .dialogContents 
+                img(src='/images/icons/warningIcons/warning1.svg', alt='warningIcon' class='black')
+                img(src='/images/icons/warningIcons/warning1white.svg', alt='warningIcon' class='white')
+                .dialogInfo
+                    .dialogMessage 
+                        p This car will be permanently deleted. Do you wish to proceed?
+                    .dialogButtons 
+                        button(data-car=`${car._id}`) Yes, delete 
+                        button No
     .car-info-container
         .car-media
             if pics.length > 0

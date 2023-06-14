@@ -3,6 +3,25 @@ const btnNo = document.getElementById("btn-delete-no");
 const btnYes = document.getElementById("btn-delete-yes");
 const warning = document.querySelector(".delete-warning");
 const makeMore = document.querySelector(".make-more");
+const deleteMake = document.querySelector(".make-options>p:nth-child(2");
+const deleteDialog = document.querySelector("dialog");
+
+deleteMake.addEventListener("click", () => {
+  deleteDialog.open ? deleteDialog.close() : deleteDialog.show();
+  if (deleteDialog.open) {
+    const deleteYes = document.querySelector(".dialogButtons > button");
+    const deleteNo = document.querySelector(
+      ".dialogButtons > button:nth-child(2)"
+    );
+    deleteYes.addEventListener("click", () => {
+      window.location.href = `${deleteYes.dataset.url}`;
+    });
+    deleteNo.addEventListener("click", () => {
+      deleteDialog.close();
+    });
+  }
+});
+
 let make = document.querySelector("h1").innerText;
 if (/^ford/i.test(make)) {
   make = "Ford Motor Company";
@@ -96,7 +115,6 @@ function descriptionSize() {
   }
 }
 
-deleteOption.addEventListener("click", () => showAndHideWarningMessage());
 btnNo.addEventListener("click", () => showAndHideWarningMessage());
 
 function showAndHideWarningMessage() {
