@@ -15,7 +15,7 @@ block content
             h2 #[em #{car.version.name}]
         .car-title-controls
             p 
-                a(href=`/inventory/car/${car._id}/update/old`) Update
+                a(href=`/inventory/car/${car._id}/page/${car.model._id}/update/old`) Update
             p Delete
         dialog(id='deleteCarDialog')
             .dialogContents 
