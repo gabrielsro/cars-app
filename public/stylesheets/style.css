@@ -958,6 +958,10 @@ fieldset {
   font-weight: bold;
 }
 
+.delete-warning-controls a:hover {
+  cursor: pointer;
+}
+
 .delete-warning-controls > a:first-child {
   margin-right: 25px;
 }
@@ -1950,7 +1954,19 @@ fieldset {
   width: 80px;
 }
 
+.model-title-modelPage p {
+  color: #00b7ff;
+}
+
+.model-title-modelPage p:hover {
+  cursor: pointer;
+}
+
 @media only screen and (max-width: 400px) {
+  .model-delete-warning {
+    width: 90vw;
+  }
+
   #deleteMakeDialog .dialogButtons {
     margin-left: 20%;
   }

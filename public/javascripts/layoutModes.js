@@ -27,6 +27,7 @@ const hybrid = document.getElementById("hybrid");
 const electric = document.getElementById("electric");
 const dialogs = document.querySelectorAll("dialog");
 const buttons = document.querySelectorAll("button");
+const deleteWarnings = document.querySelectorAll(".model-delete-warning");
 
 function setMode() {
   let mode = localStorage.getItem("mode");
@@ -210,6 +211,9 @@ function setMode() {
         b.style.backgroundColor = "black";
         b.style.color = "white";
       });
+      deleteWarnings.forEach((d) => {
+        d.style.backgroundColor = "black";
+      });
     }
     if (mode == "light") {
       if (window.innerWidth < 945) {
@@ -349,6 +353,9 @@ function setMode() {
       buttons.forEach((b) => {
         b.style.backgroundColor = "white";
         b.style.color = "black";
+      });
+      deleteWarnings.forEach((d) => {
+        d.style.backgroundColor = "white";
       });
     }
   }

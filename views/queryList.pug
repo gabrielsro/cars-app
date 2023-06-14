@@ -80,17 +80,17 @@ block content
                             .descriptionRow
                                 p(class='descriptionTitle') Performance      
                                 p Electric engines deliver instant torque, providing quick acceleration and responsive performance. The electric motor's high torque output from the moment the accelerator is pressed results in swift and smooth acceleration, enhancing the driving experience.              
-    .energyAlternatives 
-        h2 #{`Not into ${fuelOnlyQuery}? You might want to take a look at these options:`}
-        .energyLinks 
-            if fuelOnlyQuery !== 'Gasoline'
-                a(href='/inventory/cars/unspecified/unspecified/unspecified/Gasoline/unspecified') Gasoline
-            if fuelOnlyQuery !== 'Diesel'
-                a(href='/inventory/cars/unspecified/unspecified/unspecified/Diesel/unspecified') Diesel
-            if fuelOnlyQuery !== 'Hybrid'
-                a(href='/inventory/cars/unspecified/unspecified/unspecified/Hybrid/unspecified') Hybrid
-            if fuelOnlyQuery !== 'Electric'
-                a(href='/inventory/cars/unspecified/unspecified/unspecified/Electric/unspecified') Electric
+                .energyAlternatives 
+                    h2 #{`Not into ${fuelOnlyQuery}? You might want to take a look at these options:`}
+                    .energyLinks 
+                        if fuelOnlyQuery !== 'Gasoline'
+                            a(href='/inventory/cars/unspecified/unspecified/unspecified/Gasoline/unspecified') Gasoline
+                        if fuelOnlyQuery !== 'Diesel'
+                            a(href='/inventory/cars/unspecified/unspecified/unspecified/Diesel/unspecified') Diesel
+                        if fuelOnlyQuery !== 'Hybrid'
+                            a(href='/inventory/cars/unspecified/unspecified/unspecified/Hybrid/unspecified') Hybrid
+                        if fuelOnlyQuery !== 'Electric'
+                            a(href='/inventory/cars/unspecified/unspecified/unspecified/Electric/unspecified') Electric
     if cars.length < 1
         h2 #{`We don't have ${titleFixed} at the moment`}
     if cars.length > 0

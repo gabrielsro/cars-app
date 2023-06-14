@@ -10,7 +10,7 @@ async function wikipedia(url) {
 
 wikipedia(url)
   .then((data) => {
-    if (data) {
+    if (data && !/\bmay\srefer\b/.test(data)) {
       let description = document.createElement("div");
       description.classList.add("modelDescriptionContainer");
       let intro = data.split("<h2>")[0];
