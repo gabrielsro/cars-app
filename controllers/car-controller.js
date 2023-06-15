@@ -1448,6 +1448,7 @@ exports.carAndVersionUpdate = (req, res, next) => {
     });
     Promise.all([
       Version.findByIdAndUpdate(req.params.versionId, {
+        body: req.body.bodyGeneral,
         versionBodyType: req.body.body,
         enginePosition: req.body.position,
         engineCC: req.body.displacement,
@@ -1487,6 +1488,7 @@ exports.carAndVersionUpdate = (req, res, next) => {
   if (req.params.carChange == "false" && req.params.versionChange == "true") {
     //Version must be updated
     Version.findByIdAndUpdate(req.params.versionId, {
+      body: req.body.bodyGeneral,
       versionBodyType: req.body.body,
       enginePosition: req.body.position,
       engineCC: req.body.displacement,
@@ -1557,6 +1559,7 @@ exports.carUpdate = (req, res, next) => {
         description: car.description,
         email: car.email,
         phone: car.phone,
+        bodyGeneral: car.version.body,
         body: car.version.versionBodyType,
         fuel: car.version.fuelSpecifics,
         engine: car.version.engineType,

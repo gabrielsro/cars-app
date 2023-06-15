@@ -53,6 +53,16 @@ block content
             legend Technical Specs:
             .form-content-text-new
                 label(for='updateBody') Body:
+                select(id='updateBody' type='text' class='version' name='bodyGeneral')
+                    option(value='Automobile' selected=bodyGeneral=='Automobile' ? selected : 'false') Automobile
+                    option(value='SUV' selected=bodyGeneral=='SUV' ? selected : 'false') SUV
+                    option(value='Truck' selected=bodyGeneral=='Truck' ? selected : 'false') Truck
+                    option(value='Van' selected=bodyGeneral=='Van' ? selected : 'false') Van
+                    if bodyGeneral == 'Unspecified'
+                        option(value='Unspecified' selected='true') Unspecified
+                    if bodyGeneral !== 'Unspecified' 
+                        option(value='Unspecified') Unspecified
+                label(for='updateBody') Specific Body:
                 input(id='updateBody' type='text' value=body class='version' name='body')
                 label(for='updateFuel') Fuel type: 
                 input(id='updateFuel' type='text' value=fuel class='version' name='fuelSpecifics')
@@ -82,10 +92,10 @@ block content
                 label(for='updateTransmission') Transmission: 
                 input(id='updateTransmission' type='text' value=transmission class='version' name='transmission')
                 label(for='updateWeight' class='weight' class='imperial') Weight (lbs):
-                input(id='updateWeight' type='number' class='weight' class='imperial' value=Math.round(weight*2.204) class='version' name='weight')
+                input(id='updateWeight' type='number' class='weight' class='imperial' value=Math.round(weight*2.204) class='version')
                 p(class='carUpdateSwitch' class='weight' class='imperial') Switch to metric
                 label(for='updateWeight' class='weight' class='metric' class='invisible') Weight (kg): 
-                input(id='updateWeight' type='number' class='weight' class='metric' class='invisible' class='version')
+                input(id='updateWeight' type='number' class='weight' class='metric' class='invisible' class='version' name='weight')
                 p(class='carUpdateSwitch' id='toImperial' class='weight' class='metric' class='invisible') Switch to imperial
                 label(for='updateEfficiencyHighway' class='efficiencyHighway' class='imperial') Highway efficiency (mpg): 
                 input(id='updateEfficiencyHighway' type='number' class='efficiencyHighway' class='imperial' value=highway class='version' name='hEff')
