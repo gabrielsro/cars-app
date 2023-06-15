@@ -54,12 +54,12 @@ block content
             .form-content-text-new
                 label(for='updateBody') Body:
                 select(id='updateBody' type='text' class='version' name='bodyGeneral')
-                    option(value='Automobile' selected=bodyGeneral=='Automobile' ? selected : 'false') Automobile
-                    option(value='SUV' selected=bodyGeneral=='SUV' ? selected : 'false') SUV
-                    option(value='Truck' selected=bodyGeneral=='Truck' ? selected : 'false') Truck
-                    option(value='Van' selected=bodyGeneral=='Van' ? selected : 'false') Van
+                    option(value='Automobile' selected=(bodyGeneral=='Automobile' ? 'selected' : false)) Automobile
+                    option(value='SUV' selected=(bodyGeneral=='SUV' ? 'selected' : false)) SUV
+                    option(value='Truck' selected=(bodyGeneral=='Truck' ? 'selected' : false)) Truck
+                    option(value='Van' selected=(bodyGeneral=='Van' ? 'selected' : false)) Van
                     if bodyGeneral == 'Unspecified'
-                        option(value='Unspecified' selected='true') Unspecified
+                        option(value='Unspecified' selected='selected') Unspecified
                     if bodyGeneral !== 'Unspecified' 
                         option(value='Unspecified') Unspecified
                 label(for='updateBody') Specific Body:

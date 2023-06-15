@@ -34,7 +34,9 @@ block content
         ul 
           for make in makes 
             li 
-              h4 !{make}: !{cars.filter(c=>c.make.name==make).length} 
+              h4 !{make}: 
+                a(href=make.url) 
+                  p !{cars.filter(c=>c.make.name==make).length} 
               p (Available: !{cars.filter(c=>c.make.name==make && c.status == 'Available').length}, Sold: !{cars.filter(c=>c.make.name==make && c.status == 'Sold').length})
       .inventory-price(class='inventorySection') 
         .inventorySectionTitle
@@ -80,16 +82,36 @@ block content
           h3 By Fuel Type:  
         ul
           li 
-            h4 Gasoline: !{fuel.Gasoline.qty} 
+            h4 Gasoline:
+              if fuel.Gasoline.qty > 0
+                a(href='/inventory/cars/unspecified/unspecified/unspecified/Gasoline/unspecified')
+                  p !{fuel.Gasoline.qty}  
+              if fuel.Gasoline.qty < 1 
+                p !{fuel.Gasoline.qty} 
             p (Available: !{fuel.Gasoline.available}, Sold: !{fuel.Gasoline.sold})
           li 
-            h4 Diesel: !{fuel.Diesel.qty} 
+            h4 Diesel: 
+              if fuel.Diesel.qty > 0
+                a(href='/inventory/cars/unspecified/unspecified/unspecified/Diesel/unspecified')
+                  p !{fuel.Diesel.qty}
+              if fuel.Diesel.qty < 1
+                p !{fuel.Diesel.qty}
             p (Available: !{fuel.Diesel.available}, Sold: !{fuel.Diesel.sold})
           li 
-            h4 Hybrid: !{fuel.Hybrid.qty} 
+            h4 Hybrid: 
+              if fuel.Hybrid.qty > 0
+                a(href='/inventory/cars/unspecified/unspecified/unspecified/Hybrid/unspecified')
+                  p !{fuel.Hybrid.qty}
+              if fuel.Hybrid.qty < 1
+                p !{fuel.Hybrid.qty}
             p (Available: !{fuel.Hybrid.available}, Sold: !{fuel.Hybrid.sold})
           li 
-            h4 Electric: !{fuel.Electric.qty} 
+            h4 Electric: 
+              if fuel.Electric.qty > 0
+                a(href='/inventory/cars/unspecified/unspecified/unspecified/Electric/unspecified')
+                  p !{fuel.Electric.qty}
+              if fuel.Electric.qty < 1
+                p !{fuel.Electric.qty}
             p (Available: !{fuel.Electric.available}, Sold: !{fuel.Electric.sold})
       .inventory-seller-country(class='inventorySection')
         .inventorySectionTitle

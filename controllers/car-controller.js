@@ -1492,6 +1492,7 @@ exports.carAndVersionUpdate = (req, res, next) => {
       versionBodyType: req.body.body,
       enginePosition: req.body.position,
       engineCC: req.body.displacement,
+      engineCyl: req.body.cylinders,
       engineType: req.body.engineType,
       engineTorqueNm: req.body.torque,
       enginePower: req.body.power,

@@ -381,6 +381,10 @@ textarea {
   min-height: 77px;
 }
 
+.inventorySection h4 {
+  display: flex;
+}
+
 .inventorySectionTitle img {
   max-width: 50px;
 }
