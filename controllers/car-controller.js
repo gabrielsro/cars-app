@@ -1480,7 +1480,7 @@ exports.carAndVersionUpdate = (req, res, next) => {
       }),
     ]).then((car) => {
       res.redirect(
-        res.redirect(`/inventory/car/${req.params.carId}/page/${car.model._id}`)
+        `/inventory/car/${req.params.carId}/page/${req.params.modelId}`
       );
     });
   }
@@ -1547,6 +1547,7 @@ exports.carUpdate = (req, res, next) => {
           req.params.from == "new"
             ? "The following is the information you gave us for this vehicle along with the one retrieved by our API. Please review it and change it if needed. You can always modify this information later."
             : "",
+        modelId: req.params.modelId,
         countries: countryList(),
         price: car.price,
         mileage: car.mileage,

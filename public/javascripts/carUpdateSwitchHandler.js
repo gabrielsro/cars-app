@@ -29,7 +29,7 @@ save.addEventListener("click", () => {
   } else {
     form.setAttribute(
       "action",
-      `/inventory/car_version_update/${allVersions.dataset.car}/${allVersions.dataset.version}/true/false`
+      `/inventory/car_version_update/${allVersions.dataset.car}/${allVersions.dataset.version}/${allVersions.dataset.model}/true/false`
     );
     form.submit();
   }
@@ -61,7 +61,7 @@ allVersions.addEventListener("click", () => {
     //Version and car where changed. Update both
     form.setAttribute(
       "action",
-      `/inventory/car_version_update/${allVersions.dataset.car}/${allVersions.dataset.version}/true/true`
+      `/inventory/car_version_update/${allVersions.dataset.car}/${allVersions.dataset.version}/${allVersions.dataset.model}/true/true`
     );
     form.submit();
     return;
@@ -70,7 +70,7 @@ allVersions.addEventListener("click", () => {
     //Version was changed. Update version
     form.setAttribute(
       "action",
-      `/inventory/car_version_update/${allVersions.dataset.car}/${allVersions.dataset.version}/false/true`
+      `/inventory/car_version_update/${allVersions.dataset.car}/${allVersions.dataset.version}/${allVersions.dataset.model}/false/true`
     );
     form.submit();
     return;
@@ -79,7 +79,7 @@ allVersions.addEventListener("click", () => {
     //Car was changed. Update car
     form.setAttribute(
       "action",
-      `/inventory/car_version_update/${allVersions.dataset.car}/${allVersions.dataset.version}/true/false`
+      `/inventory/car_version_update/${allVersions.dataset.car}/${allVersions.dataset.version}/${allVersions.dataset.model}/true/false`
     );
     form.submit();
   }

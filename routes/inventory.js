@@ -85,7 +85,7 @@ router.get(
 router.get("/cars", carController.car_list);
 router.get("/car/:id/page/:modelId", carController.carDetail);
 router.post(
-  "/car_version_update/:carId/:versionId/:carChange/:versionChange",
+  "/car_version_update/:carId/:versionId/:modelId/:carChange/:versionChange",
   carController.carAndVersionUpdate
 );
 
