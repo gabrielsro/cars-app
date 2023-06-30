@@ -1161,7 +1161,7 @@ fieldset {
   display: grid;
   row-gap: 30px;
   column-gap: 17px;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 359.98px));
+  grid-template-columns: repeat(auto-fill, minmax(100px, 380px));
   place-content: center;
 }
 
