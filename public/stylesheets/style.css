@@ -196,6 +196,11 @@ textarea {
   display: flex;
 }
 
+.content-wrapper::-webkit-scrollbar {
+  position: absolute;
+  left: 0;
+}
+
 .main-view {
   padding-top: 10vh;
   padding-left: 20px;
