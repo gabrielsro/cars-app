@@ -1,12 +1,9 @@
-html {
-  scrollbar-gutter: stable both-edges;
-}
-
 * {
   padding: 0px;
   margin: 0px;
   box-sizing: border-box;
   font-family: sans-serif;
+  scrollbar-gutter: stable both-edges;
 }
 
 ::-webkit-scrollbar {
