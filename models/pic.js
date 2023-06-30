@@ -28,7 +28,7 @@ PicSchema.virtual("smallThumbSrc").get(function () {
 });
 
 PicSchema.virtual("thumbnailSrc").get(function () {
-  return `https://res.cloudinary.com/${process.env.CLOUDNAME}/image/upload/b_rgb:000000,c_fill,f_auto,q_auto:low,h_223,w_380,r_9,dpr_2/${this.cloudinaryId}`;
+  return `https://res.cloudinary.com/${process.env.CLOUDNAME}/image/upload/b_rgb:000000,c_fill,f_auto,q_auto:low,h_243,w_400,r_9,dpr_2/${this.cloudinaryId}`;
 });
 
 PicSchema.virtual("midsizeSrc").get(function () {
